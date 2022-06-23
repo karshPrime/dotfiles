@@ -37,7 +37,7 @@ compinit
 cdir() {mkdir $1 && cd $1}
 cmd() { man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; }
 alias l='ls -lash'
-alias update="sudo dnf update"
+alias update="paru"
 
 # Additional Keys Support
 bindkey  "^[[H"   beginning-of-line
@@ -50,22 +50,23 @@ bindkey "^[[B"    history-beginning-search-forward
 bindkey -s '^[z' 'clear; $HOME/Programs/fetch/header_fetch.sh^M'
 
 # PACKAGES
-alias padd="sudo dnf install"
-alias prem="sudo dnf remove"
-alias pfind="dnf list --installed | grep -i"
-alias plook="dnf search"
-alias pcount="dnf list --installed| wc -l"
-alias pclean="sudo dnf autoremove"
+alias padd="sudo pacman -S"
+alias prem="sudo pacman -Rns"
+alias pfind="pacman -Qs"
+alias plook="pacman -Ss"
+alias pcount="pacman -Qq | wc -l"
+alias pclean="paru --clean; sudo pacman -Sc"
 
 # GIT
 grem() { git update-index --assume-unchanged $1 && rm $1 }
 gremu() { git update-index --no-assume-unchanged $1 && git restore $1 }
-gadd() {git add $1 $2 $3 $4 $5 $6 $7}
 gtouch() {touch $1; git add $1; git commit -m "🍩 create $2 $3 $4 $5 $6 $7 $8"}
-gupdate() {git commit -m "✨ update $1 $2 $3 $4 $5 $6 $7"}
-gbug() {git commit -m "🐛 fixed $1 $2 $3 $4 $5 $6 $7"}
-gboost() {git commit -m "🔧 fixed $1 $2 $3 $4 $5 $6 $7"}
-gart() {git commit -m "🎨 $1 $2 $3 $4 $5 $6 $7"}
+bindkey -s '^[a' 'git add '
+bindkey -s '^[u' '✨ '
+bindkey -s '^[b' '🐛 '
+bindkey -s '^[f' '🔧 '
+bindkey -s '^[c' '🎨 '
+bindkey -s '^[\' 'git push^M'
 bindkey -s '^[m' 'git status^M'
 bindkey -s '^[n' 'git commit -m "'
 bindkey -s '^[,' 'git diff '
@@ -86,6 +87,7 @@ alias bandwhich="sudo bandwhich; clear"
 alias fonts='fc-list | cut -f2 -d: | sort -u'
 alias batlim='sudo systemctl start battery-charge-threshold.service'
 alias rmf='rm -rf'
+alias yt='yt-dlp'
 
 # KEY MANAGEMENT
 alias gpg-pub='gpg --export --armor --export-options export-minimal'
