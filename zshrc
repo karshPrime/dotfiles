@@ -4,104 +4,123 @@
 #   _ / /\__ \ | | | | | (__      #
 #  (_)___|___/_| |_|_|  \___|     #
 #                                 #
-
-#=====[ THEMES AND PLUGINS ]======#
+# ==============================[ THEMES AND PLUGINS ]=============================== #
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+USE_POWERLINE="true"
+HAS_WIDECHARS="false"
 
-#=====[ THEMES AND PLUGINS ]======#
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
-# Lines configured by zsh-newuser-install
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/zsh-history/zsh-history.zsh
+fpath=(~/.config/zsh/zsh-completions/src $fpath)
+
+
+# ====================================[ Init Config ]================================= #
+
+~/.config/fetch.sh
+
 HISTFILE=~/.config/zsh/histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd extendedglob
-bindkey -e
 
-# End of lines configuration
-zstyle :compinstall filename '/home/ut-kr/.zshrc'
+setopt autocd extendedglob
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 autoload -Uz compinit
-compinit
+
+function better_clear() {
+    clear
+    sh ~/.config/head.sh
+    zle reset-prompt
+}
+
+zle -N better_clear
 
 
-#=====[ FUNCTIONS AND ALIASES ]=====#
+# ====================================[ KEY BINDINGS ]================================ #
 
-# GENERAL
+bindkey '^L' better_clear
+bindkey -s '^[l' 'clear^M'
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+bindkey '^[[3~' delete-char
+bindkey '^H' backward-kill-word
+bindkey '^[[3;5~' kill-word
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+
+# ==========================[ FUNCTIONS AND ALIASES ]================================= #
+
 cdir() {mkdir $1 && cd $1}
 cmd() { man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; }
-alias l='ls -lash'
-alias update="paru"
 
-# Additional Keys Support
-bindkey  "^[[H"   beginning-of-line
-bindkey  "^[[F"   end-of-line
-bindkey  "^[[3~"  delete-char
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey "^[[A"    history-beginning-search-backward
-bindkey "^[[B"    history-beginning-search-forward
-bindkey -s '^[z' 'clear; $HOME/Programs/fetch/header_fetch.sh^M'
+alias update='paru -Syu'
+alias pkga='paru -S'
+alias pkgs='paru -Ss'
+alias pkgr='paru -Rcns'
+alias pkgx='paru -Rns $(paru -Qdtq); paru -Sccc'
+alias pkgf='paru -Qqs'
+alias pkgc='paru -Qq | wc -l'
+alias pkgl='pacman -Qq | less'
+pkgi() { whatis $1 && paru -Si $1; }
 
-# PACKAGES
-alias padd="sudo pacman -S"
-alias prem="sudo pacman -Rns"
-alias pfind="pacman -Qs"
-alias plook="pacman -Ss"
-alias pcount="pacman -Qq | wc -l"
-alias pclean="paru --clean; sudo pacman -Sc"
-
-# GIT
-grem() { git update-index --assume-unchanged $1 && rm $1 }
-gremu() { git update-index --no-assume-unchanged $1 && git restore $1 }
-gtouch() {touch $1; git add $1; git commit -m "🍩 create $2 $3 $4 $5 $6 $7 $8"}
-bindkey -s '^[a' 'git add '
-bindkey -s '^[u' '✨ '
-bindkey -s '^[b' '🐛 '
-bindkey -s '^[f' '🔧 '
-bindkey -s '^[c' '🎨 '
-bindkey -s '^[r' '🚚 '
-bindkey -s '^[\' 'git push^M'
-bindkey -s '^[m' 'git status^M'
-bindkey -s '^[n' 'git commit -m "'
-bindkey -s '^[,' 'git diff '
-bindkey -s '^[.' 'git log^M'
-alias greml="git ls-files -v|grep '^h'"
-alias license="cp ~/Programs/LICENSE .; git add LICENSE; git commit -m '📚 GPL v2.0'"
-alias readme="touch README.md; git add README.md; git commit -m '📚 readme'"
-
-# CONFIG FILE
-alias tedit='vim $HOME/.zshrc'
-alias tupdate='source $HOME/.zshrc'
-
-# EASE OF LIFE
-alias sv="sudo vim"
-alias v="vim"
-alias ss"sudo systemctl"
-alias bandwhich="sudo bandwhich; clear"
+alias bat='acpi -ib; echo "\nlast= 76%"'
 alias fonts='fc-list | cut -f2 -d: | sort -u'
-alias batlim='sudo systemctl start battery-charge-threshold.service'
-alias rmf='rm -rf'
+alias scan="prime-run clamscan -r --bell"
+alias assem="objdump -M intel -D"
+
+alias ss='sudo systemctl'
+alias vim='nvim'
+alias v='nvim'
+alias sv='sudo nvim'
+alias htop=bashtop
 alias yt='yt-dlp'
+alias rmf='rm -rf'
+alias l='ls -lash'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip --color=auto'
 
-# KEY MANAGEMENT
-alias gpg-pub='gpg --export --armor --export-options export-minimal'
-alias gpg-keys='gpg --list-secret-keys'
+alias tordown="cd .local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
+alias ginit="~/Projects/.init/run.sh"
+
+alias erbuild="cargo rustc -- -C link-arg=--script=./linker.ld"
+alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/debug/rustpi_core ./mount/kernel7.img"
+alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
+
+# IRC
+#alias irc="xdotool key F11; weechat"
+weechat_alias() {
+    xdotool key F11
+    weechat
+    if [[ $? -eq 0 ]]; then
+        xdotool key F11;
+        clear;
+    fi
+}
+
+alias irc=weechat_alias
+
+alias tedit='nvim ~/.zshrc'
+alias tupdate='source ~/.zshrc'
 
 
-#=====[ PowerLevel10k fixes ]=====#
+# ======================================[ Prompt ]==================================== #
 
-# End of lines added by compinstall
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
-#================================#
