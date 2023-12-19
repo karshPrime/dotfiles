@@ -13,8 +13,6 @@ fi
 USE_POWERLINE="true"
 HAS_WIDECHARS="false"
 
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
-
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/zsh-history/zsh-history.zsh
@@ -30,6 +28,8 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 setopt autocd extendedglob
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -75,7 +75,7 @@ alias pkgc='paru -Qq | wc -l'
 alias pkgl='pacman -Qq | less'
 pkgi() { whatis $1 && paru -Si $1; }
 
-alias bat='acpi -ib; echo "\nlast= 76%"'
+alias battery='acpi -ib; echo "\nlast= 76%"'
 alias fonts='fc-list | cut -f2 -d: | sort -u'
 alias scan="prime-run clamscan -r --bell"
 alias assem="objdump -M intel -D"
@@ -87,20 +87,33 @@ alias sv='sudo nvim'
 alias htop=bashtop
 alias yt='yt-dlp'
 alias rmf='rm -rf'
-alias l='ls -lash'
-alias ls='ls --color=auto'
+
+alias l='exa -l'
+alias ls='exa'
+alias tree='exa --tree'
+alias la='exa -la'
+alias lsa='exa -a'
+
+alias c='bat -n'
+alias cat='bat -pp'
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 alias ip='ip --color=auto'
 
-alias tordown="cd .local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
+alias readme='nvim README.md'
 alias ginit="~/Projects/.init/run.sh"
+alias gignore='nvim .gitignore'
+alias makefile='nvim Makefile'
+srcmain() { nvim ./src/main.$1 }
 
 alias erbuild="cargo rustc -- -C link-arg=--script=./linker.ld"
 alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/debug/rustpi_core ./mount/kernel7.img"
 alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
+
+alias tordown="cd .local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
 
 # IRC
 #alias irc="xdotool key F11; weechat"
@@ -121,6 +134,7 @@ alias tupdate='source ~/.zshrc'
 
 # ======================================[ Prompt ]==================================== #
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/.config/p10k.zsh ]] || source ~/.config/p10k.zsh
 source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
 
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
