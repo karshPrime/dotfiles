@@ -112,11 +112,17 @@ alias gignore='nvim .gitignore'
 alias makefile='nvim Makefile'
 srcmain() { nvim ./src/main.$1 }
 
+nr() { bat -n ~/Documents/notes/$1 }
+nw() { nvim ~/Documents/notes/$1 }
+
 alias erbuild="cargo rustc -- -C link-arg=--script=./linker.ld"
 alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/debug/rustpi_core ./mount/kernel7.img"
 alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
 
 alias tordown="cd .local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
+alias ginit="~/Projects/.init/run.sh"
+alias cinit="~/Projects/.init/cargo_run.sh"
+
 alias tedit='nvim ~/.zshrc'
 alias tupdate='source ~/.zshrc'
 
@@ -151,3 +157,4 @@ alias rss="fullscreen tuifeed"
 source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
