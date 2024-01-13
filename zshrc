@@ -18,6 +18,9 @@ source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/zsh-history/zsh-history.zsh
 fpath=(~/.config/zsh/zsh-completions/src $fpath)
 
+export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH"
+eval "$(tmuxifier init -)"
+
 
 # ====================================[ Init Config ]================================= #
 
@@ -114,22 +117,32 @@ alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/
 alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
 
 alias tordown="cd .local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
+alias tedit='nvim ~/.zshrc'
+alias tupdate='source ~/.zshrc'
 
-# IRC
-#alias irc="xdotool key F11; weechat"
-weechat_alias() {
+
+# ================================[ Full Screen Programs ]============================= #
+
+fullscreen() {
     xdotool key F11
-    weechat
+    eval "$1"
     if [[ $? -eq 0 ]]; then
-        xdotool key F11;
-        clear;
+        xdotool key F11
+        clear
     fi
 }
 
-alias irc=weechat_alias
+tm() {
+    fullscreen "tmuxifier load-session $1"
+}
 
-alias tedit='nvim ~/.zshrc'
-alias tupdate='source ~/.zshrc'
+alias tmn="tmuxifier new-session"
+alias tme="tmuxifier edit-session"
+alias tmk="tmux kill-session"
+alias tml="tmux ls"
+
+alias irc="fullscreen weechat"
+alias rss="fullscreen tuifeed"
 
 
 # ======================================[ Prompt ]==================================== #
