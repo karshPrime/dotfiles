@@ -1,33 +1,29 @@
-#             _                   #
-#     _______| |__  _ __ ___      #
-#    |_  / __| '_ \| '__/ __|     #
-#   _ / /\__ \ | | | | | (__      #
-#  (_)___|___/_| |_|_|  \___|     #
-#                                 #
-# ==============================[ THEMES AND PLUGINS ]=============================== #
+## ==============================[ THEMES AND PLUGINS ]=============================== # 
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then 
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" 
+fi 
 
-USE_POWERLINE="true"
-HAS_WIDECHARS="false"
+USE_POWERLINE="true" 
+HAS_WIDECHARS="false" 
 
-source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.config/zsh/zsh-history/zsh-history.zsh
-fpath=(~/.config/zsh/zsh-completions/src $fpath)
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh 
+source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
+source ~/.config/zsh/zsh-history/zsh-history.zsh 
 
-export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH"
-eval "$(tmuxifier init -)"
+fpath=(~/.config/zsh/zsh-completions/src $fpath) 
+
+export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH" 
+eval "$(tmuxifier init -)" 
+
+export EDITOR=nvim
+export PATH="~/Desktop/gcc-arm-10.3-2021.07-x86_64-arm-none-linux-gnueabihf/bin:$PATH"
 
 
-# ====================================[ Init Config ]================================= #
+## ====================================[ Init Config ]================================= #
 
-~/.config/fetch.sh
-
-HISTFILE=~/.config/zsh/histfile
-HISTSIZE=1000
+HISTFILE=~/.config/zsh/histfile 
+HISTSIZE=1000 
 SAVEHIST=1000
 
 setopt autocd extendedglob
@@ -62,11 +58,26 @@ bindkey '^[[3;5~' kill-word
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+bindkey -s '^[c' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
+
 
 # ==========================[ FUNCTIONS AND ALIASES ]================================= #
 
 cdir() {mkdir $1 && cd $1}
 cmd() { man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; }
+
+alias l='exa -l'
+alias ls='exa'
+alias tree='exa --tree --icons=always --group-directories-first'
+alias la='exa -la'
+alias lsa='exa -a'
+alias c='bat -n'
+alias cat='bat -pp'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip --color=auto'
 
 alias update='paru -Syu'
 alias pkga='paru -S'
@@ -84,45 +95,43 @@ alias scan="prime-run clamscan -r --bell"
 alias assem="objdump -M intel -D"
 
 alias ss='sudo systemctl'
-alias vim='nvim'
+alias lf='lfrun'
 alias v='nvim'
 alias sv='sudo nvim'
-alias htop=bashtop
+alias htop=btop
 alias yt='yt-dlp'
 alias rmf='rm -rf'
+alias bnet='sudo bandwhich'
+alias dcompose='sudo docker-compose'
 
-alias l='exa -l'
-alias ls='exa'
-alias tree='exa --tree'
-alias la='exa -la'
-alias lsa='exa -a'
-
-alias c='bat -n'
-alias cat='bat -pp'
-
-alias grep='grep --color=auto'
-alias diff='diff --color=auto'
-alias ip='ip --color=auto'
-
-alias readme='nvim README.md'
-alias ginit="~/Projects/.init/run.sh"
-alias gignore='nvim .gitignore'
-alias makefile='nvim Makefile'
-srcmain() { nvim ./src/main.$1 }
-
+alias nl="exa ~/Documents/notes/"
 nr() { bat -n ~/Documents/notes/$1 }
 nw() { nvim ~/Documents/notes/$1 }
-
-alias erbuild="cargo rustc -- -C link-arg=--script=./linker.ld"
-alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/debug/rustpi_core ./mount/kernel7.img"
-alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
 
 alias tordown="cd .local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
 alias ginit="~/Projects/.init/run.sh"
 alias cinit="~/Projects/.init/cargo_run.sh"
 
-alias tedit='nvim ~/.zshrc'
-alias tupdate='source ~/.zshrc'
+alias tools="~/Projects/sillyScripts/tools.sh"
+alias toolx="nvim ~/Projects/sillyScripts/tools.sh"
+alias colors='sh ~/Projects/sillyScripts/colors.sh'
+alias periodic='sh ~/Projects/sillyScripts/periodic.sh'
+alias resistor=~/Projects/sillyScripts/resistor
+alias toipe='./.cargo/bin/toipe'
+alias fetch='~/.config/fetch.sh'
+
+alias erbuild="cargo rustc -- -C link-arg=--script=./linker.ld"
+alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/debug/rustpi_core ./mount/kernel7.img"
+alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
+
+alias readme='nvim README.md'
+alias gignore='nvim .gitignore'
+alias makefile='nvim Makefile'
+alias todo='nvim todo'
+srcmain() { nvim ./src/main.$1 }
+
+alias tedit='nvim $HOME/.zshrc'
+alias tupdate='source $HOME/.zshrc'
 
 
 # ================================[ Full Screen Programs ]============================= #
@@ -132,18 +141,17 @@ fullscreen() {
     eval "$1"
     if [[ $? -eq 0 ]]; then
         xdotool key F11
-        clear
     fi
-}
-
-tm() {
-    fullscreen "tmuxifier load-session $1"
+    clear
 }
 
 alias tmn="tmuxifier new-session"
 alias tme="tmuxifier edit-session"
-alias tmk="tmux kill-session"
+alias tmk="tmux kill-session -t"
+alias tmka="tmux kill-session"
 alias tml="tmux ls"
+tm()  { fullscreen "tmuxifier load-session $1" }
+tmd() { rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh }
 
 alias irc="fullscreen weechat"
 alias rss="fullscreen tuifeed"
@@ -155,4 +163,3 @@ alias rss="fullscreen tuifeed"
 source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-
