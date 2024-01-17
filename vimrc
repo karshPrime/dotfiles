@@ -23,17 +23,19 @@ require('packer').startup(function()
     use 'airblade/vim-gitgutter'         -- git 
     use 'mg979/vim-visual-multi'         -- multiple cursors (ctrl+n)
 
-    -- nvim cmp
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/nvim-cmp'
+    use {  -- nvim cmp
+	'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+	'hrsh7th/cmp-cmdline',
+        'hrsh7th/nvim-cmp',
+    }
 
-    -- LSP
-    use 'williamboman/mason.nvim'
-    use 'williamboman/mason-lspconfig.nvim"'
-    use 'neovim/nvim-lspconfig'
+    use {  -- LSP
+	"williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    }
 
     -- :PackerInstall or :PackerSync
 end)
@@ -190,6 +192,7 @@ require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").clangd.setup {}
 require("lspconfig").julials.setup {}
 
+
 ----------------------------------------------------------------------------------------
 -- Config Statusline -------------------------------------------------------------------
 
@@ -197,7 +200,7 @@ require('lualine').setup()
 
 -- config border line colour
 vim.cmd('highlight VertSplit guifg=#ff5555 guibg=NONE ctermfg=160 ctermbg=NONE')
-vim.cmd('highlight StatusLine guifg=#ff5555 guibg=NONE ctermfg=160 ctermbg=NONE')
+
 
 
 ----------------------------------------------------------------------------------------
