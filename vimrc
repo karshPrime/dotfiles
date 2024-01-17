@@ -37,6 +37,12 @@ require('packer').startup(function()
         "neovim/nvim-lspconfig",
     }
 
+    use {  -- telescope
+	'nvim-telescope/telescope.nvim', tag = '0.1.5',
+        -- or                            , branch = '0.1.x',
+	requires = { {'nvim-lua/plenary.nvim'} }
+    }
+
     -- :PackerInstall or :PackerSync
 end)
 
@@ -227,5 +233,11 @@ vim.api.nvim_set_keymap('n', 'ZX', ':NvimTreeToggle<CR>', {
 })
 
 ----------------------------------------------------------------------------------------
+-- Config Telescope --------------------------------------------------------------------
 
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', 'ZA', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
