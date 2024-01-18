@@ -1,8 +1,8 @@
 #---------------------------------------------------------------------------------------
 #-- THEMES AND PLUGINS -----------------------------------------------------------------
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then 
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" 
+if [[ -r "${HOME/.cache:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then 
+    source "${HOME/.cache:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" 
 fi 
 
 USE_POWERLINE="true" 
@@ -13,12 +13,6 @@ source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/zsh-history/zsh-history.zsh 
 
 fpath=(~/.config/zsh/zsh-completions/src $fpath) 
-
-export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH" 
-eval "$(tmuxifier init -)" 
-
-export EDITOR=nvim
-export PATH="~/Desktop/gcc-arm-10.3-2021.07-x86_64-arm-none-linux-gnueabihf/bin:$PATH"
 
 
 #---------------------------------------------------------------------------------------
@@ -32,8 +26,26 @@ setopt autocd extendedglob
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 
+export EDITOR=nvim
+export vim=nvim
+export nano=nvim
+export grep=rg
+
+export JULIA_DEPOT_PATH="$HOME/.local/share/julia:$JULIA_DEPOT_PATH"
+export LESSHISTFILE="$HOME/.local/state/less/history"
+export RUSTUP_HOME="$HOME/.local/share/rustup"
+export XINITRC="$HOME/.config/X11/xinitrc"
+export CARGO_HOME="$HOME/.local/share/cargo"
+export CUDA_CACHE_PATH="$HOME/.cache/nv"
+export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc"
+export JAVA_OPTIONS="-Djava.util.prefs.userRoot=${HOME/.config}/java -Djavafx.cachedir=${HOME/.cache}/openjfx"
+
+export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH" 
+eval "$(tmuxifier init -)" 
+
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+compinit -d "$HOME/.cache"/zsh/zcompdump-"$ZSH_VERSION"
 
 
 #---------------------------------------------------------------------------------------
@@ -115,6 +127,7 @@ alias dockerd='sudo dockerd'
 alias sv='sudo nvim'
 alias v=nvim
 alias htop=btop
+alias wget=wget --hsts-file="$HOME/.local/share/wget-hsts"
 
 
 # simplified commands
@@ -166,7 +179,7 @@ alias tupdate='source $HOME/.zshrc'
 #---------------------------------------------------------------------------------------
 #-- PROMPT -----------------------------------------------------------------------------
 
-[[ ! -f ~/.config/p10k.zsh ]] || source ~/.config/p10k.zsh
+[[ ! -f ~/.config/powerlevel10k/p10k.zsh ]] || source ~/.config/powerlevel10k/p10k.zsh
 source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
 
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
