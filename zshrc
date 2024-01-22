@@ -1,8 +1,6 @@
 #---------------------------------------------------------------------------------------
 #-- THEMES AND PLUGINS -----------------------------------------------------------------
 
-if [[ -r "${HOME/.cache:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then 
-    source "${HOME/.cache:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" 
 fi 
 
 USE_POWERLINE="true" 
@@ -26,9 +24,7 @@ setopt autocd extendedglob
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 
-export EDITOR=nvim
-export vim=nvim
-export nano=nvim
+export EDITOR='~/Desktop/NVim.AppImage'
 export grep=rg
 
 export JULIA_DEPOT_PATH="$HOME/.local/share/julia:$JULIA_DEPOT_PATH"
@@ -91,15 +87,25 @@ bindkey -s '^[c' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+
 #-- ALIASES ----------------------------------------------------------------------------
 
 # package management
-alias update='paru -Syu'
-alias pkga='paru -S'
-alias pkgs='paru -Ss'
-alias pkgr='paru -Rcns'
-alias pkgx='paru -Rns $(paru -Qdtq); paru -Sccc'
-alias pkgf='paru -Qqs'
-alias pkgc='paru -Qq | wc -l'
-alias pkgl='pacman -Qq | less'
-pkgi() { whatis $1 && paru -Si $1; }
+alias update='sudo nala update; sudo nala upgrade; flatpak update'
+alias pkga='sudo nala install'
+alias pkgs='nala search'
+alias pkgr='sudo nala purge'
+alias pkgx='sudo apt autoclean; sudo nala autoremove'
+alias pkgh='nala history'
+alias pkgu='sudo nala history undo'
+alias pkgf='nala list --installed | grep -i'
+alias pkgl='nala list --installed | less'
+alias pkgc='dpkg --list | wc --lines'
+pkgi() { whatis $1; echo ""; nala show $1; }
+
+# flatpak 
+alias fpa='flatpak install'
+alias fpr='flatpak uninstall --delete-data'
+alias fps='flatpak search'
+alias fpl='flatpak list'
+alias fpi='flatpak info'
+alias fpx='flatpak remote-add --if-not-exists'
 
 # file navigation
 alias l='exa -l'
@@ -107,8 +113,8 @@ alias ls='exa'
 alias lf='lfrun'
 alias la='exa -la'
 alias lsa='exa -a'
-alias c='bat -n'
-alias cat='bat -pp'
+alias c='batcat -n'
+alias cat='batcat -pp'
 alias rmf='rm -rf'
 alias tree='exa --tree --icons=always --group-directories-first'
 cdir() {mkdir $1 && cd $1}
@@ -116,19 +122,19 @@ cmd()  { man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; }
 
 # quick notes
 alias nl="exa ~/Documents/notes/"
-nr() { bat -n ~/Documents/notes/$1 }
-nw() { nvim ~/Documents/notes/$1 }
+nr() { batcat -n ~/Documents/notes/$1 }
+nw() { $EDITOR ~/Documents/notes/$1 }
 
-# better default utilities
+# better defaults 
 alias bnet='sudo bandwhich'
-alias dcompose='sudo docker-compose'
 alias ss='sudo systemctl'
 alias dockerd='sudo dockerd'
-alias sv='sudo nvim'
-alias v=nvim
+alias sv="sudo $EDITOR"
+alias v=$EDITOR
+alias vim=$EDITOR 
+alias nano=$EDITOR
 alias htop=btop
 alias wget=wget --hsts-file="$HOME/.local/share/wget-hsts"
-
 
 # simplified commands
 alias battery='acpi -ib; echo "\nlast= 76%"'
@@ -139,10 +145,14 @@ alias yt='yt-dlp'
 alias irc="fullscreen weechat"
 alias rss="fullscreen tuifeed"
 alias tordown="cd ~/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
+alias dcompu='sudo docker-compose up -d'
+alias dcompd='sudo docker-compose down'
+alias z=~/Desktop/zellij
+alias wolf=librewolf
 
 # silly scripts
 alias tools="~/Projects/sillyScripts/tools.sh"
-alias toolx="nvim ~/Projects/sillyScripts/tools.sh"
+alias toolx="$EDITOR ~/Projects/sillyScripts/tools.sh"
 alias colors='sh ~/Projects/sillyScripts/colors.sh'
 alias periodic='sh ~/Projects/sillyScripts/periodic.sh'
 alias resistor=~/Projects/sillyScripts/resistor
@@ -152,14 +162,14 @@ alias fetch='~/.config/fetch.sh'
 # common dev cmds
 alias ginit="~/Projects/.init/run.sh"
 alias cinit="~/Projects/.init/cargo_run.sh"
-alias readme='nvim README.md'
-alias gignore='nvim .gitignore'
-alias makefile='nvim Makefile'
-alias todo='nvim todo'
+alias readme="$EDITOR README.md"
+alias gignore="$EDITOR .gitignore"
+alias makefile="$EDITOR Makefile"
+alias todo="$EDITOR todo"
 alias erbuild="cargo rustc -- -C link-arg=--script=./linker.ld"
 alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/debug/rustpi_core ./mount/kernel7.img"
 alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
-srcmain() { nvim ./src/main.$1 }
+srcmain() { $EDITOR ./src/main.$1 }
 
 # tmux launch shortcuts
 alias tmn="tmuxifier new-session"
@@ -172,7 +182,7 @@ tm()  { fullscreen "tmuxifier load-session $1" }
 tmd() { rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh }
 
 # zshrc manage
-alias tedit='nvim $HOME/.zshrc'
+alias tedit="$EDITOR $HOME/.zshrc"
 alias tupdate='source $HOME/.zshrc'
 
 
