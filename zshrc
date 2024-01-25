@@ -1,6 +1,8 @@
-#---------------------------------------------------------------------------------------
-#-- THEMES AND PLUGINS -----------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# -- THEMES AND PLUGINS ----------------------------------------------------------------
 
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then 
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" 
 fi 
 
 USE_POWERLINE="true" 
@@ -13,8 +15,8 @@ source ~/.config/zsh/zsh-history/zsh-history.zsh
 fpath=(~/.config/zsh/zsh-completions/src $fpath) 
 
 
-#---------------------------------------------------------------------------------------
-#-- INIT CONFIG ------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# -- INIT CONFIG -----------------------------------------------------------------------
 
 HISTFILE=~/.config/zsh/histfile 
 HISTSIZE=1000 
@@ -27,25 +29,31 @@ setopt HIST_IGNORE_ALL_DUPS
 export EDITOR='~/Desktop/NVim.AppImage'
 export grep=rg
 
-export JULIA_DEPOT_PATH="$HOME/.local/share/julia:$JULIA_DEPOT_PATH"
-export LESSHISTFILE="$HOME/.local/state/less/history"
-export RUSTUP_HOME="$HOME/.local/share/rustup"
-export XINITRC="$HOME/.config/X11/xinitrc"
-export CARGO_HOME="$HOME/.local/share/cargo"
-export CUDA_CACHE_PATH="$HOME/.cache/nv"
-export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc"
-export JAVA_OPTIONS="-Djava.util.prefs.userRoot=${HOME/.config}/java -Djavafx.cachedir=${HOME/.cache}/openjfx"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
+export LESSHISTFILE="$XDG_STATE_HOME"/less/history
+export JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java -Djavafx.cachedir=${XDG_CACHE_HOME}/openjfx"
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
 export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH" 
 eval "$(tmuxifier init -)" 
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-compinit -d "$HOME/.cache"/zsh/zcompdump-"$ZSH_VERSION"
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 
-#---------------------------------------------------------------------------------------
-#-- FUNCTIONS --------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# -- FUNCTIONS -------------------------------------------------------------------------
 
 fullscreen() {
     xdotool key F11
@@ -56,6 +64,7 @@ fullscreen() {
     clear
 }
 
+# clear the terminal with head.sh fetch script 
 function better_clear() {
     clear
     sh ~/.config/head.sh
@@ -65,11 +74,10 @@ function better_clear() {
 zle -N better_clear
 
 
-#---------------------------------------------------------------------------------------
-#-- KEY BINDINGS -----------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# -- KEY BINDINGS ----------------------------------------------------------------------
 
-bindkey '^L' better_clear
-bindkey -s '^[l' 'clear^M'
+bindkey '^[l' better_clear
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 bindkey '^[[H' beginning-of-line
@@ -77,14 +85,18 @@ bindkey '^[[F' end-of-line
 bindkey '^[[3~' delete-char
 bindkey '^H' backward-kill-word
 bindkey '^[[3;5~' kill-word
+
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 
+# bindkey -s '^U' 'clear-line\n'
 bindkey -s '^[c' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
 
 
-#---------------------------------------------------------------------------------------
-#-- ALIASES ----------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# -- ALIASES ---------------------------------------------------------------------------
 
 # package management
 alias update='sudo nala update; sudo nala upgrade; flatpak update'
@@ -134,7 +146,7 @@ alias v=$EDITOR
 alias vim=$EDITOR 
 alias nano=$EDITOR
 alias htop=btop
-alias wget=wget --hsts-file="$HOME/.local/share/wget-hsts"
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
 # simplified commands
 alias battery='acpi -ib; echo "\nlast= 76%"'
@@ -149,6 +161,7 @@ alias dcompu='sudo docker-compose up -d'
 alias dcompd='sudo docker-compose down'
 alias z=~/Desktop/zellij
 alias wolf=librewolf
+alias dothome='sh ~/Desktop/ninja/xdg-ninja.sh --skip-unsupported'
 
 # silly scripts
 alias tools="~/Projects/sillyScripts/tools.sh"
@@ -182,12 +195,12 @@ tm()  { fullscreen "tmuxifier load-session $1" }
 tmd() { rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh }
 
 # zshrc manage
-alias tedit="$EDITOR $HOME/.zshrc"
-alias tupdate='source $HOME/.zshrc'
+alias tedit="$EDITOR $HOME/.config/zsh/.zshrc"
+alias tupdate='source $HOME/.config/zsh/.zshrc'
 
 
-#---------------------------------------------------------------------------------------
-#-- PROMPT -----------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# -- PROMPT ----------------------------------------------------------------------------
 
 [[ ! -f ~/.config/powerlevel10k/p10k.zsh ]] || source ~/.config/powerlevel10k/p10k.zsh
 source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
