@@ -55,6 +55,21 @@ compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 # --------------------------------------------------------------------------------------
 # -- FUNCTIONS -------------------------------------------------------------------------
 
+# hide directory path for git repositories
+function zsh_directory_name() {
+  emulate -L zsh
+  [[ $1 == d ]] || return
+  while [[ $2 != / ]]; do
+    if [[ -e $2/.git ]]; then
+      typeset -ga reply=(${2:t} $#2)
+      return
+    fi
+    2=${2:h}
+  done
+  return 1
+}
+
+# fullscreen terminal emulator while program's running
 fullscreen() {
     xdotool key F11
     eval "$1"
@@ -131,6 +146,13 @@ alias rmf='rm -rf'
 alias tree='exa --tree --icons=always --group-directories-first'
 cdir() {mkdir $1 && cd $1}
 cmd()  { man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; }
+
+# places
+alias desk='cd ~/Desktop'
+alias down='cd ~/Downloads'
+alias docs='cd ~/Documents'
+alias proj='cd ~/Projects'
+alias conf='cd ~/.config'
 
 # quick notes
 alias nl="exa ~/Documents/notes/"
