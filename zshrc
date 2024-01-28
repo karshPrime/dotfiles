@@ -92,7 +92,8 @@ zle -N better_clear
 # --------------------------------------------------------------------------------------
 # -- KEY BINDINGS ----------------------------------------------------------------------
 
-bindkey '^[l' better_clear
+bindkey '^l' better_clear
+bindkey "^[l" clear-screen
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 bindkey '^[[H' beginning-of-line
@@ -142,8 +143,9 @@ alias la='exa -la'
 alias lsa='exa -a'
 alias c='batcat -n'
 alias cat='batcat -pp'
-alias rmf='rm -rf'
 alias tree='exa --tree --icons=always --group-directories-first'
+alias rm='rm -rf'
+alias srm='sudo rm -rf'
 cdir() {mkdir $1 && cd $1}
 cmd()  { man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; }
 
@@ -205,6 +207,17 @@ alias erbuild="cargo rustc -- -C link-arg=--script=./linker.ld"
 alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/debug/rustpi_core ./mount/kernel7.img"
 alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
 srcmain() { $EDITOR ./src/main.$1 }
+
+# git shortcuts
+alias ga='git add'
+alias gA='git add -A'
+alias gc='git commit'
+alias gd='git diff'
+alias gl='git log'
+alias gp='git push'
+alias gb='git checkout'
+alias gbp='git origin push'
+alias gbn='git branch'
 
 # tmux launch shortcuts
 alias tmn="tmuxifier new-session"
