@@ -79,6 +79,16 @@ fullscreen() {
     clear
 }
 
+# maximise terminal emulator while program's running
+maximise() {
+    xdotool key --clearmodifiers Super_L+Up
+    eval "$1"
+    if [[ $? -eq 0 ]]; then
+	xdotool key --clearmodifiers Super_L+Down
+    fi
+    clear
+}
+
 # clear the terminal with head.sh fetch script 
 function better_clear() {
     clear
@@ -232,7 +242,7 @@ alias tmK="tmux kill-session"
 alias tml="tmux ls"
 alias tmL="ls ~/.config/tmux/plugins/tmuxifier/layouts"
 alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
-tm()  { fullscreen "tmuxifier load-session $1" }
+tm()  { maximise "tmuxifier load-session $1" }
 tmd() { rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh }
 
 # zshrc manage
