@@ -210,15 +210,19 @@ alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rus
 srcmain() { $EDITOR ./src/main.$1 }
 
 # git shortcuts
-alias ga='git add'
-alias gA='git add -A'
-alias gc='git commit'
-alias gd='git diff'
-alias gl='git log'
-alias gp='git push'
-alias gb='git checkout'
-alias gbp='git origin push'
-alias gbn='git branch'
+alias gita='git add'
+alias gitA='git add -A'
+alias gitc='git commit'
+alias gitC='git commit -m'
+alias gitd='git diff'
+alias gitl='git log'
+alias gits='git status'
+alias gitp='git push'
+alias gitP='git push --force'
+alias gith='git checkout'
+alias gitb='git branch'
+alias gitu="git reset --soft 'HEAD^'"
+gitt() { touch $1; git add $1; git commit -m "🍩 create $1" }
 
 # tmux launch shortcuts
 alias tmn="tmuxifier new-session"
