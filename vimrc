@@ -14,14 +14,15 @@ end
 -- Initialize Packages -----------------------------------------------------------------
 
 require('packer').startup(function()
-    use 'wbthomason/packer.nvim'         -- Packer manages itself
-    use 'tpope/vim-commentary'           -- Easier Commenting
-    use 'nvim-tree/nvim-tree.lua'        -- File tree
+    use 'wbthomason/packer.nvim'         -- packer manages itself
+    use 'tpope/vim-commentary'           -- easier Commenting
+    use 'nvim-tree/nvim-tree.lua'        -- file tree
     use 'nvim-tree/nvim-web-devicons'    -- icons
     use 'nvim-lualine/lualine.nvim'      -- statusbar
     use 'christoomey/vim-tmux-navigator' -- vim tmux keybinds
     use 'airblade/vim-gitgutter'         -- git 
     use 'mg979/vim-visual-multi'         -- multiple cursors (ctrl+n)
+    use 'stankovictab/mgz.nvim'		 -- color theme
 
     use {  -- nvim cmp
 	'hrsh7th/cmp-nvim-lsp',
@@ -67,6 +68,12 @@ vim.api.nvim_set_keymap('n', 'ZV', ':split | :Explore<CR>', {
     noremap = true,
     silent = true 
 })
+
+
+----------------------------------------------------------------------------------------
+-- Color Theme -------------------------------------------------------------------------
+vim.g.mgz_disable_background = true
+vim.cmd.colorscheme("mgz")
 
 
 ----------------------------------------------------------------------------------------
