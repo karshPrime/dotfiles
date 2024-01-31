@@ -228,8 +228,9 @@ gitt() { touch $1; git add $1; git commit -m "🍩 create $1" }
 alias tmn="tmuxifier new-session"
 alias tme="tmuxifier edit-session"
 alias tmk="tmux kill-session -t"
-alias tmka="tmux kill-session"
+alias tmK="tmux kill-session"
 alias tml="tmux ls"
+alias tmL="ls ~/.config/tmux/plugins/tmuxifier/layouts"
 alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
 tm()  { fullscreen "tmuxifier load-session $1" }
 tmd() { rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh }
