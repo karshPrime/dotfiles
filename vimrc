@@ -51,23 +51,48 @@ end)
 ----------------------------------------------------------------------------------------
 -- Key Bindings ------------------------------------------------------------------------
 
+
 -- Explore mode
-vim.api.nvim_set_keymap('n', 'ZE', ':Ex<CR>', { 
-    noremap = true, 
-    silent = true 
-})
+vim.api.nvim_set_keymap('n', 'ZE', 
+    ':Ex<CR>',
+    { noremap = true, silent = true }
+)
 
 -- Explore mode on new pane on RHS
-vim.api.nvim_set_keymap('n', 'ZH', ':vsplit | :Explore<CR>', {
-    noremap = true,
-    silent = true
-})
+vim.api.nvim_set_keymap('n', 'ZH', 
+    ':vsplit | :Explore<CR>',
+    { noremap = true, silent = true }
+)
 
 -- Explore mode on new pane on LHS
-vim.api.nvim_set_keymap('n', 'ZV', ':split | :Explore<CR>', {
-    noremap = true,
-    silent = true 
-})
+vim.api.nvim_set_keymap('n', 'ZV', 
+    ':split | :Explore<CR>',
+    { noremap = true, silent = true }
+)
+
+-- Map F5 key to call upload script
+vim.api.nvim_set_keymap('n', '<F5>', 
+    ':w<CR>:!./upload.sh<CR>',
+    { noremap = true, silent = true }
+)
+
+-- Map F6 key to execute cargo run command 
+vim.api.nvim_set_keymap('n', '<F6>', 
+    ':w<CR>:!cargo run<CR>',
+    { noremap = true, silent = true }
+)
+
+-- Map F7 key to execute cargo build command 
+vim.api.nvim_set_keymap('n', '<F7>', 
+    ':w<CR>:!cargo build<CR>',
+    { noremap = true, silent = true }
+)
+
+-- Map F8 key to execute make command
+vim.api.nvim_set_keymap('n', '<F8>', 
+    ':w<CR>:term make<CR>',
+    { noremap = true, silent = true }
+)
 
 
 ----------------------------------------------------------------------------------------
