@@ -245,7 +245,15 @@ alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
 tm()  { maximise "tmuxifier load-session $1" }
 tmd() { rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh }
 
-# zshrc manage
+# dotfiles manage
+dotfiles() {
+    cd ~/Projects/dotfiles;
+    cp ~/.config/nvim/init.lua ./vimrc;
+    cp ~/.config/tmux/tmux.conf ./tmux.conf;
+    cp ~/.config/zsh/.zshrc ./zshrc;
+}
+alias nedit="$EDITOR $HOME/.config/nvim/init.lua"
+alias medit="$EDITOR $HOME/.config/tmux/tmux.conf"
 alias tedit="$EDITOR $HOME/.config/zsh/.zshrc"
 alias tupdate='source $HOME/.config/zsh/.zshrc'
 
