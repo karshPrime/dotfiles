@@ -51,6 +51,8 @@ end)
 ----------------------------------------------------------------------------------------
 -- Key Bindings ------------------------------------------------------------------------
 
+-- Make :W work same as :w
+vim.cmd([[command! -nargs=0 W w]])
 
 -- Explore mode
 vim.api.nvim_set_keymap('n', 'ZE', 
@@ -91,6 +93,18 @@ vim.api.nvim_set_keymap('n', '<F7>',
 -- Map F8 key to execute make command
 vim.api.nvim_set_keymap('n', '<F8>', 
     ':w<CR>:term make<CR>',
+    { noremap = true, silent = true }
+)
+
+-- Map <leader>w to save the file
+vim.api.nvim_set_keymap('n', '<leader>w', 
+    ':w<CR>', 
+    { noremap = true, silent = true }
+)
+
+-- Map <leader>n to clear search highlights (:noh)
+vim.api.nvim_set_keymap('n', '<leader>n', 
+    ':noh<CR>', 
     { noremap = true, silent = true }
 )
 
