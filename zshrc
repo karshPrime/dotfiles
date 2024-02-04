@@ -240,10 +240,13 @@ alias tme="tmuxifier edit-session"
 alias tmk="tmux kill-session -t"
 alias tmK="tmux kill-session"
 alias tml="tmux ls"
-alias tmL="ls ~/.config/tmux/plugins/tmuxifier/layouts"
 alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
-tm()  { maximise "tmuxifier load-session $1" }
+tm()  { fullscreen "tmuxifier load-session $1" }
 tmd() { rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh }
+tmL() { 
+    exa ~/.config/tmux/plugins/tmuxifier/layouts | awk -F\. '{ORS=" "; print $1}'; 
+    echo ""
+}
 
 # dotfiles manage
 dotfiles() {
