@@ -71,6 +71,10 @@ function zsh_directory_name() {
   return 1
 }
 
+function count() {
+    ls $1 | wc -l
+}
+
 # fullscreen terminal emulator while program's running
 fullscreen() {
     xdotool key F11
