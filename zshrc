@@ -259,6 +259,12 @@ alias gitb='git branch'
 alias gitu="git reset --soft 'HEAD^'"
 gitt() { touch $1; git add $1; git commit -m "🍩 create $1" }
 
+# yt-dlp shortcuts
+alias ytvb='yt-dlp -q -f bestvideo -o "~/Videos/offlineYT/%(title)s.%(ext)s"'
+alias ytab='yt-dlp -q -f bestaudio -o "~/Music/offlineYT/%(title)s.%(ext)s"'
+alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
+alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
+
 # tmux launch shortcuts
 alias tmn="tmuxifier new-session"
 alias tme="tmuxifier edit-session"
