@@ -202,6 +202,12 @@ alias nano=$EDITOR
 alias htop=btop
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
+# python development
+alias py=python3
+alias pye='python3 -m venv environment'
+alias pys='source ./environment/bin/activate'
+alias pyx='deactivate'
+
 # simplified commands
 alias battery='acpi -ib; echo "\nlast= 76%"'
 alias fonts='fc-list | cut -f2 -d: | sort -u'
