@@ -26,7 +26,7 @@ setopt autocd extendedglob
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 
-export EDITOR='~/Desktop/NVim.AppImage'
+export EDITOR=nvim
 export grep=rg
 
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -42,7 +42,8 @@ export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+export XAUTHORITY="$XDG_CONFIG_HOME"/Xauthority
+
 
 export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH" 
 eval "$(tmuxifier init -)" 
@@ -54,6 +55,7 @@ compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 # --------------------------------------------------------------------------------------
 # -- FUNCTIONS -------------------------------------------------------------------------
+
 
 # hide directory path for git repositories
 function zsh_directory_name() {
@@ -125,17 +127,30 @@ bindkey -s '^[c' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+
 # -- ALIASES ---------------------------------------------------------------------------
 
 # package management
-alias update='sudo nala update; sudo nala upgrade; flatpak update'
-alias pkga='sudo nala install'
-alias pkgs='nala search'
-alias pkgr='sudo nala purge'
-alias pkgh='nala history'
-alias pkgu='sudo nala history undo'
-alias pkgf='nala list --installed | grep -i'
-alias pkgl='nala list --installed | less'
-alias pkgc='dpkg --list | wc --lines'
-alias pkgx='sudo apt autoclean; sudo nala autoremove; flatpak uninstall --unused'
-pkgi() { whatis $1; echo ""; nala show $1; }
+alias pkga='sudo zypper install --no-recommends'
+alias pkgs=opi	
+alias pkgr='sudo zypper rm --clean-deps'
+alias pkgh='zypper history'
+alias pkgf='rpm -qa | grep -i'
+alias pkgl='rpm -qa | less'
+alias pkgc='rpm -qa | wc -l'
+pkgx() {
+    sudo zypper clean; 
+    sudo zypper rm --clean-deps $(zypper packages --unneeded | awk '{print $5}')
+    flatpak uninstall --unused;
+}
+pkgi() { 
+    whatis $1; 
+    echo ""; 
+    zypper info $1; 
+} 
+update() {
+    sudo zypper refresh; 
+    sudo zypper update
+    sudo zypper dup;
+    echo -e "\nFlatpacks: ";
+    flatpak update;
+}
 
 # flatpak 
 alias fpa='flatpak install'
@@ -147,14 +162,12 @@ alias fpi='flatpak info'
 alias fpx='flatpak remote-add --if-not-exists'
 
 # file navigation
-alias l='exa -l'
-alias ls='exa'
-alias lf='lfrun'
-alias la='exa -la'
-alias lsa='exa -a'
-alias c='batcat -n'
-alias cat='batcat -pp'
-alias tree='exa --tree --icons=always --group-directories-first'
+alias l='eza -la --color=always --group-directories-first'
+alias ls='eza'
+alias lh='eza -a | egrep "^\."'
+alias la='eza -a --color=always --group-directories-first'
+alias c='bat -n'
+alias cat='bat -pp'
 alias rm='rm -rf'
 alias srm='sudo rm -rf'
 cdir() {mkdir $1 && cd $1}
@@ -168,9 +181,11 @@ alias proj='cd ~/Projects'
 alias conf='cd ~/.config'
 
 # quick notes
-alias nl="exa ~/Documents/notes/"
-nr() { batcat -n ~/Documents/notes/$1 }
+alias nl="eza ~/Documents/notes/"
+nr() { bat -n ~/Documents/notes/$1 }
 nw() { $EDITOR ~/Documents/notes/$1 }
+nd() { rm ~/Documents/notes/$1 }
+alias td="$EDITOR ~/Documents/notes/todo"
 
 # better defaults 
 alias bnet='sudo bandwhich'
