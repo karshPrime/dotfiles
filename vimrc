@@ -233,6 +233,10 @@ require('lspconfig')['julials'].setup {
     capabilities = capabilities
 }
 
+require('lspconfig')['pyright'].setup {
+    capabilities = capabilities
+}
+
 
 ----------------------------------------------------------------------------------------
 -- Config LSP --------------------------------------------------------------------------
