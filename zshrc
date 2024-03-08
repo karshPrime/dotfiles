@@ -52,6 +52,7 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
+sh ~/.config/fetch.sh
 
 # --------------------------------------------------------------------------------------
 # -- FUNCTIONS -------------------------------------------------------------------------
@@ -233,6 +234,8 @@ alias periodic='sh ~/Projects/sillyScripts/periodic.sh'
 alias resistor=~/Projects/sillyScripts/resistor
 alias toipe='./.local/share/cargo/bin/toipe'
 alias fetch='~/.config/fetch.sh'
+alias cpbig='~/Projects/sillyScripts/cpbig.sh'
+
 # EAT40005
 eatlog() {
     FILENAME="txts/week-$1.txt"
@@ -256,6 +259,7 @@ alias todo="$EDITOR todo"
 alias erbuild="cargo rustc -- -C link-arg=--script=./linker.ld"
 alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/debug/rustpi_core ./mount/kernel7.img"
 alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
+alias allcode='sh allcode.sh && cat allcode.txt | xclip -selection clipboard'
 srcmain() { $EDITOR ./src/main.$1 }
 
 # git shortcuts
