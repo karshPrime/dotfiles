@@ -201,6 +201,8 @@ alias vim=$EDITOR
 alias nano=$EDITOR
 alias htop=btop
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias shutdown='sudo shutdown 0'
+alias reboot='sudo reboot'
 
 # python development
 alias py=python3
