@@ -257,6 +257,9 @@ alias gitP='git push --force'
 alias gith='git checkout'
 alias gitb='git branch'
 alias gitu="git reset --soft 'HEAD^'"
+alias gito='git remote add origin'
+alias gitr="git restore"
+gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "🍩 create $1" }
 
 # yt-dlp shortcuts
