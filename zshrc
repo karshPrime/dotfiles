@@ -231,6 +231,18 @@ alias periodic='sh ~/Projects/sillyScripts/periodic.sh'
 alias resistor=~/Projects/sillyScripts/resistor
 alias toipe='./.local/share/cargo/bin/toipe'
 alias fetch='~/.config/fetch.sh'
+# EAT40005
+eatlog() {
+    FILENAME="txts/week-$1.txt"
+    cd ~/Projects/eat40005-worklog
+    touch $FILENAME 
+    mousepad $FILENAME
+    ./run.sh $FILENAME
+    FILENAME="export/102874485_week-$1.pdf"
+    evince $FILENAME
+    cd -
+}
+
 
 # common dev cmds
 alias ginit="~/Projects/.init/run.sh"
