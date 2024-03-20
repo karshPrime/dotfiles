@@ -229,13 +229,17 @@ require('lspconfig')['clangd'].setup {
     capabilities = capabilities
 }
 
-require('lspconfig')['julials'].setup {
+require('lspconfig')['gopls'].setup {
     capabilities = capabilities
 }
 
-require('lspconfig')['pyright'].setup {
-    capabilities = capabilities
-}
+-- require('lspconfig')['julials'].setup {
+--     capabilities = capabilities
+-- }
+
+-- require('lspconfig')['pyright'].setup {
+--     capabilities = capabilities
+-- }
 
 
 ----------------------------------------------------------------------------------------
@@ -246,7 +250,8 @@ require("mason-lspconfig").setup()
 
 require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").clangd.setup {}
-require("lspconfig").julials.setup {}
+require("lspconfig").gopls.setup {}
+-- require("lspconfig").julials.setup {}
 
 
 ----------------------------------------------------------------------------------------
