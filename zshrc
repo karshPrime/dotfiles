@@ -44,10 +44,6 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export XAUTHORITY="$XDG_CONFIG_HOME"/Xauthority
 
-
-export PATH="$HOME/.config/tmux/plugins/tmuxifier/bin:$PATH" 
-eval "$(tmuxifier init -)" 
-
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
@@ -132,30 +128,11 @@ bindkey -s '^[c' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+
 # -- ALIASES ---------------------------------------------------------------------------
 
 # package management
-alias pkga='sudo zypper install --no-recommends'
-alias pkgs=opi	
-alias pkgr='sudo zypper rm --clean-deps'
-alias pkgh='zypper history'
-alias pkgf='rpm -qa | grep -i'
-alias pkgl='rpm -qa | less'
-alias pkgc='rpm -qa | wc -l'
-pkgx() {
-    sudo zypper clean; 
-    sudo zypper rm --clean-deps $(zypper packages --unneeded | awk '{print $5}')
-    flatpak uninstall --unused;
-}
-pkgi() { 
-    whatis $1; 
-    echo ""; 
-    zypper info $1; 
-} 
-update() {
-    sudo zypper refresh; 
-    sudo zypper update
-    sudo zypper dup;
-    echo -e "\nFlatpacks: ";
-    flatpak update;
-}
+alias nixe='sudo nvim /etc/nixos/configuration.nix'
+alias nixl='sudo nix-env --list-generations --profile /nix/var/nix/profiles/system'
+alias nixd='sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations'
+alias nixx='sudo nix-collect-garbage --delete-old; sudo nix-collect-garbage --delete-generations'
+alias update='sudo nixos-rebuild switch'
 
 # flatpak 
 alias fpa='flatpak install'
@@ -227,6 +204,7 @@ alias wolf=librewolf
 alias dothome='sh ~/Desktop/ninja/xdg-ninja.sh --skip-unsupported'
 
 # silly scripts
+alias batcap='echo 80 | sudo tee /sys/class/power_supply/BAT1/charge_control_end_threshold'
 alias tools="~/Projects/sillyScripts/tools.sh"
 alias toolx="$EDITOR ~/Projects/sillyScripts/tools.sh"
 alias colors='sh ~/Projects/sillyScripts/colors.sh'
@@ -247,7 +225,6 @@ eatlog() {
     evince $FILENAME
     cd -
 }
-
 
 # common dev cmds
 alias ginit="~/Projects/.init/run.sh"
@@ -305,12 +282,12 @@ dotfiles() {
     cd ~/Projects/dotfiles;
     cp ~/.config/nvim/init.lua ./vimrc;
     cp ~/.config/tmux/tmux.conf ./tmux.conf;
-    cp ~/.config/zsh/.zshrc ./zshrc;
+    cp ~/.zshrc ./zshrc;
 }
 alias nedit="$EDITOR $HOME/.config/nvim/init.lua"
-alias medit="$EDITOR $HOME/.config/tmux/tmux.conf"
-alias tedit="$EDITOR $HOME/.config/zsh/.zshrc"
-alias tupdate='source $HOME/.config/zsh/.zshrc'
+alias tedit="$EDITOR $HOME/.config/tmux/tmux.conf"
+alias zedit="$EDITOR $HOME/.zshrc"
+alias zupdate='source $HOME/.zshrc'
 
 
 # --------------------------------------------------------------------------------------
