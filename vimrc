@@ -61,13 +61,13 @@ vim.api.nvim_set_keymap('n', 'ZE',
 )
 
 -- Explore mode on new pane on RHS
-vim.api.nvim_set_keymap('n', 'ZH', 
+vim.api.nvim_set_keymap('n', 'ZV', 
     ':vsplit | :Explore<CR>',
     { noremap = true, silent = true }
 )
 
--- Explore mode on new pane on LHS
-vim.api.nvim_set_keymap('n', 'ZV', 
+-- Explore mode on new pane at Bottom
+vim.api.nvim_set_keymap('n', 'ZH', 
     ':split | :Explore<CR>',
     { noremap = true, silent = true }
 )
@@ -109,16 +109,27 @@ vim.api.nvim_set_keymap('n', '<leader>n',
 )
 
 
+-- Map <leader>n to clear search highlights (:noh)
+vim.api.nvim_set_keymap('n', '<leader>l', 
+    ':set colorcolumn=80<CR>', 
+    { noremap = true, silent = true }
+)
+
+-- Map <leader>n to clear search highlights (:noh)
+vim.api.nvim_set_keymap('n', '<leader>L', 
+    ':set colorcolumn=<CR>', 
+    { noremap = true, silent = true }
+)
+
 ----------------------------------------------------------------------------------------
 -- Color Theme -------------------------------------------------------------------------
 vim.g.mgz_disable_background = true
 vim.cmd.colorscheme("mgz")
 
-
 ----------------------------------------------------------------------------------------
 -- Additions ---------------------------------------------------------------------------
 
-vim.opt.clipboard="unnamedplus"
+vim.o.clipboard = "unnamedplus"
 
 vim.cmd('syntax enable')
 vim.cmd('set laststatus=3')
@@ -291,9 +302,9 @@ vim.api.nvim_set_keymap('n', 'ZX', ':NvimTreeToggle<CR>', {
 -- Config Telescope --------------------------------------------------------------------
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', 'ZA', builtin.git_files, {})
-vim.keymap.set('n', 'ZB', builtin.buffers, {})
-vim.keymap.set('n', 'ZC', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>z', builtin.git_files, {})
+vim.keymap.set('n', '<leader>x', builtin.buffers, {})
+vim.keymap.set('n', '<leader>c', builtin.find_files, {})
+vim.keymap.set('n', '<leader>a', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>s', builtin.help_tags, {})
 
