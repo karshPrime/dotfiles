@@ -136,6 +136,7 @@ alias la='eza -a --color=always --group-directories-first'
 alias tree='eza -T --group-directories-first --icons=always'
 alias c='bat -n'
 alias cat='bat -pp'
+alias wk='cd $(walk --icons)'
 alias rm='rm -rf'
 alias srm='sudo rm -rf'
 cdir() { mkdir $1 && cd $1 }
@@ -174,7 +175,6 @@ alias assem="objdump -M intel -D"
 alias yt='yt-dlp'
 alias tordown="cd ~/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
 alias z=~/Desktop/zellij
-alias wolf=librewolf
 alias dothome='sh ~/Desktop/ninja/xdg-ninja.sh --skip-unsupported'
 
 # silly scripts
@@ -237,8 +237,10 @@ alias gita='git add'
 alias gitA='git add -A'
 alias gitc='git commit'
 alias gitC='git commit -m'
-alias gitd='git diff'
+alias gitd='git diff --stat'
+alias gitD='git diff'
 alias gitl='git log'
+alias gitg='git clone'
 alias gits='git status'
 alias gitS='git switch'
 alias gitp='git push'
