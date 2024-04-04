@@ -111,7 +111,7 @@ vim.api.nvim_set_keymap('n', '<leader>n',
 
 -- Map <leader>n to clear search highlights (:noh)
 vim.api.nvim_set_keymap('n', '<leader>l', 
-    ':set colorcolumn=80<CR>', 
+    ':set colorcolumn=120<CR>',
     { noremap = true, silent = true }
 )
 
@@ -126,10 +126,12 @@ vim.api.nvim_set_keymap('n', '<leader>L',
 vim.g.mgz_disable_background = true
 vim.cmd.colorscheme("mgz")
 
+
 ----------------------------------------------------------------------------------------
 -- Additions ---------------------------------------------------------------------------
 
 vim.o.clipboard = "unnamedplus"
+vim.cmd('let g:netrw_bufsettings = "noma nomod nu nobl nowrap ro rnu"')
 
 vim.cmd('syntax enable')
 vim.cmd('set laststatus=3')
@@ -137,7 +139,7 @@ vim.cmd('set nu relativenumber')
 vim.cmd('set nocompatible')
 vim.cmd('set linebreak')
 vim.cmd('set showbreak=+++')
-vim.cmd('set textwidth=80')
+vim.cmd('set textwidth=120')
 
 vim.cmd('set showmatch')
 vim.cmd('set visualbell')
