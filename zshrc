@@ -33,8 +33,6 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
-sh ~/.config/fetch.sh
-
 # --------------------------------------------------------------------------------------
 # -- FUNCTIONS -------------------------------------------------------------------------
 
@@ -54,26 +52,6 @@ function zsh_directory_name() {
 
 function count() {
     ls $1 | wc -l
-}
-
-# fullscreen terminal emulator while program's running
-fullscreen() {
-    xdotool key F11
-    eval "$1"
-    if [[ $? -eq 0 ]]; then
-        xdotool key F11
-    fi
-    clear
-}
-
-# maximise terminal emulator while program's running
-maximise() {
-    xdotool key --clearmodifiers Super_L+Up
-    eval "$1"
-    if [[ $? -eq 0 ]]; then
-	xdotool key --clearmodifiers Super_L+Down
-    fi
-    clear
 }
 
 # clear the terminal with head.sh fetch script 
@@ -112,12 +90,11 @@ bindkey -s '^[c' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+
 # -- ALIASES ---------------------------------------------------------------------------
 
 # nix management
-alias nixe='sudo nvim /etc/nixos/configuration.nix'
+alias nixe="sudo $EDITOR /etc/nixos/configuration.nix"
 alias nixl='sudo nix-env --list-generations --profile /nix/var/nix/profiles/system'
 alias nixd='sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations'
 alias nixx='sudo nix-collect-garbage --delete-old'
 alias nixr='sudo nixos-rebuild switch'
-alias update='nix-channel --update; sudo nixos-rebuild switch --upgrade'
 
 # flatpak 
 alias fpa='flatpak install'
@@ -143,11 +120,11 @@ cdir() { mkdir $1 && cd $1 }
 cmd()  { man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; }
 
 # places
-alias desk='cd ~/Desktop'
-alias down='cd ~/Downloads'
-alias docs='cd ~/Documents'
-alias proj='cd ~/Projects'
-alias conf='cd ~/.config'
+desk() { cd ~/Desktop/$1/$2 }
+down() { cd ~/Downloads/$1/$2 }
+docs() { cd ~/Documents/$1/$2 }
+proj() { cd ~/Projects/$1/$2 }
+conf() { cd ~/.config/$1/$2 }
 
 # quick notes
 alias nl="eza ~/Documents/notes/"
@@ -157,15 +134,15 @@ nd() { rm ~/Documents/notes/$1 }
 alias td="$EDITOR ~/Documents/notes/todo"
 
 # better defaults 
-alias bnet='sudo bandwhich'
 alias ss='sudo systemctl'
 alias dockerd='sudo dockerd'
 alias sv="sudo $EDITOR"
 alias v=$EDITOR
 alias vim=$EDITOR 
 alias nano=$EDITOR
-alias htop=btop
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias htop=btop
+alias ntop='sudo bandwhich'
 
 # simplified commands
 alias battery='acpi -ib; echo "\nlast= 76%"'
@@ -203,16 +180,12 @@ eatlog() {
 # dev cmds
 alias readme="$EDITOR README.md"
 alias gignore="$EDITOR .gitignore"
+alias gconfig="$EDITOR .git/config"
 alias makefile="$EDITOR Makefile"
 alias todo="$EDITOR todo"
 alias dcompu='sudo docker-compose up -d'
 alias dcompd='sudo docker-compose down'
 srcmain() { $EDITOR ./src/main.$1 }
-
-alias py=python3
-alias pye='python3 -m venv environment'
-alias pys='source ./environment/bin/activate'
-alias pyx='deactivate'
 
 alias gorun="go run main.go"
 alias gobuild="go build main.go"
@@ -269,8 +242,10 @@ alias tmk="tmux kill-session -t"
 alias tmK="tmux kill-session"
 alias tml="tmux ls"
 alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
-tm()  { fullscreen "$TMUXIFIER load-session $1" }
 tmd() { rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh }
+tm()  { 
+    mate-terminal --full-screen -e "$TMUXIFIER load-session $1" && exit
+}
 tmL() { 
     exa ~/.config/tmux/plugins/tmuxifier/layouts | awk -F\. '{ORS=" "; print $1}'; 
     echo ""
