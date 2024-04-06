@@ -111,7 +111,7 @@ vim.api.nvim_set_keymap('n', '<leader>n',
 
 -- Map <leader>n to clear search highlights (:noh)
 vim.api.nvim_set_keymap('n', '<leader>l', 
-    ':set colorcolumn=120<CR>',
+    ':set colorcolumn=100<CR>',
     { noremap = true, silent = true }
 )
 
@@ -138,8 +138,7 @@ vim.cmd('set laststatus=3')
 vim.cmd('set nu relativenumber')
 vim.cmd('set nocompatible')
 vim.cmd('set linebreak')
-vim.cmd('set showbreak=+++')
-vim.cmd('set textwidth=120')
+vim.cmd('set textwidth=100')
 
 vim.cmd('set showmatch')
 vim.cmd('set visualbell')
