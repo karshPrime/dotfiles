@@ -3,91 +3,59 @@
 # --------------------------------------------------------------------------------------
 # -- INIT CONFIG -----------------------------------------------------------------------
 
+# zsh history
 HISTFILE=~/.config/zsh/histfile 
 HISTSIZE=1000 
 SAVEHIST=1000
-
-setopt autocd extendedglob
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 
+# cd into directories without cd
+setopt autocd extendedglob
+
+# explicit declaration
 export EDITOR=nvim
-export grep=rg
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 # Plugins
-source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.config/zsh/zsh-history/zsh-history.zsh
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh 
+source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
+source ~/.config/zsh/zsh-history/zsh-history.zsh 
 
-fpath=(~/.config/zsh/zsh-completions/src $fpath)
-
-
-# --------------------------------------------------------------------------------------
-# -- FUNCTIONS -------------------------------------------------------------------------
-
-# hide directory path for git repositories
-function zsh_directory_name() {
-  emulate -L zsh
-  [[ $1 == d ]] || return
-  while [[ $2 != / ]]; do
-    if [[ -e $2/.git ]]; then
-      typeset -ga reply=(${2:t} $#2)
-      return
-    fi
-    2=${2:h}
-  done
-  return 1
-}
-
-function count() {
-    ls $1 | wc -l
-}
-
-# clear the terminal with head.sh fetch script 
-function better_clear() {
-    clear
-    sh ~/.config/head.sh
-    zle reset-prompt
-}
-
-zle -N better_clear
+fpath=(~/.config/zsh/zsh-completions/src $fpath) 
 
 
 # --------------------------------------------------------------------------------------
-# -- KEY BINDINGS ----------------------------------------------------------------------
+# -- EASE OF LIFE ----------------------------------------------------------------------
 
-bindkey '^l' better_clear
-bindkey "^[l" clear-screen
-bindkey '^[[1;5D' backward-word
-bindkey '^[[1;5C' forward-word
-bindkey '^[[H' beginning-of-line
-bindkey '^[[F' end-of-line
-bindkey '^[[3~' delete-char
-bindkey '^H' backward-kill-word
-bindkey '^[[3;5~' kill-word
+# -- dotfiles --------------------------------------------------------------------------
 
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+# neofetch
+alias nedit="$EDITOR $HOME/.config/nvim/init.lua"
 
-# bindkey -s '^U' 'clear-line\n'
-bindkey -s '^[c' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
+# tmux
+alias tedit="$EDITOR $HOME/.config/tmux/tmux.conf"
+
+# zsh
+alias zedit="$EDITOR $HOME/.zshrc"
+alias zupdate="source $HOME/.zshrc"
+
+# nixos
+alias xedit="sudo $EDITOR /etc/nixos/configuration.nix"
+alias xlist="sudo nix-env --list-generations --profile /nix/var/nix/profiles/system"
+alias xrm="sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations"
+alias xrmall="sudo nix-collect-garbage --delete-old"
+alias xupdate="sudo nixos-rebuild switch"
 
 
-# --------------------------------------------------------------------------------------
-# -- ALIASES ---------------------------------------------------------------------------
+# -- package management ----------------------------------------------------------------
 
-# nix management
-alias nixe="sudo $EDITOR /etc/nixos/configuration.nix"
-alias nixl='sudo nix-env --list-generations --profile /nix/var/nix/profiles/system'
-alias nixd='sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations'
-alias nixx='sudo nix-collect-garbage --delete-old'
-alias nixr='sudo nixos-rebuild switch'
+# nix packages
+alias xpkgs="nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2- | less"
+alias xfind="nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2- | grep -i"
 
 # flatpak 
 alias fpa='flatpak install'
@@ -98,113 +66,75 @@ alias fpl='flatpak list'
 alias fpi='flatpak info'
 alias fpx='flatpak remote-add --if-not-exists'
 
-# file navigation
+
+# -- file navigation -------------------------------------------------------------------
+
+# look around
 alias l='eza -la --color=always --group-directories-first'
 alias ls='eza'
 alias lh='eza -a | egrep "^\."'
 alias la='eza -a --color=always --group-directories-first'
 alias tree='eza -T --group-directories-first --icons=always'
+alias wk='cd $(walk --icons)'
+
+# process files
 alias c='bat -n'
 alias cat='bat -pp'
-alias wk='cd $(walk --icons)'
 alias rm='rm -rf'
 alias srm='sudo rm -rf'
-cdir() { mkdir $1 && cd $1 }
-cmd()  { man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; }
 
-# places
+# easier navigate
+alias tordown="cd ~/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
+cdir() { mkdir $1 && cd $1 }
 desk() { cd ~/Desktop/$1/$2 }
 down() { cd ~/Downloads/$1/$2 }
 docs() { cd ~/Documents/$1/$2 }
 proj() { cd ~/Projects/$1/$2 }
 conf() { cd ~/.config/$1/$2 }
+count() { ls $1 | wc -l }
 
-# quick notes
+
+# -- notes -----------------------------------------------------------------------------
+
 alias nl="eza ~/Documents/notes/"
+alias td="$EDITOR ~/Documents/notes/todo"
+
 nr() { bat -n ~/Documents/notes/$1 }
 nw() { $EDITOR ~/Documents/notes/$1 }
 nd() { rm ~/Documents/notes/$1 }
-alias td="$EDITOR ~/Documents/notes/todo"
 
-# better defaults 
-alias ss='sudo systemctl'
-alias dockerd='sudo dockerd'
-alias sv="sudo $EDITOR"
-alias v=$EDITOR
-alias vim=$EDITOR 
-alias nano=$EDITOR
-alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
-alias htop=btop
-alias ntop='sudo bandwhich'
 
-# simplified commands
-alias battery='acpi -ib; echo "\nlast= 76%"'
-alias fonts='fc-list | cut -f2 -d: | sort -u'
-alias scan="prime-run clamscan -r --bell"
-alias assem="objdump -M intel -D"
-alias yt='yt-dlp'
-alias tordown="cd ~/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
-alias z=~/Desktop/zellij
-alias dothome='sh ~/Desktop/ninja/xdg-ninja.sh --skip-unsupported'
+# -- development -----------------------------------------------------------------------
 
-# silly scripts
-alias batcap='echo 80 | sudo tee /sys/class/power_supply/BAT1/charge_control_end_threshold'
-alias tools="~/Projects/sillyScripts/tools.sh"
-alias toolx="$EDITOR ~/Projects/sillyScripts/tools.sh"
-alias colors='sh ~/Projects/sillyScripts/colors.sh'
-alias periodic='sh ~/Projects/sillyScripts/periodic.sh'
-alias resistor=~/Projects/sillyScripts/resistor
-alias toipe='./.local/share/cargo/bin/toipe'
-alias fetch='~/.config/fetch.sh'
-alias cpbig='~/Projects/sillyScripts/cpbig.sh'
+# shell
+alias dev='nix-shell --run zsh'
 
-# EAT40005
-eatlog() {
-    FILENAME="txts/week-$1.txt"
-    cd ~/Projects/eat40005-worklog
-    touch $FILENAME 
-    mousepad $FILENAME
-    ./run.sh $FILENAME
-    FILENAME="export/102874485_week-$1.pdf"
-    evince $FILENAME
-    cd -
-}
+# ssh
+bindkey -s '^[s' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
 
-# dev cmds
+# simple edit 
 alias readme="$EDITOR README.md"
 alias gignore="$EDITOR .gitignore"
 alias gconfig="$EDITOR .git/config"
 alias makefile="$EDITOR Makefile"
 alias todo="$EDITOR todo"
-alias dcompu='sudo docker-compose up -d'
-alias dcompd='sudo docker-compose down'
 srcmain() { $EDITOR ./src/main.$1 }
 
-alias gorun="go run main.go"
-alias gobuild="go build main.go"
-alias gotidy="go mod tidy"
-gonew() { 
-    mkdir $1 && cd $1 && git init && go mod init $1;
-    cp ~/Projects/LICENSE . && git add LICENSE && git commit -m "Apache v2.0"
-}
-rsnew() {
-    cargo new $1 && cd $1;
-    cp ~/Projects/LICENSE . && git add LICENSE && git commit -m "Apache v2.0"
-    git add -A; git commit -m "project init"
-}
+# assemby
+alias assem="objdump -M intel -D"
 
-alias erbuild="cargo rustc -- -C link-arg=--script=./linker.ld"
-alias ercopy="aarch64-linux-gnu-objcopy -O binary ./target/aarch64-unknown-none/debug/rustpi_core ./mount/kernel7.img"
-alias erdump="aarch64-linux-gnu-objdump -d target/aarch64-unknown-none/debug/rustpi_core"
-alias allcode='sh allcode.sh && cat allcode.txt | xclip -selection clipboard'
+# docker 
+alias dcompu='sudo docker-compose up -d'
+alias dcompd='sudo docker-compose down'
+alias dockerd='sudo dockerd'
 
 # git shortcuts
 alias gita='git add'
 alias gitA='git add -A'
 alias gitc='git commit'
 alias gitC='git commit -m'
-alias gitd='git diff --stat'
-alias gitD='git diff'
+alias gitD='git diff --stat'
+alias gitd='git diff'
 alias gitl='git log'
 alias gitg='git clone'
 alias gits='git status'
@@ -221,11 +151,23 @@ alias giti='onefetch --no-title --no-color-palette --ascii-input "$(cat ~/.confi
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
-# yt-dlp shortcuts
-alias ytvb='yt-dlp -q -f bestvideo -o "~/Videos/offlineYT/%(title)s.%(ext)s"'
-alias ytab='yt-dlp -q -f bestaudio -o "~/Music/offlineYT/%(title)s.%(ext)s"'
-alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
-alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
+# go development 
+alias gorun="go run main.go"
+alias gobuild="go build main.go"
+alias gotidy="go mod tidy"
+
+# new go project
+gonew() { 
+    mkdir $1 && cd $1 && git init && go mod init $1;
+    cp ~/Projects/LICENSE . && git add LICENSE && git commit -m "Apache v2.0"
+}
+
+# new rust project
+rsnew() {
+    cargo new $1 && cd $1;
+    cp ~/Projects/LICENSE . && git add LICENSE && git commit -m "Apache v2.0"
+    git add -A; git commit -m "project init"
+}
 
 # tmux launch shortcuts
 TMUXIFIER="$HOME/.config/tmux/tmuxifier/bin/tmuxifier"
@@ -235,36 +177,112 @@ alias tmk="tmux kill-session -t"
 alias tmK="tmux kill-session"
 alias tml="tmux ls"
 alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
-tmd() { rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh }
+
+# remove tmux session
+tmd() { 
+    rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh 
+}
+
+# start new tmux session in full-screen terminal
 tm()  { 
     mate-terminal --full-screen -e "$TMUXIFIER load-session $1" && exit
 }
+
+# list all sessions
 tmL() { 
     exa ~/.config/tmux/plugins/tmuxifier/layouts | awk -F\. '{ORS=" "; print $1}'; 
     echo ""
 }
 
-# dotfiles manage
-dotfiles() {
-    cd ~/Projects/dotfiles;
-    cp ~/.config/nvim/init.lua ./vimrc;
-    cp ~/.config/tmux/tmux.conf ./tmux.conf;
-    cp ~/.zshrc ./zshrc;
+# search for cmds
+cmd() { 
+    man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; 
 }
-alias nedit="$EDITOR $HOME/.config/nvim/init.lua"
-alias tedit="$EDITOR $HOME/.config/tmux/tmux.conf"
-alias zedit="$EDITOR $HOME/.zshrc"
-alias zupdate='source $HOME/.zshrc'
+
+# EAT40005
+eatlog() {
+    FILENAME="txts/week-$1.txt"
+    cd ~/Projects/eat40005-worklog
+    touch $FILENAME 
+    mousepad $FILENAME
+    ./run.sh $FILENAME
+    FILENAME="export/102874485_week-$1.pdf"
+    evince $FILENAME
+    cd -
+}
 
 
-# --------------------------------------------------------------------------------------
-# -- CLEANER HOME DIRECTORY ------------------------------------------------------------
+# -- better defaults -------------------------------------------------------------------
 
+# keyboard behaviour 
+bindkey "^[l" clear-screen
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+bindkey '^[[3~' delete-char
+bindkey '^H' backward-kill-word
+bindkey '^[[3;5~' kill-word
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# tops
+alias htop=btop
+alias ntop='sudo bandwhich'
+
+# sudo by default 
+alias ss='sudo systemctl'
+alias sv="sudo $EDITOR"
+
+# human result
+alias free='free -h'
+alias df='df -h'
+
+# convenience 
+bindkey -s '^[c' ' | wl-copy^M'
+alias v=$EDITOR
+alias vim=$EDITOR 
+alias nano=$EDITOR
+alias battery='acpi -ib; echo "\nlast= 76%"'
+alias fonts='fc-list | cut -f2 -d: | sort -u'
+
+
+# -- media control ---------------------------------------------------------------------
+
+alias yt='yt-dlp'
+alias ytvb='yt-dlp -q -f bestvideo -o "~/Videos/offlineYT/%(title)s.%(ext)s"'
+alias ytab='yt-dlp -q -f bestaudio -o "~/Music/offlineYT/%(title)s.%(ext)s"'
+alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
+alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
+
+
+# -- silly scripts ---------------------------------------------------------------------
+
+alias batcap='echo 80 | sudo tee /sys/class/power_supply/BAT1/charge_control_end_threshold'
+alias tools="~/Projects/sillyScripts/tools.sh"
+alias toolx="$EDITOR ~/Projects/sillyScripts/tools.sh"
+alias colors='sh ~/Projects/sillyScripts/colors.sh'
+alias periodic='sh ~/Projects/sillyScripts/periodic.sh'
+alias resistor=~/Projects/sillyScripts/resistor
+alias toipe='./.local/share/cargo/bin/toipe'
+alias fetch='sh ~/.config/fetch.sh'
+alias cpbig='~/Projects/sillyScripts/cpbig.sh'
+
+
+# -- xdg-ninja -------------------------------------------------------------------------
+
+alias xdgninja='sh ~/Desktop/ninja/xdg-ninja.sh --skip-unsupported'
+
+# xdg paths
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+# default directories
 export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
 export LESSHISTFILE="$XDG_STATE_HOME"/less/history
 export JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java -Djavafx.cachedir=${XDG_CACHE_HOME}/openjfx"
@@ -279,7 +297,6 @@ export GOPATH="$XDG_DATA_HOME/go"
 
 
 # --------------------------------------------------------------------------------------
-# -- PROMPT ----------------------------------------------------------------------------
-
+# -- STARSHIP PROMPT -------------------------------------------------------------------
 eval "$(starship init zsh)"
 
