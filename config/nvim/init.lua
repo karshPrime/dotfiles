@@ -22,9 +22,10 @@ require('packer').startup(function()
     use 'christoomey/vim-tmux-navigator' -- vim tmux keybinds
     use 'airblade/vim-gitgutter'         -- git 
     use 'mg979/vim-visual-multi'         -- multiple cursors (ctrl+n)
-    use 'stankovictab/mgz.nvim'		 -- color theme
     use 'kylechui/nvim-surround'	 -- wrap around text
     use 'folke/which-key.nvim'           -- more info for keybinds
+    use 'Shatur/neovim-ayu'              -- color theme
+
 
     use {  -- nvim cmp
 	'hrsh7th/cmp-nvim-lsp',
@@ -63,13 +64,13 @@ vim.api.nvim_set_keymap('n', 'ZE',
 )
 
 -- Explore mode on new pane on RHS
-vim.api.nvim_set_keymap('n', 'ZV', 
+vim.api.nvim_set_keymap('n', 'ZH', 
     ':vsplit | :Explore<CR>',
     { noremap = true, silent = true }
 )
 
 -- Explore mode on new pane at Bottom
-vim.api.nvim_set_keymap('n', 'ZH', 
+vim.api.nvim_set_keymap('n', 'ZV', 
     ':split | :Explore<CR>',
     { noremap = true, silent = true }
 )
@@ -122,6 +123,12 @@ vim.api.nvim_set_keymap('n', '<leader>L',
     ':set colorcolumn=<CR>', 
     { noremap = true, silent = true }
 )
+
+vim.api.nvim_set_keymap('n', '<leader>o',
+    ':only<CR>',
+    { noremap = true, silent = true }
+)
+
 
 
 ----------------------------------------------------------------------------------------
@@ -267,15 +274,32 @@ require("lspconfig").gopls.setup {}
 
 ------------------------------------------------------------------------- Color Theme --
 
-vim.g.mgz_disable_background = true
-vim.cmd.colorscheme("mgz")
+require('ayu').colorscheme()
+require('ayu').setup({
+    overrides = {
+        Normal = { bg = "None" },
+        ColorColumn = { bg = "#121212" },
+        SignColumn = { bg = "None" },
+        Folded = { bg = "None" },
+        FoldColumn = { bg = "None" },
+        CursorLine = { bg = "#121212" },
+        CursorColumn = { bg = "#121212" },
+        WhichKeyFloat = { bg = "None" },
+        VertSplit = { bg = "None" },
+    },
+})
+vim.cmd.colorscheme("ayu-dark")
 
 -------------------------------------------------------------------------- Statusline --
 
-require('lualine').setup()
+require('lualine').setup({
+  options = {
+    theme = 'ayu',
+  },
+})
 
 -- border line colour
-vim.cmd('highlight VertSplit guifg=#ff5555 guibg=NONE ctermfg=160 ctermbg=NONE')
+vim.cmd('highlight VertSplit guifg=#555753 guibg=NONE ctermfg=160 ctermbg=NONE')
 
 
 ---------------------------------------------------------------------------- Surround --
