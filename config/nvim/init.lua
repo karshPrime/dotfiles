@@ -23,6 +23,8 @@ require('packer').startup(function()
     use 'airblade/vim-gitgutter'         -- git 
     use 'mg979/vim-visual-multi'         -- multiple cursors (ctrl+n)
     use 'stankovictab/mgz.nvim'		 -- color theme
+    use 'kylechui/nvim-surround'	 -- wrap around text
+    use 'folke/which-key.nvim'           -- more info for keybinds
 
     use {  -- nvim cmp
 	'hrsh7th/cmp-nvim-lsp',
@@ -44,7 +46,7 @@ require('packer').startup(function()
 	requires = { {'nvim-lua/plenary.nvim'} }
     }
 
-    -- :PackerInstall or :PackerSync
+    -- :PackerInstall :PackerSync
 end)
 
 
@@ -109,22 +111,17 @@ vim.api.nvim_set_keymap('n', '<leader>n',
 )
 
 
--- Map <leader>n to clear search highlights (:noh)
+-- Map <leader>l to clear search highlights (:noh)
 vim.api.nvim_set_keymap('n', '<leader>l', 
     ':set colorcolumn=100<CR>',
     { noremap = true, silent = true }
 )
 
--- Map <leader>n to clear search highlights (:noh)
+-- Map <leader>L to clear search highlights (:noh)
 vim.api.nvim_set_keymap('n', '<leader>L', 
     ':set colorcolumn=<CR>', 
     { noremap = true, silent = true }
 )
-
-----------------------------------------------------------------------------------------
--- Color Theme -------------------------------------------------------------------------
-vim.g.mgz_disable_background = true
-vim.cmd.colorscheme("mgz")
 
 
 ----------------------------------------------------------------------------------------
@@ -154,7 +151,6 @@ vim.cmd('set smartindent')
 vim.cmd('set smarttab')
 vim.cmd('set softtabstop=4')
 
-vim.cmd('set ruler')
 vim.cmd('set undolevels=1000')
 vim.cmd('set backspace=indent,eol,start')
 
@@ -267,17 +263,27 @@ require("lspconfig").gopls.setup {}
 
 
 ----------------------------------------------------------------------------------------
--- Config Statusline -------------------------------------------------------------------
+-- Config Plugins ----------------------------------------------------------------------
+
+------------------------------------------------------------------------- Color Theme --
+
+vim.g.mgz_disable_background = true
+vim.cmd.colorscheme("mgz")
+
+-------------------------------------------------------------------------- Statusline --
 
 require('lualine').setup()
 
--- config border line colour
+-- border line colour
 vim.cmd('highlight VertSplit guifg=#ff5555 guibg=NONE ctermfg=160 ctermbg=NONE')
 
 
+---------------------------------------------------------------------------- Surround --
 
-----------------------------------------------------------------------------------------
--- Config Git Gutter -------------------------------------------------------------------
+require("nvim-surround").setup()
+
+
+-------------------------------------------------------------------------- Git Gutter --
 
 vim.g.gitgutter_enabled = 1       -- Enable GitGutter always
 vim.o.signcolumn = 'yes'          -- Always show the sign column (gutter)
@@ -289,8 +295,7 @@ vim.cmd('highlight GitGutterChange guifg=blue ctermfg=blue')
 vim.cmd('highlight GitGutterDelete guifg=red ctermfg=red')
 
 
-----------------------------------------------------------------------------------------
--- Config Nvim-tree --------------------------------------------------------------------
+--------------------------------------------------------------------------- Nvim-tree --
 
 require("nvim-tree").setup()
 
@@ -299,13 +304,44 @@ vim.api.nvim_set_keymap('n', 'ZX', ':NvimTreeToggle<CR>', {
     silent = true
 })
 
-----------------------------------------------------------------------------------------
--- Config Telescope --------------------------------------------------------------------
+require("nvim-tree").setup({
+  on_attach = on_attach,
+})
+
+
+---------------------------------------------------------------------------- Surround --
+
+require("nvim-surround").setup({})
+
+--  USAGE
+--  Old text                    Command         New text
+-----------------------------------------------------------------------
+--  surr*ound_words             ysiw)           (surround_words)
+--  *make strings               ys$"            "make strings"
+--  [delete ar*ound me!]        ds]             delete around me!
+--  remove <b>HTML t*ags</b>    dst             remove HTML tags
+--  'change quot*es'            cs'"            "change quotes"
+--  <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
+--  delete(functi*on calls)     dsf             function calls
+
+
+--------------------------------------------------------------------------- Which Key --
+
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+require("which-key").setup {}
+
+
+--------------------------------------------------------------------------- Telescope --
 
 local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>a', builtin.git_commits, {})
+vim.keymap.set('n', '<leader>q', builtin.git_status, {})
 vim.keymap.set('n', '<leader>z', builtin.git_files, {})
-vim.keymap.set('n', '<leader>x', builtin.buffers, {})
-vim.keymap.set('n', '<leader>c', builtin.find_files, {})
-vim.keymap.set('n', '<leader>a', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>s', builtin.help_tags, {})
+
+vim.keymap.set('n', '<leaderdx', builtin.find_files, {})
+vim.keymap.set('n', '<leader>c', builtin.buffers, {})
+
+vim.keymap.set('n', '<leader>s', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>d', builtin.marks, {})
 
