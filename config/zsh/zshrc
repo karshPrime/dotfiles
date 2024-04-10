@@ -1,19 +1,4 @@
-# --------------------------------------------------------------------------------------
-# -- THEMES AND PLUGINS ----------------------------------------------------------------
-
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then 
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" 
-fi 
-
-USE_POWERLINE="true" 
-HAS_WIDECHARS="false" 
-
-source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh 
-source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
-source ~/.config/zsh/zsh-history/zsh-history.zsh 
-
-fpath=(~/.config/zsh/zsh-completions/src $fpath) 
-
+# .zshrc
 
 # --------------------------------------------------------------------------------------
 # -- INIT CONFIG -----------------------------------------------------------------------
@@ -32,6 +17,14 @@ export grep=rg
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+
+# Plugins
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/zsh-history/zsh-history.zsh
+
+fpath=(~/.config/zsh/zsh-completions/src $fpath)
+
 
 # --------------------------------------------------------------------------------------
 # -- FUNCTIONS -------------------------------------------------------------------------
@@ -288,8 +281,5 @@ export GOPATH="$XDG_DATA_HOME/go"
 # --------------------------------------------------------------------------------------
 # -- PROMPT ----------------------------------------------------------------------------
 
-[[ ! -f ~/.config/powerlevel10k/p10k.zsh ]] || source ~/.config/powerlevel10k/p10k.zsh
-source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
-
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+eval "$(starship init zsh)"
 
