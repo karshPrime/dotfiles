@@ -3,6 +3,8 @@
 # --------------------------------------------------------------------------------------
 # -- INIT CONFIG -----------------------------------------------------------------------
 
+sh ~/.config/fetch.sh
+
 # zsh history
 HISTFILE=~/.config/zsh/histfile 
 HISTSIZE=1000 
@@ -108,6 +110,7 @@ nd() { rm ~/Documents/notes/$1 }
 
 # shell
 alias dev='nix-shell --run zsh'
+alias devinit='. ~/Projects/sillyScripts/project_initialise.sh'
 
 # ssh
 bindkey -s '^[s' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
@@ -146,8 +149,7 @@ alias gitb='git branch -a'
 alias gitu="git reset --soft 'HEAD^'"
 alias gito='git remote add origin'
 alias gitr="git restore"
-alias giti='onefetch --no-title --no-color-palette --ascii-input "$(cat ~/.config/onefetch.art)"
-'
+alias giti='onefetch --no-title --no-color-palette --ascii-input "$(cat ~/.config/onefetch.art)"'
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
@@ -242,12 +244,15 @@ alias free='free -h'
 alias df='df -h'
 
 # convenience 
-bindkey -s '^[c' ' | wl-copy^M'
+bindkey -s '^[c' ' | wl-copy^M'  # copy output to clipboard
+bindkey -s '^[r' ' | less^M'     # display output in less 
+bindkey -s '^[n' ' | wc -l^M'    # count (Number of) results
 alias v=$EDITOR
 alias vim=$EDITOR 
 alias nano=$EDITOR
 alias battery='acpi -ib; echo "\nlast= 76%"'
 alias fonts='fc-list | cut -f2 -d: | sort -u'
+alias diff="diff --color='always'"
 
 
 # -- media control ---------------------------------------------------------------------
@@ -294,6 +299,7 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export XAUTHORITY="$XDG_CONFIG_HOME"/Xauthority
 export TMUXIFIER_LAYOUT_PATH="$XDG_CONFIG_HOME/tmux/tmuxifier/layouts/"
 export GOPATH="$XDG_DATA_HOME/go"
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
 
 # --------------------------------------------------------------------------------------
