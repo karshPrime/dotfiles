@@ -22,29 +22,29 @@ require('packer').startup(function()
     use 'christoomey/vim-tmux-navigator' -- vim tmux keybinds
     use 'airblade/vim-gitgutter'         -- git 
     use 'mg979/vim-visual-multi'         -- multiple cursors (ctrl+n)
-    use 'kylechui/nvim-surround'	 -- wrap around text
     use 'folke/which-key.nvim'           -- more info for keybinds
     use 'Shatur/neovim-ayu'              -- color theme
-
+    use 'karshPrime/only-tmux.nvim'      -- tmux panels :only
 
     use {  -- nvim cmp
-	'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
-	'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-cmdline',
         'hrsh7th/nvim-cmp',
     }
 
     use {  -- LSP
-	"williamboman/mason.nvim",
+        "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim", -- multiline errors
     }
 
     use {  -- telescope
-	'nvim-telescope/telescope.nvim', tag = '0.1.5',
+        'nvim-telescope/telescope.nvim', tag = '0.1.5',
         -- or                            , branch = '0.1.x',
-	requires = { {'nvim-lua/plenary.nvim'} }
+        requires = { {'nvim-lua/plenary.nvim'} }
     }
 
     -- :PackerInstall :PackerSync
@@ -53,6 +53,8 @@ end)
 
 ----------------------------------------------------------------------------------------
 -- Key Bindings ------------------------------------------------------------------------
+
+-- J combines the current line with the one bellow
 
 -- Make :W work same as :w
 vim.cmd([[command! -nargs=0 W w]])
@@ -111,24 +113,53 @@ vim.api.nvim_set_keymap('n', '<leader>n',
     { noremap = true, silent = true }
 )
 
-
--- Map <leader>l to clear search highlights (:noh)
+-- Map <leader>l to show colorcolumn at 100 col
 vim.api.nvim_set_keymap('n', '<leader>l', 
     ':set colorcolumn=100<CR>',
     { noremap = true, silent = true }
 )
 
--- Map <leader>L to clear search highlights (:noh)
+-- Map <leader>L to hide colour column
 vim.api.nvim_set_keymap('n', '<leader>L', 
     ':set colorcolumn=<CR>', 
     { noremap = true, silent = true }
 )
 
+-- minimise all other splits to buffer
 vim.api.nvim_set_keymap('n', '<leader>o',
     ':only<CR>',
     { noremap = true, silent = true }
 )
 
+-- delete everything 
+vim.api.nvim_set_keymap('n', 'dA',
+    ':norm gg0dG<CR>',
+    { noremap = true, silent = true }
+)
+
+-- copy everything 
+vim.api.nvim_set_keymap('n', 'yA',
+    ':norm mygg0yG`y<CR>',
+    { noremap = true, silent = true }
+)
+
+-- better up scroll 
+vim.api.nvim_set_keymap('n', '<C-u>',
+    ':norm Hzz<CR>',
+    { noremap = true, silent = true }
+)
+
+-- better down scroll
+vim.api.nvim_set_keymap('n', '<C-d>',
+    ':norm Lzz<CR>',
+    { noremap = true, silent = true }
+)
+
+-- faster %s 
+vim.api.nvim_set_keymap('n', '<space>s',
+    ':%s/',
+    { noremap = true, silent = false }
+)
 
 
 ----------------------------------------------------------------------------------------
@@ -153,9 +184,10 @@ vim.cmd('set ignorecase')
 vim.cmd('set incsearch')
 
 vim.cmd('set autoindent')
-vim.cmd('set shiftwidth=4')
 vim.cmd('set smartindent')
-vim.cmd('set smarttab')
+vim.cmd('set expandtab') 
+vim.cmd('set tabstop=4') 
+vim.cmd('set shiftwidth=4') 
 vim.cmd('set softtabstop=4')
 
 vim.cmd('set undolevels=1000')
@@ -163,102 +195,61 @@ vim.cmd('set backspace=indent,eol,start')
 
 
 ----------------------------------------------------------------------------------------
--- Config Nvim-CMP ---------------------------------------------------------------------
+-- Nvim-CMP ----------------------------------------------------------------------------
 
 local cmp = require'cmp'
 
 cmp.setup({
     snippet = {
-	-- REQUIRED - you must specify a snippet engine
-	expand = function(args)
-	    vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-	    -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-	    -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-	    -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-	end,
+    expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) 
+    end,
     },
 
-    window = {
-	-- completion = cmp.config.window.bordered(),
-	-- documentation = cmp.config.window.bordered(),
-    },
+    window = { },
 
     mapping = cmp.mapping.preset.insert({
-	['<C-b>'] = cmp.mapping.scroll_docs(-4),
-	['<C-f>'] = cmp.mapping.scroll_docs(4),
-	['<C-Space>'] = cmp.mapping.complete(),
-	['<C-e>'] = cmp.mapping.abort(),
-	['<CR>'] = cmp.mapping.confirm({ select = true }),
-	-- Accept currently selected item. Set `select` to `false` to only confirm 
-	-- explicitly selected items.
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
     }),
 
-    sources = cmp.config.sources({
-	{ name = 'nvim_lsp' },
-	{ name = 'vsnip' }, -- For vsnip users.
-	-- { name = 'luasnip' }, -- For luasnip users.
-	-- { name = 'ultisnips' }, -- For ultisnips users.
-	-- { name = 'snippy' }, -- For snippy users.
-    }, {
-	{ name = 'buffer' },
-    })
+    sources = cmp.config.sources(
+        { { name = 'nvim_lsp' }, { name = 'vsnip' }, },
+        { { name = 'buffer' }, }
+    )
 })
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-	{ name = 'git' },
-    }, {
-	{ name = 'buffer' },
-    })
+    sources = cmp.config.sources({ { name = 'git' }, }, { { name = 'buffer' }, })
 })
 
 -- Use buffer source for `/` and `?`
--- (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-	{ name = 'buffer' }
-    }
+    sources = { { name = 'buffer' } }
 })
 
 -- Use cmdline & path source for ':' 
--- (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-	{ name = 'path' }
-    }, {
-	{ name = 'cmdline' }
-    })
+    sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } })
 })
-
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-require('lspconfig')['rust_analyzer'].setup {
-    capabilities = capabilities
-}
-
-require('lspconfig')['clangd'].setup {
-    capabilities = capabilities
-}
-
-require('lspconfig')['gopls'].setup {
-    capabilities = capabilities
-}
-
--- require('lspconfig')['julials'].setup {
---     capabilities = capabilities
--- }
-
--- require('lspconfig')['pyright'].setup {
---     capabilities = capabilities
--- }
 
 
 ----------------------------------------------------------------------------------------
 -- Config LSP --------------------------------------------------------------------------
+
+-- Language Support --------------------------------------------------------------------
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+require('lspconfig')['rust_analyzer'].setup { capabilities = capabilities }
+require('lspconfig')['clangd'].setup { capabilities = capabilities }
+require('lspconfig')['gopls'].setup { capabilities = capabilities }
 
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -266,13 +257,63 @@ require("mason-lspconfig").setup()
 require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").clangd.setup {}
 require("lspconfig").gopls.setup {}
--- require("lspconfig").julials.setup {}
+
+
+-- Multiline Errors --------------------------------------------------------------------
+
+require("lsp_lines").setup()
+vim.diagnostic.config({ virtual_text = false, })  -- disable default lsp errors
+
+-- toggle errors
+vim.keymap.set(
+    "",
+    "<space><space>",
+    require("lsp_lines").toggle,
+    { desc = "Toggle lsp_lines" }
+)
+
+
+-- LSP Keybinds ------------------------------------------------------------------------
+
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+        local opts = { buffer = ev.buf }
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', 'K',  vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', '<space>k',  vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set('n', '<space>D',  vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+        
+        vim.keymap.set('n', '<space>f', function()
+            vim.lsp.buf.format { async = true }
+        end, opts)
+        
+        vim.keymap.set('n', '<space>wl', function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, opts)
+    end,
+})
 
 
 ----------------------------------------------------------------------------------------
 -- Config Plugins ----------------------------------------------------------------------
 
-------------------------------------------------------------------------- Color Theme --
+-- Color Theme -------------------------------------------------------------------------
 
 require('ayu').colorscheme()
 require('ayu').setup({
@@ -290,7 +331,8 @@ require('ayu').setup({
 })
 vim.cmd.colorscheme("ayu-dark")
 
--------------------------------------------------------------------------- Statusline --
+
+-- Statusline --------------------------------------------------------------------------
 
 require('lualine').setup({
   options = {
@@ -302,12 +344,7 @@ require('lualine').setup({
 vim.cmd('highlight VertSplit guifg=#555753 guibg=NONE ctermfg=160 ctermbg=NONE')
 
 
----------------------------------------------------------------------------- Surround --
-
-require("nvim-surround").setup()
-
-
--------------------------------------------------------------------------- Git Gutter --
+-- Git Gutter --------------------------------------------------------------------------
 
 vim.g.gitgutter_enabled = 1       -- Enable GitGutter always
 vim.o.signcolumn = 'yes'          -- Always show the sign column (gutter)
@@ -319,7 +356,7 @@ vim.cmd('highlight GitGutterChange guifg=blue ctermfg=blue')
 vim.cmd('highlight GitGutterDelete guifg=red ctermfg=red')
 
 
---------------------------------------------------------------------------- Nvim-tree --
+-- Nvim-tree ---------------------------------------------------------------------------
 
 require("nvim-tree").setup()
 
@@ -333,30 +370,14 @@ require("nvim-tree").setup({
 })
 
 
----------------------------------------------------------------------------- Surround --
-
-require("nvim-surround").setup({})
-
---  USAGE
---  Old text                    Command         New text
------------------------------------------------------------------------
---  surr*ound_words             ysiw)           (surround_words)
---  *make strings               ys$"            "make strings"
---  [delete ar*ound me!]        ds]             delete around me!
---  remove <b>HTML t*ags</b>    dst             remove HTML tags
---  'change quot*es'            cs'"            "change quotes"
---  <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
---  delete(functi*on calls)     dsf             function calls
-
-
---------------------------------------------------------------------------- Which Key --
+-- Which Key ---------------------------------------------------------------------------
 
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 require("which-key").setup {}
 
 
---------------------------------------------------------------------------- Telescope --
+-- Telescope ---------------------------------------------------------------------------
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>a', builtin.git_commits, {})
