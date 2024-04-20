@@ -50,7 +50,7 @@ alias xedit="sudo $EDITOR /etc/nixos/configuration.nix"
 alias xlist="sudo nix-env --list-generations --profile /nix/var/nix/profiles/system"
 alias xrm="sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations"
 alias xrmall="sudo nix-collect-garbage --delete-old"
-alias xupdate="sudo nixos-rebuild switch"
+alias xupdate="sudo nixos-rebuild switch" # --upgrade to upgrade all packages
 
 
 # -- package management ----------------------------------------------------------------
