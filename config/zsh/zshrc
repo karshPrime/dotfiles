@@ -71,6 +71,9 @@ alias fpx='flatpak remote-add --if-not-exists'
 
 # -- file navigation -------------------------------------------------------------------
 
+# common dirs 
+HACK_SCRIPTS="$HOME/Projects/SysHacks"
+
 # look around
 alias l='eza -la --color=always --group-directories-first'
 alias ls='eza'
@@ -82,9 +85,9 @@ alias wk='cd $(walk --icons)'
 # process files
 alias c='bat -n'
 alias cat='bat -pp'
-alias rm='sh ~/Projects/sillyScripts/trash.sh'
+alias rm='sh $HACK_SCRIPTS/trash.sh'
 alias rmc='rm $HOME/.local/share/Trash/files/*'
-alias srm='sudo sh ~/Projects/sillyScripts/trash.sh'
+alias srm='sudo sh $HACK_SCRIPTS/trash.sh'
 
 # easier navigate
 alias tordown="cd ~/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
@@ -111,7 +114,7 @@ nd() { rm ~/Documents/notes/$1 }
 
 # shell
 alias dev='nix-shell --run zsh'
-alias devinit='. ~/Projects/sillyScripts/project_initialise.sh'
+alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
 
 # ssh
 bindkey -s '^[s' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
@@ -121,7 +124,7 @@ alias readme="$EDITOR README.md"
 alias gignore="$EDITOR .gitignore"
 alias gconfig="$EDITOR .git/config"
 alias makefile="$EDITOR Makefile"
-alias todo='$HOME/Projects/sillyScripts/todo.sh'
+alias todo='$HOME/Projects/SysHacks/todo.sh'
 srcmain() { $EDITOR ./src/main.$1 }
 
 # assemby
@@ -250,7 +253,6 @@ bindkey -s '^[r' ' | less^M'     # display output in less
 bindkey -s '^[n' ' | wc -l^M'    # count (Number of) results
 alias v=$EDITOR
 alias vim=$EDITOR 
-alias nano=$EDITOR
 alias battery='acpi -ib; echo "\nlast= 76%"'
 alias fonts='fc-list | cut -f2 -d: | sort -u'
 alias diff="diff --color='always'"
@@ -268,14 +270,14 @@ alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
 # -- silly scripts ---------------------------------------------------------------------
 
 alias batcap='echo 80 | sudo tee /sys/class/power_supply/BAT1/charge_control_end_threshold'
-alias tools="~/Projects/sillyScripts/tools.sh"
-alias toolx="$EDITOR ~/Projects/sillyScripts/tools.sh"
-alias colors='sh ~/Projects/sillyScripts/colors.sh'
-alias periodic='sh ~/Projects/sillyScripts/periodic.sh'
-alias resistor=~/Projects/sillyScripts/resistor
+alias tools="$HACK_SCRIPTS/tools.sh"
+alias toolx="$EDITOR $HACK_SCRIPTS/tools.sh"
+alias colors='sh $HACK_SCRIPTS/colors.sh'
+alias periodic='sh $HACK_SCRIPTS/periodic.sh'
+alias resistor=$HACK_SCRIPTS/resistor
 alias toipe='./.local/share/cargo/bin/toipe'
 alias fetch='sh ~/.config/fetch.sh'
-alias cpbig='~/Projects/sillyScripts/cpbig.sh'
+alias cpbig='$HACK_SCRIPTS/cpbig.sh'
 
 
 # -- xdg-ninja -------------------------------------------------------------------------
