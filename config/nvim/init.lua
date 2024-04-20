@@ -139,7 +139,7 @@ vim.api.nvim_set_keymap('n', 'dA',
 
 -- copy everything 
 vim.api.nvim_set_keymap('n', 'yA',
-    ':norm mygg0yG`y<CR>',
+    ':norm myHmhgg0yG`hzt`y<CR>',
     { noremap = true, silent = true }
 )
 
