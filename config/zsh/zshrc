@@ -121,7 +121,7 @@ alias readme="$EDITOR README.md"
 alias gignore="$EDITOR .gitignore"
 alias gconfig="$EDITOR .git/config"
 alias makefile="$EDITOR Makefile"
-alias todo="$EDITOR todo"
+alias todo='$HOME/Projects/sillyScripts/todo.sh'
 srcmain() { $EDITOR ./src/main.$1 }
 
 # assemby
