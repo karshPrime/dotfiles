@@ -163,6 +163,7 @@ alias tmn="$TMUXIFIER new-session"
 alias tme="$TMUXIFIER edit-session"
 alias tmk="tmux kill-session -t"
 alias tmK="tmux kill-session"
+alias tma='tmux attach-session'
 alias tml="tmux ls"
 alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
 
@@ -249,7 +250,7 @@ alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
 alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
 
 
-# -- silly scripts ---------------------------------------------------------------------
+# -- hacks and patches------------------------------------------------------------------
 
 alias batcap='echo 80 | sudo tee /sys/class/power_supply/BAT1/charge_control_end_threshold'
 alias tools="$HACK_SCRIPTS/tools.sh"
@@ -260,6 +261,7 @@ alias resistor=$HACK_SCRIPTS/resistor
 alias toipe='./.local/share/cargo/bin/toipe'
 alias fetch='sh ~/.config/fetch.sh'
 alias cpbig='$HACK_SCRIPTS/cpbig.sh'
+alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 
 
 # -- xdg-ninja -------------------------------------------------------------------------
