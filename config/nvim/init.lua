@@ -44,7 +44,7 @@ require('packer').startup(function()
     use {  -- telescope
         'nvim-telescope/telescope.nvim', tag = '0.1.5',
         -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = {'nvim-lua/plenary.nvim'} 
     }
 
     -- :PackerInstall :PackerSync
@@ -133,7 +133,7 @@ vim.api.nvim_set_keymap('n', 'dA',
 
 -- copy everything 
 vim.api.nvim_set_keymap('n', 'yA',
-    ':norm myHmhgg0yG`hzt`y<CR>',
+    ':norm myHgg0yG``zt`y<CR>',
     { noremap = true, silent = true }
 )
 
@@ -391,13 +391,13 @@ vim.api.nvim_set_keymap('n', '<leader>O',
 -- Telescope ---------------------------------------------------------------------------
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>a', builtin.git_commits, {})
-vim.keymap.set('n', '<leader>q', builtin.git_status, {})
-vim.keymap.set('n', '<leader>z', builtin.git_files, {})
+vim.keymap.set('n', '<leader>a', builtin.git_commits)
+vim.keymap.set('n', '<leader>q', builtin.git_status)
+vim.keymap.set('n', '<leader>z', builtin.git_files)
 
-vim.keymap.set('n', '<leaderdx', builtin.find_files, {})
-vim.keymap.set('n', '<leader>c', builtin.buffers, {})
+vim.keymap.set('n', '<leaderdx', builtin.find_files)
+vim.keymap.set('n', '<leader>c', builtin.buffers)
 
-vim.keymap.set('n', '<leader>s', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>d', builtin.marks, {})
+vim.keymap.set('n', '<leader>s', builtin.live_grep)
+vim.keymap.set('n', '<leader>d', builtin.marks)
 
