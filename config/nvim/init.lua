@@ -125,12 +125,6 @@ vim.api.nvim_set_keymap('n', '<leader>L',
     { noremap = true, silent = true }
 )
 
--- minimise all other splits to buffer
-vim.api.nvim_set_keymap('n', '<leader>o',
-    ':only<CR>',
-    { noremap = true, silent = true }
-)
-
 -- delete everything 
 vim.api.nvim_set_keymap('n', 'dA',
     ':norm gg0dG<CR>',
@@ -375,6 +369,23 @@ require("nvim-tree").setup({
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 require("which-key").setup {}
+
+
+-- Only TMUX ---------------------------------------------------------------------------
+
+require('only_tmux').setup({
+    new_window_name = "session"
+})
+
+vim.api.nvim_set_keymap('n', '<leader>o',
+    ':lua require("only_tmux").tmuxCloseAll()<CR>', 
+    { noremap = true, silent = true }
+)
+
+vim.api.nvim_set_keymap('n', '<leader>O', 
+    ':lua require("only_tmux").tmuxMoveOthers()<CR>', 
+    { noremap = true, silent = true }
+)
 
 
 -- Telescope ---------------------------------------------------------------------------
