@@ -35,15 +35,17 @@ fpath=(~/.config/zsh/zsh-completions/src $fpath)
 
 # -- dotfiles --------------------------------------------------------------------------
 
+DOTFILES_CONFIG="$HOME/.config/dotfiles/config"
+
 # neofetch
-alias nedit="$EDITOR $HOME/.config/nvim/init.lua"
+alias nedit="$EDITOR $DOTFILES_CONFIG/nvim/init.lua"
 
 # tmux
-alias tedit="$EDITOR $HOME/.config/tmux/tmux.conf"
+alias tedit="$EDITOR $DOTFILES_CONFIG/tmux/tmux.conf"
 
 # zsh
-alias zedit="$EDITOR $HOME/.zshrc"
-alias zupdate="source $HOME/.zshrc"
+alias zedit="$EDITOR $DOTFILES_CONFIG/zsh/zshrc"
+alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
 
 # nixos
 alias xedit="sudo $EDITOR /etc/nixos/configuration.nix"
