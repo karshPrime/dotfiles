@@ -87,9 +87,9 @@ alias wk='cd $(walk --icons)'
 # process files
 alias c='bat -n'
 alias cat='bat -pp'
-alias rm='sh $HACK_SCRIPTS/trash.sh'
-alias rmc='rm $HOME/.local/share/Trash/files/*'
-alias srm='sudo sh $HACK_SCRIPTS/trash.sh'
+alias mr='sh $HACK_SCRIPTS/trash.sh' # my rm
+alias mrc='rm $HOME/.local/share/Trash/files/*'
+alias smr='sudo sh $HACK_SCRIPTS/trash.sh'
 
 # easier navigate
 alias tordown="cd ~/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
