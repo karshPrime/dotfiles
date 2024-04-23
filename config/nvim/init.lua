@@ -1,7 +1,7 @@
 -- init.lua
 
 ----------------------------------------------------------------------------------------
--- Ensure Packer is installed ----------------------------------------------------------
+--# Ensure Packer is installed #--------------------------------------------------------
 
 local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
@@ -11,7 +11,7 @@ end
 
 
 ----------------------------------------------------------------------------------------
--- Initialize Packages -----------------------------------------------------------------
+--# Initialize Packages #---------------------------------------------------------------
 
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'         -- packer manages itself
@@ -52,7 +52,7 @@ end)
 
 
 ----------------------------------------------------------------------------------------
--- Key Bindings ------------------------------------------------------------------------
+--# Key Bindings #----------------------------------------------------------------------
 
 -- J combines the current line with the one bellow
 
@@ -155,9 +155,15 @@ vim.api.nvim_set_keymap('n', '<space>s',
     { noremap = true, silent = false }
 )
 
+-- given I use same heading syntax for all configs
+vim.api.nvim_set_keymap('n', '<space>/',
+    '/--# <CR>',
+    { noremap = true, silent = false }
+)
+
 
 ----------------------------------------------------------------------------------------
--- Additions ---------------------------------------------------------------------------
+--# Additions #-------------------------------------------------------------------------
 
 vim.o.clipboard = "unnamedplus"
 vim.cmd('let g:netrw_bufsettings = "noma nomod nu nobl nowrap ro rnu"')
@@ -189,7 +195,7 @@ vim.cmd('set backspace=indent,eol,start')
 
 
 ----------------------------------------------------------------------------------------
--- Nvim-CMP ----------------------------------------------------------------------------
+--# Nvim-CMP #--------------------------------------------------------------------------
 
 local cmp = require'cmp'
 
@@ -235,9 +241,9 @@ cmp.setup.cmdline(':', {
 
 
 ----------------------------------------------------------------------------------------
--- Config LSP --------------------------------------------------------------------------
+--# Config LSP #------------------------------------------------------------------------
 
--- Language Support --------------------------------------------------------------------
+--# Language Support #------------------------------------------------------------------
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -253,7 +259,7 @@ require("lspconfig").clangd.setup {}
 require("lspconfig").gopls.setup {}
 
 
--- Multiline Errors --------------------------------------------------------------------
+--# Multiline Errors #------------------------------------------------------------------
 
 require("lsp_lines").setup()
 vim.diagnostic.config({ virtual_text = false, })  -- disable default lsp errors
@@ -267,7 +273,7 @@ vim.keymap.set(
 )
 
 
--- LSP Keybinds ------------------------------------------------------------------------
+--# LSP Keybinds #----------------------------------------------------------------------
 
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
@@ -305,9 +311,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 
 ----------------------------------------------------------------------------------------
--- Config Plugins ----------------------------------------------------------------------
+--# Config Plugins #--------------------------------------------------------------------
 
--- Color Theme -------------------------------------------------------------------------
+--# Color Theme #-----------------------------------------------------------------------
 
 require('ayu').colorscheme()
 require('ayu').setup({
@@ -326,7 +332,7 @@ require('ayu').setup({
 vim.cmd.colorscheme("ayu-dark")
 
 
--- Statusline --------------------------------------------------------------------------
+--# Statusline #------------------------------------------------------------------------
 
 require('lualine').setup({
   options = {
@@ -338,7 +344,7 @@ require('lualine').setup({
 vim.cmd('highlight VertSplit guifg=#555753 guibg=NONE ctermfg=160 ctermbg=NONE')
 
 
--- Git Gutter --------------------------------------------------------------------------
+--# Git Gutter #------------------------------------------------------------------------
 
 vim.g.gitgutter_enabled = 1       -- Enable GitGutter always
 vim.o.signcolumn = 'yes'          -- Always show the sign column (gutter)
@@ -350,7 +356,7 @@ vim.cmd('highlight GitGutterChange guifg=blue ctermfg=blue')
 vim.cmd('highlight GitGutterDelete guifg=red ctermfg=red')
 
 
--- Nvim-tree ---------------------------------------------------------------------------
+--# Nvim#-tree -------------------------------------------------------------------------
 
 require("nvim-tree").setup()
 
@@ -364,14 +370,14 @@ require("nvim-tree").setup({
 })
 
 
--- Which Key ---------------------------------------------------------------------------
+--# Which Key #-------------------------------------------------------------------------
 
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 require("which-key").setup {}
 
 
--- Only TMUX ---------------------------------------------------------------------------
+--# Only TMUX #-------------------------------------------------------------------------
 
 require('only_tmux').setup({
     new_window_name = "session"
@@ -388,7 +394,7 @@ vim.api.nvim_set_keymap('n', '<leader>O',
 )
 
 
--- Telescope ---------------------------------------------------------------------------
+--# Telescope #-------------------------------------------------------------------------
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>a', builtin.git_commits)

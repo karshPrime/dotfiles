@@ -1,7 +1,7 @@
 # .zshrc
 
 # --------------------------------------------------------------------------------------
-# -- INIT CONFIG -----------------------------------------------------------------------
+# --# INIT CONFIG #---------------------------------------------------------------------
 
 sh ~/.config/fetch.sh
 
@@ -31,9 +31,9 @@ fpath=(~/.config/zsh/zsh-completions/src $fpath)
 
 
 # --------------------------------------------------------------------------------------
-# -- EASE OF LIFE ----------------------------------------------------------------------
+# --# EASE OF LIFE #--------------------------------------------------------------------
 
-# -- dotfiles --------------------------------------------------------------------------
+# --# dotfiles #------------------------------------------------------------------------
 
 DOTFILES_CONFIG="$HOME/.config/dotfiles/config"
 
@@ -55,7 +55,7 @@ alias xrmall="sudo nix-collect-garbage --delete-old"
 alias xupdate="sudo nixos-rebuild switch" # --upgrade to upgrade all packages
 
 
-# -- package management ----------------------------------------------------------------
+# --# package management #--------------------------------------------------------------
 
 # nix packages
 alias xpkgs="nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2- | less"
@@ -71,7 +71,7 @@ alias fpi='flatpak info'
 alias fpx='flatpak remote-add --if-not-exists'
 
 
-# -- file navigation -------------------------------------------------------------------
+# --# file navigation #-----------------------------------------------------------------
 
 # common dirs 
 HACK_SCRIPTS="$HOME/Projects/SysHacks"
@@ -102,7 +102,7 @@ conf() { cd ~/.config/$1/$2 }
 count() { ls $1 | wc -l }
 
 
-# -- notes -----------------------------------------------------------------------------
+# --# notes #---------------------------------------------------------------------------
 
 alias nl="eza ~/Documents/notes/"
 alias td="$EDITOR ~/Documents/notes/todo"
@@ -112,7 +112,7 @@ nw() { $EDITOR ~/Documents/notes/$1 }
 nd() { rm ~/Documents/notes/$1 }
 
 
-# -- development -----------------------------------------------------------------------
+# --# development #---------------------------------------------------------------------
 
 # shell
 alias dev='nix-shell --run zsh'
@@ -204,7 +204,7 @@ eatlog() {
 }
 
 
-# -- better defaults -------------------------------------------------------------------
+# --# better defaults #-----------------------------------------------------------------
 
 # keyboard behaviour 
 bindkey "^[l" clear-screen
@@ -235,6 +235,7 @@ alias df='df -h'
 
 # convenience 
 bindkey -s '^[c' ' | wl-copy^M'  # copy output to clipboard
+bindkey -s '^[p' ' wl-paste > '  # paste clipboard content to a file
 bindkey -s '^[r' ' | less^M'     # display output in less 
 bindkey -s '^[n' ' | wc -l^M'    # count (Number of) results
 alias v=$EDITOR
@@ -244,7 +245,7 @@ alias fonts='fc-list | cut -f2 -d: | sort -u'
 alias diff="diff --color='always'"
 
 
-# -- media control ---------------------------------------------------------------------
+# --# media control #-------------------------------------------------------------------
 
 alias yt='yt-dlp'
 alias ytvb='yt-dlp -q -f bestvideo -o "~/Videos/offlineYT/%(title)s.%(ext)s"'
@@ -253,7 +254,7 @@ alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
 alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
 
 
-# -- hacks and patches------------------------------------------------------------------
+# --# hacks and patches #---------------------------------------------------------------
 
 alias batcap='echo 80 | sudo tee /sys/class/power_supply/BAT1/charge_control_end_threshold'
 alias tools="$HACK_SCRIPTS/tools.sh"
@@ -267,7 +268,7 @@ alias cpbig='$HACK_SCRIPTS/cpbig.sh'
 alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 
 
-# -- xdg-ninja -------------------------------------------------------------------------
+# --# xdg-ninja #-----------------------------------------------------------------------
 
 alias xdgninja='sh ~/Desktop/ninja/xdg-ninja.sh --skip-unsupported'
 
@@ -293,6 +294,6 @@ export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
 
 # --------------------------------------------------------------------------------------
-# -- STARSHIP PROMPT -------------------------------------------------------------------
+# --# STARSHIP PROMPT #-----------------------------------------------------------------
 eval "$(starship init zsh)"
 
