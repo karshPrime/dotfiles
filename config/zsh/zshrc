@@ -127,7 +127,7 @@ alias gignore="$EDITOR .gitignore"
 alias gconfig="$EDITOR .git/config"
 alias makefile="$EDITOR Makefile"
 alias todo='$HOME/Projects/SysHacks/todo.sh'
-srcmain() { $EDITOR ./src/main.$1 }
+alias main='$EDITOR $(find . -iname "main*")'
 
 # assemby
 alias assem="objdump -M intel -D"
@@ -235,9 +235,10 @@ alias df='df -h'
 
 # convenience 
 bindkey -s '^[c' ' | wl-copy^M'  # copy output to clipboard
-bindkey -s '^[p' ' wl-paste > '  # paste clipboard content to a file
+bindkey -s '^[p' 'wl-paste > '  # paste clipboard content to a file
 bindkey -s '^[r' ' | less^M'     # display output in less 
 bindkey -s '^[n' ' | wc -l^M'    # count (Number of) results
+bindkey -s '^[h' ' --help | less^M' # display help
 alias v=$EDITOR
 alias vim=$EDITOR 
 alias battery='acpi -ib; echo "\nlast= 76%"'
