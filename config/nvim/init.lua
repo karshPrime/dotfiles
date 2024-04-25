@@ -15,7 +15,7 @@ end
 
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'         -- packer manages itself
-    use 'tpope/vim-commentary'           -- easier Commenting
+    use 'numToStr/Comment.nvim'          -- easier commenting
     use 'nvim-tree/nvim-tree.lua'        -- file tree
     use 'nvim-tree/nvim-web-devicons'    -- icons
     use 'nvim-lualine/lualine.nvim'      -- statusbar
@@ -356,6 +356,11 @@ require("nvim-tree").setup({
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 require("which-key").setup {}
+
+
+--# Commenting #------------------------------------------------------------------------
+
+require('Comment').setup()
 
 
 --# Only TMUX #-------------------------------------------------------------------------
