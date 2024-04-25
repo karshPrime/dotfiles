@@ -56,110 +56,91 @@ end)
 
 -- J combines the current line with the one bellow
 
+--# Motions #---------------------------------------------------------------------------
+
+-- better up scroll 
+vim.keymap.set('n', '<C-u>', ':norm Hzz<CR>',
+    { noremap = true, silent = true })
+
+-- better down scroll
+vim.keymap.set('n', '<C-d>', ':norm Lzz<CR>',
+    { noremap = true, silent = true })
+
+
+--# Windows #---------------------------------------------------------------------------
+
+-- Explore mode
+vim.keymap.set('n', 'ZE', ':Ex<CR>',
+    { noremap = true, silent = true })
+
+-- Explore mode on new pane on RHS
+vim.keymap.set('n', 'ZH', ':vsplit | :Explore<CR>',
+    { noremap = true, silent = true })
+
+-- Explore mode on new pane at Bottom
+vim.keymap.set('n', 'ZV', ':split | :Explore<CR>',
+    { noremap = true, silent = true })
+
+-- Map <leader>l to show colorcolumn at 100 col
+vim.keymap.set('n', '<leader>l', ':set colorcolumn=100<CR>',
+    { noremap = true, silent = true })
+
+-- Map <leader>L to hide colour column
+vim.keymap.set('n', '<leader>L', ':set colorcolumn=<CR>', 
+    { noremap = true, silent = true })
+
+
+--# Development #-----------------------------------------------------------------------
+
+-- Map F5 key to call upload script
+vim.keymap.set('n', '<F5>', ':w<CR>:!./upload.sh<CR>',
+    { noremap = true, silent = true })
+
+-- Map F6 key to execute cargo run command 
+vim.keymap.set('n', '<F6>', ':w<CR>:!cargo run<CR>',
+    { noremap = true, silent = true })
+
+-- Map F7 key to execute cargo build command 
+vim.keymap.set('n', '<F7>', ':w<CR>:!cargo build<CR>',
+    { noremap = true, silent = true })
+
+-- Map F8 key to execute make command
+vim.keymap.set('n', '<F8>', ':w<CR>:term make<CR>',
+    { noremap = true, silent = true })
+
+-- CPP quick print 
+-- vim.keymap.set('n', '<leader>pcpp', ':execute "normal! istd::cout <<  << \"\\n\";\<esc>7hi<CR>"'
+--    { noremap = true, silent = true })
+
+
+--# Conveniences #----------------------------------------------------------------------
+
 -- Make :W work same as :w
 vim.cmd([[command! -nargs=0 W w]])
 
--- Explore mode
-vim.api.nvim_set_keymap('n', 'ZE', 
-    ':Ex<CR>',
-    { noremap = true, silent = true }
-)
-
--- Explore mode on new pane on RHS
-vim.api.nvim_set_keymap('n', 'ZH', 
-    ':vsplit | :Explore<CR>',
-    { noremap = true, silent = true }
-)
-
--- Explore mode on new pane at Bottom
-vim.api.nvim_set_keymap('n', 'ZV', 
-    ':split | :Explore<CR>',
-    { noremap = true, silent = true }
-)
-
--- Map F5 key to call upload script
-vim.api.nvim_set_keymap('n', '<F5>', 
-    ':w<CR>:!./upload.sh<CR>',
-    { noremap = true, silent = true }
-)
-
--- Map F6 key to execute cargo run command 
-vim.api.nvim_set_keymap('n', '<F6>', 
-    ':w<CR>:!cargo run<CR>',
-    { noremap = true, silent = true }
-)
-
--- Map F7 key to execute cargo build command 
-vim.api.nvim_set_keymap('n', '<F7>', 
-    ':w<CR>:!cargo build<CR>',
-    { noremap = true, silent = true }
-)
-
--- Map F8 key to execute make command
-vim.api.nvim_set_keymap('n', '<F8>', 
-    ':w<CR>:term make<CR>',
-    { noremap = true, silent = true }
-)
-
 -- Map <leader>w to save the file
-vim.api.nvim_set_keymap('n', '<leader>w', 
-    ':w<CR>', 
-    { noremap = true, silent = true }
-)
+vim.keymap.set('n', '<leader>w', ':w<CR>', 
+    { noremap = true, silent = true })
 
 -- Map <leader>n to clear search highlights (:noh)
-vim.api.nvim_set_keymap('n', '<leader>n', 
-    ':noh<CR>', 
-    { noremap = true, silent = true }
-)
-
--- Map <leader>l to show colorcolumn at 100 col
-vim.api.nvim_set_keymap('n', '<leader>l', 
-    ':set colorcolumn=100<CR>',
-    { noremap = true, silent = true }
-)
-
--- Map <leader>L to hide colour column
-vim.api.nvim_set_keymap('n', '<leader>L', 
-    ':set colorcolumn=<CR>', 
-    { noremap = true, silent = true }
-)
+vim.keymap.set('n', '<leader>n', ':noh<CR>', 
+    { noremap = true, silent = true })
 
 -- delete everything 
-vim.api.nvim_set_keymap('n', 'dA',
-    ':norm gg0dG<CR>',
-    { noremap = true, silent = true }
-)
+vim.keymap.set('n', 'dA', ':norm gg0dG<CR>',
+    { noremap = true, silent = true })
 
--- copy everything 
-vim.api.nvim_set_keymap('n', 'yA',
-    ':norm myLgg0yG``zb`y<CR>',
-    { noremap = true, silent = true }
-)
-
--- better up scroll 
-vim.api.nvim_set_keymap('n', '<C-u>',
-    ':norm Hzz<CR>',
-    { noremap = true, silent = true }
-)
-
--- better down scroll
-vim.api.nvim_set_keymap('n', '<C-d>',
-    ':norm Lzz<CR>',
-    { noremap = true, silent = true }
-)
+-- yank everything 
+vim.keymap.set('n', 'yA', ':norm myLgg0yG``zb`y<CR>',
+    { noremap = true, silent = true })
 
 -- faster %s 
-vim.api.nvim_set_keymap('n', '<space>s',
-    ':%s/',
-    { noremap = true, silent = false }
-)
+vim.keymap.set('n', '<space>s', ':%s/',
+    { noremap = true, silent = false })
 
 -- given I use same heading syntax for all configs
-vim.api.nvim_set_keymap('n', '<space>/',
-    '/--# <CR>',
-    { noremap = true, silent = false }
-)
+vim.keymap.set('n', '<space>/', '/--# <CR>',
+    { noremap = true, silent = false })
 
 
 ----------------------------------------------------------------------------------------
@@ -360,7 +341,7 @@ vim.cmd('highlight GitGutterDelete guifg=red ctermfg=red')
 
 require("nvim-tree").setup()
 
-vim.api.nvim_set_keymap('n', 'ZX', ':NvimTreeToggle<CR>', {
+vim.keymap.set('n', 'ZX', ':NvimTreeToggle<CR>', {
     noremap = true,
     silent = true
 })
@@ -383,15 +364,11 @@ require('only_tmux').setup({
     new_window_name = "session"
 })
 
-vim.api.nvim_set_keymap('n', '<leader>o',
-    ':lua require("only_tmux").tmuxCloseAll()<CR>', 
-    { noremap = true, silent = true }
-)
+vim.keymap.set('n', '<leader>o', ':lua require("only_tmux").tmuxCloseAll()<CR>', 
+    { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<leader>O', 
-    ':lua require("only_tmux").tmuxMoveOthers()<CR>', 
-    { noremap = true, silent = true }
-)
+vim.keymap.set('n', '<leader>O', ':lua require("only_tmux").tmuxMoveOthers()<CR>', 
+    { noremap = true, silent = true })
 
 
 --# Telescope #-------------------------------------------------------------------------
