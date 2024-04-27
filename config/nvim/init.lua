@@ -322,7 +322,7 @@ require('lualine').setup({
 })
 
 -- border line colour
-vim.cmd('highlight VertSplit guifg=#555753 guibg=NONE ctermfg=160 ctermbg=NONE')
+vim.cmd('highlight VertSplit guifg=#000000 guibg=NONE ctermfg=160 ctermbg=NONE')
 
 
 --# Git Gutter #------------------------------------------------------------------------
