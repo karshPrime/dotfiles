@@ -18,9 +18,16 @@ setopt autocd extendedglob
 # explicit declaration
 export EDITOR=nvim
 
-autoload -Uz compinit && compinit
+# better auto-complete
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+
+if [[ -f "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION" ]]; then
+    autoload -Uz compinit
+    compinit -C "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+else
+    autoload -Uz compinit && compinit
+fi
+
 
 # Plugins
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh 
@@ -255,6 +262,7 @@ alias ytvb='yt-dlp -q -f bestvideo -o "~/Videos/offlineYT/%(title)s.%(ext)s"'
 alias ytab='yt-dlp -q -f bestaudio -o "~/Music/offlineYT/%(title)s.%(ext)s"'
 alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
 alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
+alias snap='wl-paste > $HOME/Pictures/snaps/snap_$(date "+%Y-%m-%d-%H%M%S").png'
 
 
 # --# hacks and patches #---------------------------------------------------------------
@@ -293,10 +301,11 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export XAUTHORITY="$XDG_CONFIG_HOME"/Xauthority
 export TMUXIFIER_LAYOUT_PATH="$XDG_CONFIG_HOME/tmux/tmuxifier/layouts/"
 export GOPATH="$XDG_DATA_HOME/go"
-export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 
 
 # --------------------------------------------------------------------------------------
 # --# STARSHIP PROMPT #-----------------------------------------------------------------
+
 eval "$(starship init zsh)"
 
