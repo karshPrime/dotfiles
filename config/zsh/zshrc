@@ -132,13 +132,12 @@ alias cpcode='$HACK_SCRIPTS/copy_code.sh'
 bindkey -s '^[s' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
 
 # simple edit 
-PROJECT_NAME=$(git rev-parse --show-toplevel)
-alias readme="$EDITOR $PROJECT_NAME/README.md"
-alias gignore="$EDITOR $PROJECT_NAME/.gitignore"
-alias gconfig="$EDITOR $PROJECT_NAME/.git/config"
-alias makefile="$EDITOR $PROJECT_NAME/Makefile"
+alias readme="$HACK_SCRIPTS/cddev.sh readme"
+alias gignore="$HACK_SCRIPTS/cddev.sh gitignore"
+alias gconfig="$HACK_SCRIPTS/cddev.sh gitconfig"
+alias makefile="$HACK_SCRIPTS/cddev.sh makefile"
+alias main="$HACK_SCRIPTS/cddev.sh main"
 alias todo='$HACK_SCRIPTS/todo.sh'
-alias main='$EDITOR $(find . -iname "main*")'
 
 # assemby
 alias assem="objdump -M intel -D"
