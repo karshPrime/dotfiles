@@ -49,6 +49,7 @@ alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
 
 # nixos
 alias xedit="sudo $EDITOR /etc/nixos/configuration.nix"
+alias xhedit="sudo $EDITOR /etc/nixos/hardware_configuration.nix"
 alias xlist="sudo nix-env --list-generations --profile /nix/var/nix/profiles/system"
 alias xrm="sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations"
 alias xrmall="sudo nix-collect-garbage --delete-old"
@@ -117,6 +118,7 @@ nd() { rm ~/Documents/notes/$1 }
 # shell
 alias dev='nix-shell --run zsh'
 alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
+alias tst='. /home/karsh/Projects/SysHacks/testing.sh'
 
 # ssh
 bindkey -s '^[s' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
