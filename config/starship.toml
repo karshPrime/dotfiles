@@ -26,17 +26,18 @@ style = "fg:#20ff20"
 
 [git_status]
 disabled = false
-style = "fg:#55ff55"
-stashed = " ${count} "
 ahead = "󰞙 ${count} "
 behind = "󰞒 ${count} "
-diverged = "󰵉 ${ahead_count},${behind_count} "
 conflicted = " ${count} "
 deleted = " ${count} "
-renamed = " ${count} "
+diverged = "󰵉 ${ahead_count},${behind_count} "
 modified = " ${count} "
+renamed = " ${count} "
 staged = " ${count} "
+stashed = " ${count} "
+up_to_date = "monke"
 untracked = "󱅘 ${count} "
+style = "fg:#55ff55"
 format = "$style$stashed$ahead$behind$diverged$conflicted$deleted$renamed$modified$staged$untracked"
 
 
