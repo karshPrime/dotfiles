@@ -125,17 +125,19 @@ nd() { rm ~/Documents/notes/$1 }
 # shell
 alias dev='nix-shell --run zsh'
 alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
-alias tst='. /home/karsh/Projects/SysHacks/testing.sh'
+alias tst='. $HACK_SCRIPTS/testing.sh'
+alias cpcode='$HACK_SCRIPTS/copy_code.sh'
 
 # ssh
 bindkey -s '^[s' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
 
 # simple edit 
-alias readme="$EDITOR README.md"
-alias gignore="$EDITOR .gitignore"
-alias gconfig="$EDITOR .git/config"
-alias makefile="$EDITOR Makefile"
-alias todo='$HOME/Projects/SysHacks/todo.sh'
+PROJECT_NAME=$(git rev-parse --show-toplevel)
+alias readme="$EDITOR $PROJECT_NAME/README.md"
+alias gignore="$EDITOR $PROJECT_NAME/.gitignore"
+alias gconfig="$EDITOR $PROJECT_NAME/.git/config"
+alias makefile="$EDITOR $PROJECT_NAME/Makefile"
+alias todo='$HACK_SCRIPTS/todo.sh'
 alias main='$EDITOR $(find . -iname "main*")'
 
 # assemby
