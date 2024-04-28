@@ -3,7 +3,10 @@
 # --------------------------------------------------------------------------------------
 # --# INIT CONFIG #---------------------------------------------------------------------
 
-sh ~/.config/fetch.sh
+# run fetch script only when not in tmux session
+if [[ -z "$TMUX" ]]; then
+    sh ~/.config/fetch.sh
+fi
 
 # zsh history
 HISTFILE=~/.config/zsh/histfile 
@@ -131,6 +134,9 @@ alias cpcode='$HACK_SCRIPTS/copy_code.sh'
 # ssh
 bindkey -s '^[s' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
 
+# EAT40005
+alias eatlog='$HOME/Projects/eat40005/worklog/run-nix.sh'
+
 # simple edit 
 alias readme="$HACK_SCRIPTS/cddev.sh readme"
 alias gignore="$HACK_SCRIPTS/cddev.sh gitignore"
@@ -196,22 +202,9 @@ tmL() {
 }
 
 # search for cmds
-cmd() { 
-    man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; 
-}
-
-# EAT40005
-eatlog() {
-    cd ~/Projects/eat40005/worklog
-    FILENAME="txts/week-$1.txt"
-    touch $FILENAME 
-    mousepad $FILENAME
-    nix-shell
-    
-    FILENAME="export/102874485_week-$1.pdf"
-    evince $FILENAME &
-    cp $FILENAME ~/Downloads/.
-}
+# cmd() { 
+#     man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; 
+# }
 
 
 # --# better defaults #-----------------------------------------------------------------
