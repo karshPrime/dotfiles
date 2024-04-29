@@ -31,7 +31,6 @@ else
     autoload -Uz compinit && compinit
 fi
 
-
 # Plugins
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh 
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
@@ -59,7 +58,7 @@ alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
 
 # nixos
 alias xedit="sudo $EDITOR /etc/nixos/configuration.nix"
-alias xhedit="sudo $EDITOR /etc/nixos/hardware_configuration.nix"
+alias xhedit="sudo $EDITOR /etc/nixos/hardware-configuration.nix"
 alias xlist="sudo nix-env --list-generations --profile /nix/var/nix/profiles/system"
 alias xrm="sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations"
 alias xrmall="sudo nix-collect-garbage --delete-old"
@@ -132,7 +131,7 @@ alias tst='. $HACK_SCRIPTS/testing.sh'
 alias cpcode='$HACK_SCRIPTS/copy_code.sh'
 
 # ssh
-bindkey -s '^[s' 'ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+^M'
+alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
 
 # EAT40005
 alias eatlog='$HOME/Projects/eat40005/worklog/run-nix.sh'
@@ -143,6 +142,7 @@ alias gignore="$HACK_SCRIPTS/cddev.sh gitignore"
 alias gconfig="$HACK_SCRIPTS/cddev.sh gitconfig"
 alias makefile="$HACK_SCRIPTS/cddev.sh makefile"
 alias main="$HACK_SCRIPTS/cddev.sh main"
+alias code="$HACK_SCRIPTS/cddev.sh alltype"
 alias todo='$HACK_SCRIPTS/todo.sh'
 
 # assemby
@@ -238,13 +238,13 @@ alias df='df -h'
 
 # convenience 
 bindkey -s '^[c' ' | wl-copy^M'  # copy output to clipboard
-bindkey -s '^[p' 'wl-paste > '  # paste clipboard content to a file
+bindkey -s '^[p' 'wl-paste > '   # paste clipboard content to a file
 bindkey -s '^[r' ' | less^M'     # display output in less 
 bindkey -s '^[n' ' | wc -l^M'    # count (Number of) results
 bindkey -s '^[h' ' --help | less^M' # display help
+bindkey -s '^[x' 'mr '           # help fix rm habit
 alias v=$EDITOR
 alias vim=$EDITOR 
-alias battery='acpi -ib; echo "\nlast= 76%"'
 alias fonts='fc-list | cut -f2 -d: | sort -u'
 alias diff="diff --color='always'"
 
@@ -286,7 +286,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 # default directories
 export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
 export LESSHISTFILE="$XDG_STATE_HOME"/less/history
-export JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java -Djavafx.cachedir=${XDG_CACHE_HOME}/openjfx"
+export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java -Djavafx.cachedir=${XDG_CACHE_HOME}/openjfx"
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
@@ -296,6 +296,7 @@ export XAUTHORITY="$XDG_CONFIG_HOME"/Xauthority
 export TMUXIFIER_LAYOUT_PATH="$XDG_CONFIG_HOME/tmux/tmuxifier/layouts/"
 export GOPATH="$XDG_DATA_HOME/go"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export XCOMPOSECACHE="${XDG_CACHE_HOME}/X11/xcompose"
 
 
 # --------------------------------------------------------------------------------------
