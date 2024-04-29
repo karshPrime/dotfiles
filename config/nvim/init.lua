@@ -81,8 +81,8 @@ vim.keymap.set('n', 'ZH', ':vsplit | :Explore<CR>',
 vim.keymap.set('n', 'ZV', ':split | :Explore<CR>',
     { noremap = true, silent = true })
 
--- Map <leader>l to show colorcolumn at 100 col
-vim.keymap.set('n', '<leader>l', ':set colorcolumn=100<CR>',
+-- Map <leader>l to show colorcolumn at 90 col
+vim.keymap.set('n', '<leader>l', ':set colorcolumn=90<CR>',
     { noremap = true, silent = true })
 
 -- Map <leader>L to hide colour column
@@ -154,7 +154,7 @@ vim.cmd('set laststatus=3')
 vim.cmd('set nu relativenumber')
 vim.cmd('set nocompatible')
 vim.cmd('set linebreak')
-vim.cmd('set textwidth=100')
+vim.cmd('set textwidth=90')
 
 vim.cmd('set showmatch')
 vim.cmd('set visualbell')
