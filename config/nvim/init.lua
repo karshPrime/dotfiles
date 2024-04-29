@@ -22,7 +22,6 @@ require('packer').startup(function()
     use 'christoomey/vim-tmux-navigator' -- vim tmux keybinds
     use 'airblade/vim-gitgutter'         -- git 
     use 'mg979/vim-visual-multi'         -- multiple cursors (ctrl+n)
-    use 'folke/which-key.nvim'           -- more info for keybinds
     use 'Shatur/neovim-ayu'              -- color theme
     use 'karshPrime/only-tmux.nvim'      -- tmux panels :only
 
@@ -349,13 +348,6 @@ vim.keymap.set('n', 'ZX', ':NvimTreeToggle<CR>', {
 require("nvim-tree").setup({
   on_attach = on_attach,
 })
-
-
---# Which Key #-------------------------------------------------------------------------
-
-vim.o.timeout = true
-vim.o.timeoutlen = 300
-require("which-key").setup {}
 
 
 --# Commenting #------------------------------------------------------------------------
