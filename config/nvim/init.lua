@@ -142,6 +142,11 @@ vim.keymap.set('n', '<space>/', '/--# <CR>',
     { noremap = true, silent = false })
 
 
+-- easier registers view
+vim.keymap.set('n', '<leader>r', ':reg<CR>',
+    { noremap = true, silent = true })
+
+
 ----------------------------------------------------------------------------------------
 --# Additions #-------------------------------------------------------------------------
 
