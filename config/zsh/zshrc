@@ -128,7 +128,6 @@ nd() { rm ~/Documents/notes/$1 }
 alias dev='nix-shell --run zsh'
 alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
 alias tst='. $HACK_SCRIPTS/testing.sh'
-alias cpcode='$HACK_SCRIPTS/copy_code.sh'
 
 # ssh
 alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
@@ -136,14 +135,16 @@ alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
 # EAT40005
 alias eatlog='$HOME/Projects/eat40005/worklog/run-nix.sh'
 
-# simple edit 
+# navigate
 alias readme="$HACK_SCRIPTS/cddev.sh readme"
 alias gignore="$HACK_SCRIPTS/cddev.sh gitignore"
 alias gconfig="$HACK_SCRIPTS/cddev.sh gitconfig"
 alias makefile="$HACK_SCRIPTS/cddev.sh makefile"
 alias main="$HACK_SCRIPTS/cddev.sh main"
 alias code="$HACK_SCRIPTS/cddev.sh alltype"
+alias parent=". $HACK_SCRIPTS/cddev.sh parent"
 alias todo='$HACK_SCRIPTS/todo.sh'
+alias cpcode='$HACK_SCRIPTS/copy_code.sh'
 
 # assemby
 alias assem="objdump -M intel -D"
