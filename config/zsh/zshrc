@@ -47,7 +47,7 @@ fpath=(~/.config/zsh/zsh-completions/src $fpath)
 DOTFILES_CONFIG="$HOME/.config/dotfiles/config"
 
 # neofetch
-alias nedit="$EDITOR $DOTFILES_CONFIG/nvim/init.lua"
+alias nedit="$EDITOR $DOTFILES_CONFIG/nvim/"
 
 # tmux
 alias tedit="$EDITOR $DOTFILES_CONFIG/tmux/tmux.conf"
