@@ -9,17 +9,16 @@ local plugins = {
     'hrsh7th/cmp-cmdline', 
     'hrsh7th/nvim-cmp', 
 
-    -- EDITOR
-    'numToStr/Comment.nvim',                            -- easier commenting
-    'mg979/vim-visual-multi',                           -- multiple cursors (ctrl+n)
- 
     -- GIT
     'airblade/vim-gitgutter',                           -- git column
 
     -- LAYOUT
-    'nvim-tree/nvim-web-devicons',                      -- icons
+    { 'nvim-tree/nvim-web-devicons',                    -- icons
+       lazy = true },
     'nvim-lualine/lualine.nvim',                        -- statusbar
     'Shatur/neovim-ayu',                                -- color theme
+    { 'folke/noice.nvim', event = 'VeryLazy',           -- message UI
+       dependencies = { "MunifTanjim/nui.nvim" } },
 
     -- LSP
     "williamboman/mason.nvim",
@@ -27,16 +26,21 @@ local plugins = {
     "neovim/nvim-lspconfig",
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",     -- multiline errors
 
-    -- TMUX
-    'karshPrime/only-tmux.nvim',                        -- tmux panels :only
-    'christoomey/vim-tmux-navigator',                   -- vim tmux keybinds
-
+    -- NO CONFIG
+    { 'numToStr/Comment.nvim',                          -- easier commenting
+       event = 'VeryLazy' },
+    'mg979/vim-visual-multi',                           -- multiple cursors (ctrl+n)
+ 
     -- NAVIGATE
     'nvim-tree/nvim-tree.lua',                          -- file tree
-    {                                                   -- telescope
-    'nvim-telescope/telescope.nvim', tag = '0.1.6',
-      dependencies = { 'nvim-lua/plenary.nvim' }
-    }
+    { 'nvim-telescope/telescope.nvim', tag = '0.1.6',   -- telescope
+       dependencies = { 'nvim-lua/plenary.nvim' } },
+
+    -- TMUX
+    { 'karshPrime/only-tmux.nvim',                      -- tmux panels :only
+       event = 'VeryLazy' },
+    { 'christoomey/vim-tmux-navigator',                 -- vim tmux keybinds
+       event = 'VeryLazy' },
 }
 
 local opts = {}
