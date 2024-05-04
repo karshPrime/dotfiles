@@ -155,6 +155,7 @@ alias dcompd='sudo docker-compose down'
 alias dockerd='sudo dockerd'
 
 # git shortcuts
+alias g=lazygit
 alias gita='git add'
 alias gitA='git add -A'
 alias gitc='git commit'
