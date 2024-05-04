@@ -123,20 +123,19 @@
         # gnome.gnome-tweaks xdg-ninja gradience
 
         # Dev Utils
-        git neovim tmux bat eza xxd gnumake lf lazygit # docker docker-compose
-		rustup cargo go gcc clang-tools gdb ghidra-bin 
-        xfce.mousepad mate.mate-terminal onefetch 
+        git neovim tmux bat eza xxd gnumake lf lazygit gdb # docker docker-compose
+		rustup cargo go gcc clang-tools ghidra-bin 
+        xfce.mousepad mate.mate-terminal onefetch
         qemu virt-manager
 
         # System Tools
-        bitwarden libreoffice brave tor-browser btop wl-clipboard bandwhich sherlock
-        starship
+        bitwarden libreoffice brave tor-browser btop wl-clipboard bandwhich starship
 
         # Security
-        chkrootkit
+        chkrootkit sherlock
 
         # Media & Communication
-        signal-desktop minecraft gimp vlc yt-dlp-light armcord
+        minecraft gimp vlc yt-dlp-light armcord
     ];
 
     # Remove default Gnome packages 
