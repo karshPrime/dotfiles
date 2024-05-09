@@ -1,0 +1,36 @@
+# alacritty.toml
+
+# --------------------------------------------------------------------------------------
+# -- Basic Window ----------------------------------------------------------------------
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[colors.primary]
+background = "0x000000"
+foreground = "0xe6e6e6"
+
+[colors.line_indicator]
+background = "None"
+foreground = "None"
+
+
+# --------------------------------------------------------------------------------------
+# -- Fonts -----------------------------------------------------------------------------
+
+[font]
+size = 14.0
+
+[font.bold]
+family = "JetBrainsMono NF"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono NF"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono NF"
+style = "Regular"
+
