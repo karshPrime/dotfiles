@@ -27,7 +27,7 @@ Map('<C-d>', ':norm Lzz<CR>')                   -- better down scroll
 Map('ZE', ':Ex<CR>')                            -- Explore mode
 Map('ZH', ':vsplit | :Explore<CR>')             -- RHS new pane
 Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
-Map('<leader>l', ':set colorcolumn=90<CR>')     -- show colorcolumn at 90
+Map('<leader>l', ':set colorcolumn=100<CR>')    -- show colorcolumn at 100
 Map('<leader>L', ':set colorcolumn=<CR>')       -- hide colorcolumn
 
 
@@ -40,9 +40,6 @@ Map('<F8>', ':w<CR>:term make<CR>')             -- run make command
 
 
 --# Conveniences #----------------------------------------------------------------------
-
-vim.api.nvim_create_user_command('SaveCommand', ':lua vim.cmd("w")<cr>', {})
-Map('n', '<Leader>w', ':SaveCommand<cr>', true, true)
 
 vim.cmd([[command! -nargs=0 W w]])              -- :W work same as :w
 Map('<leader>n', ':noh<CR>')                    -- clear searches (:noh)
