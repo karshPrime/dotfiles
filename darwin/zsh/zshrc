@@ -1,0 +1,246 @@
+# .zshrc
+
+# --------------------------------------------------------------------------------------
+# --# INIT CONFIG #---------------------------------------------------------------------
+
+# run fetch script only when not in tmux session
+if [[ -z "$TMUX" ]]; then
+    sh ~/.config/fetch.sh
+fi
+
+# zsh history
+HISTFILE=~/.config/zsh/histfile 
+HISTSIZE=1000 
+SAVEHIST=1000
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+
+# cd into directories without cd
+setopt autocd extendedglob
+
+# explicit declaration
+export EDITOR=nvim
+export PATH=/opt/homebrew/bin:$PATH
+
+# better auto-complete
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+ 
+if [[ -f "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION" ]]; then
+    autoload -Uz compinit
+    compinit -C "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+else
+    autoload -Uz compinit && compinit
+fi
+
+# Plugins
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/zsh-history/zsh-history.zsh
+
+fpath=(~/.config/zsh/zsh-completions/src $fpath)
+
+
+# --------------------------------------------------------------------------------------
+# --# EASE OF LIFE #--------------------------------------------------------------------
+
+# --# dotfiles #------------------------------------------------------------------------
+
+DOTFILES_CONFIG="$HOME/.config/dotfiles/darwin"
+
+# neovim
+alias nedit="$EDITOR $DOTFILES_CONFIG/nvim/"
+
+# tmux
+alias tedit="$EDITOR $DOTFILES_CONFIG/tmux/tmux.conf"
+
+# alacritty
+alias aedit="$EDITOR $DOTFILES_CONFIG/alacritty/alacritty.toml"
+
+# zsh
+alias zedit="$EDITOR $DOTFILES_CONFIG/zsh/zshrc"
+alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
+
+
+# --# file navigation #-----------------------------------------------------------------
+
+# common dirs 
+HACK_SCRIPTS="$HOME/Projects/SysHacks"
+
+# look around
+alias l='eza -la --color=always --group-directories-first'
+alias ls='eza'
+alias lh='eza -a | egrep "^\."'
+alias la='eza -a --color=always --group-directories-first'
+alias tree='eza -T --group-directories-first --icons=always'
+
+# process files
+alias c='bat -n'
+alias cat='bat -pp'
+alias mr='sh $HACK_SCRIPTS/trash.sh' # my rm
+alias smr='sudo sh $HACK_SCRIPTS/trash.sh'
+
+# easier navigate
+cdir() { mkdir $1 && cd $1 }
+desk() { cd ~/Desktop/$1/$2 }
+down() { cd ~/Downloads/$1/$2 }
+docs() { cd ~/Documents/$1/$2 }
+proj() { cd ~/Projects/$1/$2 }
+conf() { cd ~/.config/$1/$2 }
+count() { ls $1 | wc -l }
+
+
+# --# notes #---------------------------------------------------------------------------
+
+alias nl="eza ~/Documents/notes/"
+alias td="$EDITOR ~/Documents/notes/todo"
+
+nr() { bat -n ~/Documents/notes/$1 }
+nw() { $EDITOR ~/Documents/notes/$1 }
+nd() { rm ~/Documents/notes/$1 }
+
+
+# --# development #---------------------------------------------------------------------
+
+# shell
+alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
+alias tst='. $HACK_SCRIPTS/testing.sh'
+
+# ssh
+alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
+
+# EAT40005
+alias eatlog='$HOME/Projects/eat40005/worklog/run.sh'
+
+# navigate
+alias readme="$HACK_SCRIPTS/cddev.sh readme"
+alias gignore="$HACK_SCRIPTS/cddev.sh gitignore"
+alias gconfig="$HACK_SCRIPTS/cddev.sh gitconfig"
+alias makefile="$HACK_SCRIPTS/cddev.sh makefile"
+alias main="$HACK_SCRIPTS/cddev.sh main"
+alias code="$HACK_SCRIPTS/cddev.sh alltype"
+alias parent=". $HACK_SCRIPTS/cddev.sh parent"
+alias todo='$HACK_SCRIPTS/todo.sh'
+alias cpcode='$HACK_SCRIPTS/copy_code.sh'
+
+# assemby
+alias assem="objdump -M intel -D"
+
+# docker 
+alias dcompu='sudo docker-compose up -d'
+alias dcompd='sudo docker-compose down'
+alias dockerd='sudo dockerd'
+
+# git shortcuts
+alias g=lazygit
+alias gita='git add'
+alias gitA='git add -A'
+alias gitc='git commit'
+alias gitC='git commit -m'
+alias gitD='git diff --stat'
+alias gitd='git diff'
+alias gitl='git log'
+alias gitg='git clone'
+alias gits='git status'
+alias gitS='git switch'
+alias gitp='git push'
+alias gitP='git pull'
+alias gith='git checkout'
+alias gitb='git branch -a'
+alias gitu="git reset --soft 'HEAD^'"
+alias gito='git remote add origin'
+alias gitr="git restore"
+alias giti='onefetch --no-title --no-color-palette --ascii-input "$(cat ~/.config/onefetch.art)"'
+gitR() { git rebase -i HEAD~$1 }
+gitt() { touch $1; git add $1; git commit -m "create $1" }
+
+# tmux launch shortcuts
+TMUXIFIER="$HOME/.config/tmux/tmuxifier/bin/tmuxifier"
+alias tmn="$TMUXIFIER new-session"
+alias tme="$TMUXIFIER edit-session"
+alias tmk="tmux kill-session -t"
+alias tmK="tmux kill-session"
+alias tma='tmux attach-session'
+alias tml="tmux ls"
+alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
+
+# remove tmux session
+tmd() { 
+    rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh 
+}
+
+# start new tmux session in full-screen terminal
+tm()  { 
+    mate-terminal --full-screen -e "$TMUXIFIER load-session $1" && exit
+}
+
+# list all sessions
+tmL() { 
+    exa ~/.config/tmux/plugins/tmuxifier/layouts | awk -F\. '{ORS=" "; print $1}'; 
+    echo ""
+}
+
+
+# --# better defaults #-----------------------------------------------------------------
+
+# keyboard behaviour 
+bindkey "^[l"     clear-screen
+bindkey '^[[1;9D' backward-word
+bindkey '^[[1;9C' forward-word
+bindkey '^[[3~'   delete-char
+bindkey '^[[1;9B' backward-kill-word
+bindkey '^[[3;5~' kill-word
+
+bindkey '^[[1;3D' beginning-of-line
+bindkey '^[[1;3C' end-of-line
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# tops
+alias htop=btop
+alias ntop='sudo bandwhich'
+
+# human result
+alias df='df -h'
+alias diff="diff --color='always'"
+
+# convenience 
+bindkey -s '^[c' ' | pbcopy^M'      # copy output to clipboard
+bindkey -s '^[p' 'pbpaste > '       # paste clipboard content to a file
+bindkey -s '^[r' ' | less^M'        # display output in less 
+bindkey -s '^[n' ' | wc -l^M'       # count (Number of) results
+bindkey -s '^[h' ' --help | less^M' # display help
+bindkey -s '^[x' 'mr '              # help fix rm habit
+alias v=$EDITOR
+alias vim=$EDITOR 
+
+
+# --# media control #-------------------------------------------------------------------
+
+alias yt='yt-dlp'
+alias ytvb='yt-dlp -q -f bestvideo -o "~/Videos/offlineYT/%(title)s.%(ext)s"'
+alias ytab='yt-dlp -q -f bestaudio -o "~/Music/offlineYT/%(title)s.%(ext)s"'
+alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
+alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
+
+
+# --# hacks and patches #---------------------------------------------------------------
+
+alias tools="$HACK_SCRIPTS/tools.sh"
+alias toolx="$EDITOR $HACK_SCRIPTS/tools.sh"
+alias colors='sh $HACK_SCRIPTS/colors.sh'
+alias periodic='sh $HACK_SCRIPTS/periodic.sh'
+alias resistor=$HACK_SCRIPTS/resistor
+alias fetch='sh ~/.config/fetch.sh'
+alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
+
+export GOPATH=$HOME/.local/share/go
+
+
+# --------------------------------------------------------------------------------------
+# --# STARSHIP PROMPT #-----------------------------------------------------------------
+
+eval "$(starship init zsh)"
+
