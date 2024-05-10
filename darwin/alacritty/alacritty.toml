@@ -3,6 +3,14 @@
 # --------------------------------------------------------------------------------------
 # -- Basic Window ----------------------------------------------------------------------
 
+[window]
+title = "terminal"
+opacity = 0.7
+blur = true
+dimensions = { columns = 120, lines = 27 }
+padding = { x = 10, y = 5 }
+option_as_alt = "Both"
+
 [cursor]
 style = "Block"
 unfocused_hollow = true
