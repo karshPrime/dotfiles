@@ -1,7 +1,7 @@
 # .zshrc
 
-# --------------------------------------------------------------------------------------
-# --# INIT CONFIG #---------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# --# INIT CONFIG #------------------------------------------------------------
 
 # run fetch script only when not in tmux session
 if [[ -z "$TMUX" ]]; then
@@ -40,10 +40,10 @@ source ~/.config/zsh/zsh-history/zsh-history.zsh
 fpath=(~/.config/zsh/zsh-completions/src $fpath)
 
 
-# --------------------------------------------------------------------------------------
-# --# EASE OF LIFE #--------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# --# EASE OF LIFE #-----------------------------------------------------------
 
-# --# dotfiles #------------------------------------------------------------------------
+# --# dotfiles #---------------------------------------------------------------
 
 DOTFILES_CONFIG="$HOME/.config/dotfiles/darwin"
 
@@ -61,7 +61,7 @@ alias zedit="$EDITOR $DOTFILES_CONFIG/zsh/zshrc"
 alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
 
 
-# --# file navigation #-----------------------------------------------------------------
+# --# file navigation #--------------------------------------------------------
 
 # common dirs 
 HACK_SCRIPTS="$HOME/Projects/SysHacks"
@@ -89,7 +89,7 @@ conf() { cd ~/.config/$1/$2 }
 count() { ls $1 | wc -l }
 
 
-# --# notes #---------------------------------------------------------------------------
+# --# notes #------------------------------------------------------------------
 
 alias nl="eza ~/Documents/notes/"
 alias td="$EDITOR ~/Documents/notes/todo"
@@ -99,7 +99,7 @@ nw() { $EDITOR ~/Documents/notes/$1 }
 nd() { rm ~/Documents/notes/$1 }
 
 
-# --# development #---------------------------------------------------------------------
+# --# development #------------------------------------------------------------
 
 # shell
 alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
@@ -154,7 +154,7 @@ gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
 # tmux launch shortcuts
-TMUXIFIER="$HOME/.config/tmux/tmuxifier/bin/tmuxifier"
+TMUXIFIER="$HOME/.config/tmux/plugins/tmuxifier/bin/tmuxifier"
 alias tmn="$TMUXIFIER new-session"
 alias tme="$TMUXIFIER edit-session"
 alias tmk="tmux kill-session -t"
@@ -169,9 +169,7 @@ tmd() {
 }
 
 # start new tmux session in full-screen terminal
-tm()  { 
-    mate-terminal --full-screen -e "$TMUXIFIER load-session $1" && exit
-}
+tm()  { "$TMUXIFIER load-session $1" }
 
 # list all sessions
 tmL() { 
@@ -180,7 +178,7 @@ tmL() {
 }
 
 
-# --# better defaults #-----------------------------------------------------------------
+# --# better defaults #--------------------------------------------------------
 
 # keyboard behaviour 
 bindkey "^[l"     clear-screen
@@ -217,7 +215,7 @@ alias v=$EDITOR
 alias vim=$EDITOR 
 
 
-# --# media control #-------------------------------------------------------------------
+# --# media control #----------------------------------------------------------
 
 alias yt='yt-dlp'
 alias ytvb='yt-dlp -q -f bestvideo -o "~/Videos/offlineYT/%(title)s.%(ext)s"'
@@ -226,7 +224,7 @@ alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
 alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
 
 
-# --# hacks and patches #---------------------------------------------------------------
+# --# hacks and patches #------------------------------------------------------
 
 alias tools="$HACK_SCRIPTS/tools.sh"
 alias toolx="$EDITOR $HACK_SCRIPTS/tools.sh"
@@ -239,8 +237,8 @@ alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 export GOPATH=$HOME/.local/share/go
 
 
-# --------------------------------------------------------------------------------------
-# --# STARSHIP PROMPT #-----------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# --# STARSHIP PROMPT #--------------------------------------------------------
 
 eval "$(starship init zsh)"
 

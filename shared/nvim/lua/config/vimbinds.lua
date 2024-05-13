@@ -1,5 +1,5 @@
-----------------------------------------------------------------------------------------
---# Additions #-------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+--# Additions #----------------------------------------------------------------
 
 vim.o.clipboard = "unnamedplus"
 vim.cmd('let g:netrw_bufsettings = "noma nomod nu nobl nowrap ro rnu"')
@@ -9,7 +9,7 @@ vim.cmd('set laststatus=3')
 vim.cmd('set nu relativenumber')
 vim.cmd('set nocompatible')
 vim.cmd('set linebreak')
-vim.cmd('set textwidth=100')
+vim.cmd('set textwidth=80')
 
 vim.cmd('set showmatch')
 vim.cmd('set visualbell')
