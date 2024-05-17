@@ -16,7 +16,7 @@ local plugins = {
     -- LAYOUT
     { 'nvim-tree/nvim-web-devicons', lazy = true },     -- icons
     { 'nvim-lualine/lualine.nvim' },                    -- statusbar
-    { 'Shatur/neovim-ayu' },                            -- color theme
+    { "EdenEast/nightfox.nvim" },                       -- color theme
     { 'folke/noice.nvim', event = 'VeryLazy',           -- message UI
        dependencies = { "MunifTanjim/nui.nvim" } 
     },
@@ -28,7 +28,7 @@ local plugins = {
     { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' }, -- multiline errors
 
     -- NO CONFIG
-    { 'mg979/vim-visual-multi' },                       -- multiple cursors (ctrl+n)
+    { 'mg979/vim-visual-multi' },                       -- multi cursors (ctrl+n)
  
     -- NAVIGATE
     { 'nvim-tree/nvim-tree.lua' },                      -- file tree

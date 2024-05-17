@@ -3,27 +3,24 @@
 
 --# Color Theme #--------------------------------------------------------------
 
-require('ayu').colorscheme()
-require('ayu').setup({
-    overrides = {
-        Normal = { bg = "None" },
-        ColorColumn = { bg = "#121212" },
-        SignColumn = { bg = "None" },
-        Folded = { bg = "None" },
-        FoldColumn = { bg = "None" },
-        CursorLine = { bg = "#121212" },
-        CursorColumn = { bg = "#121212" },
-        WhichKeyFloat = { bg = "None" },
-        VertSplit = { bg = "None" },
+require('nightfox').setup({
+    options = {
+        transparent = true,
+        colorblind = {
+            enable = true,
+            simulate_only = false,
+            severity = { deutan = 1, },
+        },
     },
 })
-vim.cmd.colorscheme("ayu-dark")
+vim.cmd("colorscheme carbonfox")
 
 
 --# Statusline #---------------------------------------------------------------
 
 require('lualine').setup({
     options = {
+        -- theme = 'ayu',
         theme = 'ayu',
     },
 
@@ -56,10 +53,13 @@ require("noice").setup({
     -- you can enable a preset for easier configuration
     presets = {
         bottom_search = true,           -- use a classic bottom cmdline for search
-        command_palette = true,         -- position the cmdline and popupmenu together
+        command_palette = true,         -- position the cmdline and popupmenu
+                                        -- together
         long_message_to_split = true,   -- long messages will be sent to a split
-        inc_rename = false,             -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false,         -- add a border to hover docs and signature help
+        inc_rename = false,             -- enables an input dialog for inc-rename.
+                                        -- nvim
+        lsp_doc_border = false,         -- add a border to hover docs and 
+                                        -- signature help
     },
 })
 
