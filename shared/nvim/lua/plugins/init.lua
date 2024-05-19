@@ -9,14 +9,14 @@ local plugins = {
     { 'hrsh7th/cmp-cmdline' },
     { 'hrsh7th/nvim-cmp' },
 
-    -- GIT
+    -- EDITOR
     { 'airblade/vim-gitgutter' },                       -- git column
     { 'numToStr/Comment.nvim', event = 'VeryLazy' },    -- easier commenting
 
     -- LAYOUT
     { 'nvim-tree/nvim-web-devicons', lazy = true },     -- icons
     { 'nvim-lualine/lualine.nvim' },                    -- statusbar
-    { "EdenEast/nightfox.nvim" },                       -- color theme
+    { "Mofiqul/vscode.nvim" },                          -- color theme
     { 'folke/noice.nvim', event = 'VeryLazy',           -- message UI
        dependencies = { "MunifTanjim/nui.nvim" } 
     },

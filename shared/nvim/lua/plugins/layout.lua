@@ -3,38 +3,40 @@
 
 --# Color Theme #--------------------------------------------------------------
 
-require('nightfox').setup({
-    options = {
-        transparent = true,
-        colorblind = {
-            enable = true,
-            simulate_only = false,
-            severity = { deutan = 1, },
-        },
+vim.o.background = 'dark'
+local c = require('vscode.colors').get_colors()
+require('vscode').setup({
+    transparent = true,
+    italic_comments = true,
+    underline_links = true,
+    disable_nvimtree_bg = true,
+    color_overrides = {
+        vscLineNumber = '#FF9E64',
     },
+    group_overrides = {
+        Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=false },
+    }
 })
-vim.cmd("colorscheme carbonfox")
+vim.cmd.colorscheme "vscode"
 
 
 --# Statusline #---------------------------------------------------------------
 
 require('lualine').setup({
     options = {
-        -- theme = 'ayu',
-        theme = 'ayu',
+        theme = 'vscode',
     },
-
     sections = {
         lualine_x = { {
             require("noice").api.statusline.mode.get,
             cond = require("noice").api.statusline.mode.has,
-            color = { fg = "#ff9e64" },
+            color = { fg = "#FF9E64" },
         } },
     },
 })
 
 -- border line colour
-vim.cmd('highlight VertSplit guifg=#ff5f87 guibg=NONE ctermfg=160 ctermbg=NONE')
+vim.cmd('highlight VertSplit guifg=#FF9E64 guibg=NONE ctermfg=160 ctermbg=NONE')
 
 
 --# noice #--------------------------------------------------------------------
