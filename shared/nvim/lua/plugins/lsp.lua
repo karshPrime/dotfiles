@@ -13,8 +13,10 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 require("lspconfig").rust_analyzer.setup {}
-require("lspconfig").clangd.setup {}
 require("lspconfig").gopls.setup {}
+require("lspconfig").clangd.setup {
+    cmd = { "clangd", "--std=c++20" },
+}
 
 
 --# Multiline Errors #---------------------------------------------------------
