@@ -18,7 +18,6 @@
 
     # Enable networking
     networking.hostName = "nixos";
-    # networking.wireless.enable = true;
     networking.networkmanager.enable = true;
 
     # Locale 
@@ -59,25 +58,20 @@
         alsa.enable = true;
         alsa.support32Bit = true;
         pulse.enable = true;
-        # If you want to use JACK applications, uncomment this
-        #jack.enable = true;
-        # use the example session manager (no others are packaged yet so this is 
-        # enabled by default,no need to redefine it in your config for now)
-        #media-session.enable = true;
     };
 
     # Define a user account
     users.users.karsh = {
         isNormalUser = true;
         description = "karsh";
-        extraGroups = [ "networkmanager" "wheel" ]; #"docker" ];
+        extraGroups = [ "networkmanager" "wheel" "docker" ];
         packages = with pkgs; [
         ];
     };
 
     # Set up docker 
-    # users.extraGroups.docker.members = [ "username-with-access-to-socket" ];
-    # virtualisation.docker.enable = true;
+    users.extraGroups.docker.members = [ "username-with-access-to-socket" ];
+    virtualisation.docker.enable = true;
 
     # Set up virt-manager. not required for when just qemu is required
     virtualisation.libvirtd.enable = true;
@@ -108,34 +102,26 @@
 
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
-    services.flatpak.enable = true;
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
         # Level Zero
-        firejail wget curl zsh flatpak gnupg file pinentry-gnome
+        firejail wget curl zsh gnupg file pinentry-gnome
 
         # Compression
         unzip zip 
 
-        # Config Tools 
-        # gnome.gnome-tweaks xdg-ninja gradience
-
         # Dev Utils
-        git neovim tmux bat eza xxd gnumake lf lazygit gdb # docker docker-compose
-		rustup cargo go gcc clang-tools ghidra-bin 
-        xfce.mousepad mate.mate-terminal onefetch
-        qemu virt-manager
+        git neovim tmux bat eza xxd gnumake lf lazygit gdb
+		rustup cargo go gcc clang-tools
+        mate.mate-terminal
 
-        # System Tools
-        bitwarden libreoffice brave tor-browser btop wl-clipboard bandwhich starship
+        # General Purpose Utils
+        btop wl-clipboard bandwhich starship firefox
 
         # Security
-        chkrootkit sherlock
-
-        # Media & Communication
-        minecraft gimp vlc yt-dlp-light armcord
+        chkrootkit
     ];
 
     # Remove default Gnome packages 
@@ -149,35 +135,14 @@
     services.xserver.excludePackages = [ pkgs.xterm ];
 
     # Remove Nano
-    # programs.nano.enable = false
+    programs.nano.enable = false
 
-# --------------------------------------------------------------------------------------
-# --# FIREJAIL CONFIG #-----------------------------------------------------------------
-
-    # Enable Firejail globally
-    # programs.firejail.enable = true;
-
-    programs.firejail = {
-        enable = true;
-        wrappedBinaries = {
-            signal-desktop = {
-                executable = "${pkgs.signal-desktop}/bin/signal-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland";
-                profile = "${pkgs.firejail}/etc/firejail/signal-desktop.profile";
-                extraArgs = [ "--env=GTK_THEME=Adwaita:dark" ];
-            };
-
-            vesktop = {
-                executable = "${pkgs.vesktop}/bin/vesktop";
-                profile = "${pkgs.firejail}/etc/firejail/discord.profile";
-            };
-        };
-    };
 
 # --------------------------------------------------------------------------------------
 # --# ENABLE SERVICES #-----------------------------------------------------------------
 
     # Enable the OpenSSH daemon.
-    # services.openssh.enable = true;
+    services.openssh.enable = true;
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
@@ -201,12 +166,6 @@
         dates = "weekly";
         options = "--delete-older-than 7d";
     };
-
-
-# --------------------------------------------------------------------------------------
-# --# NIX FLAKES #----------------------------------------------------------------------
-
-nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 
 # --------------------------------------------------------------------------------------
