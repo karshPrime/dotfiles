@@ -61,6 +61,17 @@ alias zedit="$EDITOR $DOTFILES_CONFIG/zsh/zshrc"
 alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
 
 
+# --# package management #-----------------------------------------------------
+
+alias pkga='brew install'
+alias pkgr='brew uninstall'
+alias pkgs='brew search'
+alias pkglist='brew list'
+alias pkgi='brew info'
+alias pkgclean='brew cleanup'
+alias update='brew upgrade; brew update'
+
+
 # --# file navigation #--------------------------------------------------------
 
 # common dirs 
