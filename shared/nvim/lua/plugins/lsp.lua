@@ -14,8 +14,17 @@ require("mason-lspconfig").setup()
 
 require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").gopls.setup {}
-require("lspconfig").clangd.setup {
-    cmd = { "clangd", "--std=c++20" },
+require('lspconfig').clangd.setup {
+    cmd = { "clangd", "--background-index" },
+    init_options = {
+        clangdFileStatus = true,
+        compilationDatabasePath = "build",
+        fallbackFlags = { "--std=c++20" },
+    },
+    root_dir = require('lspconfig').util.root_pattern(
+        "compile_commands.json",
+        ".git"
+    )
 }
 
 
