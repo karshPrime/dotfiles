@@ -172,6 +172,7 @@ alias tmk="tmux kill-session -t"
 alias tmK="tmux kill-session"
 alias tma='tmux attach-session -t'
 alias tml="tmux ls"
+alias tmr="tmux rename"
 alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
 
 # remove tmux session
@@ -187,6 +188,9 @@ tmL() {
     eza ~/.config/tmux/plugins/tmuxifier/layouts | awk -F\. '{ORS=" "; print $1}'; 
     echo ""
 }
+
+# Save path for go packages
+export GOPATH=$HOME/.local/share/go
 
 
 # --# better defaults #--------------------------------------------------------
@@ -244,8 +248,6 @@ alias periodic='sh $HACK_SCRIPTS/periodic.sh'
 alias resistor=$HACK_SCRIPTS/resistor
 alias fetch='sh ~/.config/fetch.sh'
 alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
-
-export GOPATH=$HOME/.local/share/go
 
 
 # -----------------------------------------------------------------------------
