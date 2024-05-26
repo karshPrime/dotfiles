@@ -81,7 +81,7 @@ HACK_SCRIPTS="$HOME/Projects/SysHacks"
 alias l='eza -la --color=always --group-directories-first'
 alias ls='eza'
 alias lh='eza -a | egrep "^\."'
-alias la='eza -a --color=always --group-directories-first'
+alias la='eza -a --color=always --group-directories-first --icons'
 alias tree='eza -T --group-directories-first --icons=always'
 
 # process files
