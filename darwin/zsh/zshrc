@@ -5,7 +5,7 @@
 
 # run fetch script only when not in tmux session
 if [[ -z "$TMUX" ]]; then
-    sh ~/.config/fetch.sh
+    bash ~/.config/fetch.sh
 fi
 
 # zsh history
@@ -66,9 +66,9 @@ alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
 alias pkga='brew install'
 alias pkgr='brew uninstall'
 alias pkgs='brew search'
-alias pkglist='brew list'
+alias pkgl='brew list'
 alias pkgi='brew info'
-alias pkgclean='brew cleanup'
+alias pkgx='brew cleanup'
 alias update='brew upgrade; brew update'
 
 
@@ -87,8 +87,8 @@ alias tree='eza -T --group-directories-first --icons=always'
 # process files
 alias c='bat -n'
 alias cat='bat -pp'
-alias mr='sh $HACK_SCRIPTS/trash.sh' # my rm
-alias smr='sudo sh $HACK_SCRIPTS/trash.sh'
+alias mr='bash $HACK_SCRIPTS/trash.sh' # my rm
+alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
 
 # easier navigate
 cdir() { mkdir $1 && cd $1 }
@@ -243,10 +243,10 @@ alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
 
 alias tools="$HACK_SCRIPTS/tools.sh"
 alias toolx="$EDITOR $HACK_SCRIPTS/tools.sh"
-alias colors='sh $HACK_SCRIPTS/colors.sh'
-alias periodic='sh $HACK_SCRIPTS/periodic.sh'
+alias colors='bash $HACK_SCRIPTS/colors.sh'
+alias periodic='bash $HACK_SCRIPTS/periodic.sh'
 alias resistor=$HACK_SCRIPTS/resistor
-alias fetch='sh ~/.config/fetch.sh'
+alias fetch='bash ~/.config/fetch.sh'
 alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 
 
