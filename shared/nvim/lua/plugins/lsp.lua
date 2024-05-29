@@ -19,12 +19,20 @@ require('lspconfig').clangd.setup {
     init_options = {
         clangdFileStatus = true,
         compilationDatabasePath = "build",
-        fallbackFlags = { "--std=c++20" },
     },
     root_dir = require('lspconfig').util.root_pattern(
-        "compile_commands.json",
-        ".git"
-    )
+    "compile_commands.json",
+    ".git"
+    ),
+    on_new_config = function(new_config, new_root_dir)
+        local function filetype_specific_flags()
+            local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
+            if filetype == 'cpp' then
+                new_config.cmd = vim.list_extend(new_config.cmd, { "--std=c++20" })
+            end
+        end
+        filetype_specific_flags()
+    end,
 }
 
 
@@ -35,10 +43,10 @@ vim.diagnostic.config({ virtual_text = false, })  -- disable default lsp errors
 
 -- toggle errors
 vim.keymap.set(
-    "",
-    "<space><space>",
-    require("lsp_lines").toggle,
-    { desc = "Toggle lsp_lines" }
+"",
+"<space><space>",
+require("lsp_lines").toggle,
+{ desc = "Toggle lsp_lines" }
 )
 
 
@@ -67,11 +75,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<space>D',  vim.lsp.buf.type_definition, opts)
         vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
         vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-        
+
         vim.keymap.set('n', '<space>f', function()
             vim.lsp.buf.format { async = true }
         end, opts)
-        
+
         vim.keymap.set('n', '<space>wl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, opts)
