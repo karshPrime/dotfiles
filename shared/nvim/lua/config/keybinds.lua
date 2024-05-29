@@ -45,6 +45,7 @@ vim.cmd([[command! -nargs=0 W w]])              -- :W work same as :w
 Map('<leader>n', ':noh<CR>')                    -- clear searches (:noh)
 Map('dA', ':norm gg0dG<CR>')                    -- delete everything
 Map('yA', ':norm myLgg0yG``zb`y<CR>')           -- yank everything
+Map('=A', ':norm myLgg=G``zb`y<cr>')            -- format the whole file
 Map('<leader>R', ':norm Gpkdgg<CR>')            -- replace whole text
 Map('<space>s', ':%s/', true, false)            -- faster %s
 Map('<space>/', '/--# <CR>')                    -- jump headings
