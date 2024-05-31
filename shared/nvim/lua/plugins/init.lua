@@ -46,8 +46,11 @@ local plugins = {
     },
 
     -- TMUX
-    { 'karshPrime/only-tmux.nvim', event = 'VeryLazy' },-- tmux panels :only
     { 'christoomey/vim-tmux-navigator' },               -- vim tmux keybinds
+    { 'karshPrime/only-tmux.nvim', event = 'VeryLazy' },-- tmux panels :only
+    { 'karshPrime/tmux-compile.nvim',                   -- execute in tmux
+        event = 'VeryLazy'
+    },
 }
 
 local opts = {}
