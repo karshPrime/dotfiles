@@ -15,26 +15,17 @@ require("mason-lspconfig").setup()
 require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").gopls.setup {}
 require('lspconfig').clangd.setup {
-    cmd = { "clangd", "--background-index" },
+    cmd = { "clangd", "--background-index", "--compile-commands-dir=.", "--fallback-style=LLVM" },
     init_options = {
         clangdFileStatus = true,
-        compilationDatabasePath = "build",
     },
     root_dir = require('lspconfig').util.root_pattern(
-    "compile_commands.json",
-    ".git"
+        ".git"
     ),
     on_new_config = function(new_config, new_root_dir)
-        local function filetype_specific_flags()
-            local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
-            if filetype == 'cpp' then
-                new_config.cmd = vim.list_extend(new_config.cmd, { "--std=c++20" })
-            end
-        end
-        filetype_specific_flags()
+        new_config.cmd = { "clangd", "--background-index", "--compile-commands-dir=" .. new_root_dir, "--fallback-style=Google" }
     end,
 }
-
 
 --# Multiline Errors #---------------------------------------------------------
 
