@@ -1,36 +1,44 @@
 #!/usr/bin/env bash
 
+# more consistent errors
 error() {
     echo -e "\033[31mError: \033[0m$1"
     exit 1
 }
 
-# Check if an argument is provided
+# check if an argument is provided
 if [ $# -eq 0 ]; then
     echo "Usage: ./install.sh <system>"
     error "No argument provided"
 fi
 
+# create symlinks for all dirs in ~/.config
 create_symlinks() {
     local source_path=$1
     local remote_path="$HOME/.config"
 
-    # Check if .config exists, if not create it
+    # check if .config exists, if not create it
     if [ ! -d "$remote_path" ]; then
         mkdir -p "$remote_path"
     fi
 
-    # Iterate over files and directories in source path
+    # iterate over files and directories in source path
     for item in "$source_path"/*; do
         base_name=$(basename "$item")
+
+        # skip README files
+        if [[ "$base_name" == "README.md" ]]; then
+            continue
+        fi
+
         target="$remote_path/$base_name"
 
-        # If target already exists, rename it to name.OLD
+        # if target already exists, rename it to name.OLD
         if [ -e "$target" ]; then
             mv "$target" "$target.OLD"
         fi
 
-        # Create symbolic link in remote_path
+        # create symbolic link in remote_path
         ln -s "$item" "$target"
     done
 
