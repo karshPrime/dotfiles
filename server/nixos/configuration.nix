@@ -35,20 +35,6 @@
         LC_TIME = "en_AU.UTF-8";
     };
 
-    # X11 Services 
-    services.xserver.enable = true;     # Enable the X11 windowing system 
-    services.xserver = {                # Configure keymap in X11
-        layout = "au";
-        xkbVariant = "";
-    };
-
-    # Enable the GNOME Desktop Environment.
-    services.xserver.displayManager.gdm.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
-
-    # Enable CUPS to print documents.
-    services.printing.enable = true;
-
     # Enable sound with pipewire.
     sound.enable = true;
     hardware.pulseaudio.enable = false;
@@ -64,14 +50,9 @@
     users.users.karsh = {
         isNormalUser = true;
         description = "karsh";
-        extraGroups = [ "networkmanager" "wheel" "docker" ];
-        packages = with pkgs; [
-        ];
+        extraGroups = [ "networkmanager" "wheel" ];
+        packages = with pkgs; [];
     };
-
-    # Set up docker 
-    users.extraGroups.docker.members = [ "username-with-access-to-socket" ];
-    virtualisation.docker.enable = true;
 
     # Set up virt-manager. not required for when just qemu is required
     virtualisation.libvirtd.enable = true;
@@ -79,17 +60,13 @@
 
     # Set ZSH as default Shell
     programs.zsh.enable = true;
-    users.defaultUserShell=pkgs.zsh; 
-    users.users.karsh.shell = pkgs.zsh; 
+    users.defaultUserShell = pkgs.zsh;
+    users.users.karsh.shell = pkgs.zsh;
 
     # SystemD service: Limit battery charge over 80%
     systemd.services.battery-limit = {
         enable = true;
         description = "Set the battery charge threshold";
-        unitConfig = {
-            Type = "oneshot";
-            Restart = "on-failure";
-        };
         serviceConfig = {
             ExecStart = "/run/current-system/sw/bin/bash -c 'echo 80 >> /sys/class/power_supply/BAT1/charge_control_end_threshold'";
         };
@@ -115,7 +92,6 @@
         # Dev Utils
         git neovim tmux bat eza xxd gnumake lf lazygit gdb
 		rustup cargo go gcc clang-tools
-        mate.mate-terminal
 
         # General Purpose Utils
         btop wl-clipboard bandwhich starship firefox
@@ -124,18 +100,22 @@
         chkrootkit
     ];
 
-    # Remove default Gnome packages 
-    environment.gnome.excludePackages = with pkgs.gnome; [
-		eog epiphany gedit simple-scan totem yelp geary gnome-characters gnome-contacts
-		pkgs.gnome-console pkgs.gnome-text-editor gnome-logs gnome-maps gnome-music 
-		gnome-weather gnome-software
-    ];
+    services.xserver.enable = true;
+    services.xserver.layout = "au";
+    services.xserver.xkbVariant = "";
 
     # Remove default xorg packages
+    programs.nano.enable = false;
     services.xserver.excludePackages = [ pkgs.xterm ];
 
-    # Remove Nano
-    programs.nano.enable = false
+    # Enable LightDM and XFCE instead of GDM and GNOME
+    services.xserver.displayManager.lightdm.enable = true;
+    services.xserver.displayManager.lightdm.greeters.gtk.enable = true; # GTK Greeter is common for LightDM
+    services.xserver.desktopManager.xfce.enable = true;
+
+    # Ensure GNOME and GDM are disabled
+    services.xserver.displayManager.gdm.enable = false;
+    services.xserver.desktopManager.gnome.enable = false;
 
 
 # --------------------------------------------------------------------------------------
@@ -143,6 +123,16 @@
 
     # Enable the OpenSSH daemon.
     services.openssh.enable = true;
+    # services.openssh.settings.permitRootLogin = "no";
+    # services.openssh.settings.gatewayPorts = "yes";
+
+    networking.firewall = {
+        enable = true;
+        allowedTCPPorts = [ 22 ];
+        extraCommands = ''
+            iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-power 22
+        '';
+    };
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
