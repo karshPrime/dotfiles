@@ -20,9 +20,6 @@
     networking.hostName = "nixos";
     networking.networkmanager.enable = true;
 
-    # set up tailscale
-    services.tailscale.enable = true;
-
     # Locale 
     time.timeZone = "Australia/Melbourne";
     i18n.defaultLocale = "en_AU.UTF-8";
@@ -38,7 +35,7 @@
         LC_TIME = "en_AU.UTF-8";
     };
 
-    # Enable sound with pipewire.
+    # Enable sound with pipewire
     sound.enable = true;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -57,7 +54,7 @@
         packages = with pkgs; [];
     };
 
-    # Set up virt-manager. not required for when just qemu is required
+    # Set up virt-manager
     virtualisation.libvirtd.enable = true;
     programs.virt-manager.enable = true;
 
@@ -71,7 +68,7 @@
         enable = true;
         description = "Set the battery charge threshold";
         serviceConfig = {
-            ExecStart = "/run/current-system/sw/bin/bash -c 'echo 80 >> /sys/class/power_supply/BAT1/charge_control_end_threshold'";
+            ExecStart = "/run/current-system/sw/bin/bash -c 'echo 80 > /sys/class/power_supply/BAT1/charge_control_end_threshold'";
         };
         wantedBy = [ "multi-user.target" ];
     };
@@ -87,7 +84,7 @@
     # $ nix search wget
     environment.systemPackages = with pkgs; [
         # Level Zero
-        firejail wget curl zsh gnupg file qemu tailscale
+        firejail wget curl zsh gnupg file qemu headscale
 
         # Compression
         unzip zip 
@@ -162,6 +159,32 @@
 
 
 # --------------------------------------------------------------------------------------
+# --# HEADSCALE SETUP #-----------------------------------------------------------------
+
+    services.headscale = {
+        enable = true;
+        address = "0.0.0.0";
+        port = 8085;
+
+        settings = {
+            # public ip here
+            server_url = "https://xxx.xxx.xxx.xxx:8085";
+
+            dns_config = {
+                override_local_dns = true;
+                magic_dns = true;
+                nameservers = [ "9.9.9.9" ];
+            };
+
+            ip_prefixes = [
+                "100.64.0.0/10"
+                "fd7a:115c:a1e0::/48"
+            ];
+        };
+    };
+
+
+# --------------------------------------------------------------------------------------
 # --# VERSION & CHANNEL #---------------------------------------------------------------
 
     # Before changing this value read the documentation for this option
@@ -169,62 +192,3 @@
     system.stateVersion = "23.11";     # Did you read the comment?
 }
 
-
-# --------------------------------------------------------------------------------------
-# --# HEADSCALE #-----------------------------------------------------------------------
-
-{ config, pkgs, ... }:
-
-let
-    headscale-src = pkgs.fetchFromGitHub {
-        owner = "juanfont";
-        repo = "headscale";
-        rev = "v0.17.0";
-        sha256 = "sha256-xxxx";
-    };
-    headscale = pkgs.buildGoModule {
-        pname = "headscale";
-        version = "0.17.0";
-        src = headscale-src;
-        vendorSha256 = null;
-    };
-in
-    {
-        environment.systemPackages = with pkgs; [ headscale ];
-
-        systemd.services.headscale = {
-            enable = true;
-            description = "Headscale VPN coordination server";
-            after = [ "network.target" ];
-            wantedBy = [ "multi-user.target" ];
-            serviceConfig = {
-                ExecStart = "${headscale}/bin/headscale serve --config /etc/headscale/config.json";
-                Restart = "always";
-            };
-        };
-
-        environment.etc."headscale".source = headscale;
-
-        # Ensure /etc/headscale/config.json exists and is properly configured
-        environment.etc."headscale/config.json".text = ''
-        {
-            "server_url": "http://127.0.0.1:8080",
-            "listen_addr": "0.0.0.0:8080",
-            "log_level": "info",
-            "db_type": "sqlite3",
-            "db_path": "/var/lib/headscale/db.sqlite",
-            "tls_key_path": "",
-            "tls_cert_path": "",
-            "private_key_path": "",
-            "private_key_passphrase": "",
-            "disable_check_updates": true,
-            "derp_map": "default",
-            "acl_policy_path": "",
-            "logtail": {
-                "collection": "tailhead",
-                "url": "",
-                "enabled": false
-            }
-        }
-    '';
-    }
