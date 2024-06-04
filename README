@@ -1,0 +1,16 @@
+Dotfiles
+==========
+This repository contains configuration files for my different systems. The
+configurations can be cloned and installed according to the specific system in
+use.
+
+Systems
+- Server: nixOS
+- Darwin: MacBook Pro
+- Shared: Common configs, such as for `tmux` and `nvim`
+
+Installation
+Clone the repository and run the install script with the system type as an
+argument. For example:
+$ ./install.sh darwin
+
