@@ -20,6 +20,9 @@
     networking.hostName = "nixos";
     networking.networkmanager.enable = true;
 
+    # Tailscale
+    services.tailscale.enable = true;
+
     # Locale 
     time.timeZone = "Australia/Melbourne";
     i18n.defaultLocale = "en_AU.UTF-8";
@@ -84,7 +87,7 @@
     # $ nix search wget
     environment.systemPackages = with pkgs; [
         # Level Zero
-        firejail wget curl zsh gnupg file qemu headscale
+        firejail wget curl zsh gnupg file qemu tailscale
 
         # Compression
         unzip zip 
@@ -155,32 +158,6 @@
         automatic = true;
         dates = "weekly";
         options = "--delete-older-than 7d";
-    };
-
-
-# --------------------------------------------------------------------------------------
-# --# HEADSCALE SETUP #-----------------------------------------------------------------
-
-    services.headscale = {
-        enable = true;
-        address = "0.0.0.0";
-        port = 8085;
-
-        settings = {
-            # public ip here
-            server_url = "https://xxx.xxx.xxx.xxx:8085";
-
-            dns_config = {
-                override_local_dns = true;
-                magic_dns = true;
-                nameservers = [ "9.9.9.9" ];
-            };
-
-            ip_prefixes = [
-                "100.64.0.0/10"
-                "fd7a:115c:a1e0::/48"
-            ];
-        };
     };
 
 

@@ -228,6 +228,7 @@ bindkey -s '^[h' ' --help | less^M' # display help
 bindkey -s '^[x' 'mr '              # help fix rm habit
 alias v=$EDITOR
 alias vim=$EDITOR 
+alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 
 
 # --# media control #----------------------------------------------------------
