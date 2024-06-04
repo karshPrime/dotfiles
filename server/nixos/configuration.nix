@@ -20,6 +20,9 @@
     networking.hostName = "nixos";
     networking.networkmanager.enable = true;
 
+    # set up tailscale
+    services.tailscale.enable = true;
+
     # Locale 
     time.timeZone = "Australia/Melbourne";
     i18n.defaultLocale = "en_AU.UTF-8";
@@ -72,7 +75,7 @@
         };
         wantedBy = [ "multi-user.target" ];
     };
-    
+
 
 # --------------------------------------------------------------------------------------
 # --# PACKAGES #------------------------------------------------------------------------
@@ -84,14 +87,14 @@
     # $ nix search wget
     environment.systemPackages = with pkgs; [
         # Level Zero
-        firejail wget curl zsh gnupg file pinentry-gnome
+        firejail wget curl zsh gnupg file qemu tailscale
 
         # Compression
         unzip zip 
 
         # Dev Utils
         git neovim tmux bat eza xxd gnumake lf lazygit gdb
-		rustup cargo go gcc clang-tools
+        rustup cargo go gcc clang-tools
 
         # General Purpose Utils
         btop wl-clipboard bandwhich starship firefox
@@ -110,7 +113,7 @@
 
     # Enable LightDM and XFCE instead of GDM and GNOME
     services.xserver.displayManager.lightdm.enable = true;
-    services.xserver.displayManager.lightdm.greeters.gtk.enable = true; # GTK Greeter is common for LightDM
+    services.xserver.displayManager.lightdm.greeters.gtk.enable = true;
     services.xserver.desktopManager.xfce.enable = true;
 
     # Ensure GNOME and GDM are disabled
@@ -130,7 +133,7 @@
         enable = true;
         allowedTCPPorts = [ 22 ];
         extraCommands = ''
-            iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-power 22
+            iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 22
         '';
     };
 
@@ -164,5 +167,42 @@
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "23.11";     # Did you read the comment?
+}
+
+
+# --------------------------------------------------------------------------------------
+# --# HEADSCALE #-----------------------------------------------------------------------
+
+{
+    config, pkgs, ... }:
+
+{
+    environment.systemPackages = with pkgs; [ pkgs.go ];
+
+    systemd.services.headscale = {
+        enable = true;
+        description = "Headscale VPN coordination server";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+            ExecStart = "${pkgs.go}/bin/headscale serve --config /etc/headscale/config.json";
+            Restart = "always";
+        };
+    };
+
+    # Create configuration directory and download Headscale binary
+    environment.etc."headscale".source = pkgs.runCommand "install-headscale" { } ''
+        mkdir -p $out/bin
+        curl -L https://github.com/juanfont/headscale/releases/latest/download/headscale -o $out/bin/headscale
+        chmod +x $out/bin/headscale
+        '';
+
+    # Ensure Headscale binary is in the system path
+    environment.systemPackages = with pkgs; [ 
+        (pkgs.runCommand "headscale-bin" {} ''
+         mkdir -p $out/bin
+         cp ${config.environment.etc.headscale.source}/bin/headscale $out/bin/headscale
+         '')
+    ];
 }
 
