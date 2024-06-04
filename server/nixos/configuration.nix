@@ -173,36 +173,58 @@
 # --------------------------------------------------------------------------------------
 # --# HEADSCALE #-----------------------------------------------------------------------
 
-{
-    config, pkgs, ... }:
+{ config, pkgs, ... }:
 
-{
-    environment.systemPackages = with pkgs; [ pkgs.go ];
-
-    systemd.services.headscale = {
-        enable = true;
-        description = "Headscale VPN coordination server";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-            ExecStart = "${pkgs.go}/bin/headscale serve --config /etc/headscale/config.json";
-            Restart = "always";
-        };
+let
+    headscale-src = pkgs.fetchFromGitHub {
+        owner = "juanfont";
+        repo = "headscale";
+        rev = "v0.17.0";
+        sha256 = "sha256-xxxx";
     };
+    headscale = pkgs.buildGoModule {
+        pname = "headscale";
+        version = "0.17.0";
+        src = headscale-src;
+        vendorSha256 = null;
+    };
+in
+    {
+        environment.systemPackages = with pkgs; [ headscale ];
 
-    # Create configuration directory and download Headscale binary
-    environment.etc."headscale".source = pkgs.runCommand "install-headscale" { } ''
-        mkdir -p $out/bin
-        curl -L https://github.com/juanfont/headscale/releases/latest/download/headscale -o $out/bin/headscale
-        chmod +x $out/bin/headscale
-        '';
+        systemd.services.headscale = {
+            enable = true;
+            description = "Headscale VPN coordination server";
+            after = [ "network.target" ];
+            wantedBy = [ "multi-user.target" ];
+            serviceConfig = {
+                ExecStart = "${headscale}/bin/headscale serve --config /etc/headscale/config.json";
+                Restart = "always";
+            };
+        };
 
-    # Ensure Headscale binary is in the system path
-    environment.systemPackages = with pkgs; [ 
-        (pkgs.runCommand "headscale-bin" {} ''
-         mkdir -p $out/bin
-         cp ${config.environment.etc.headscale.source}/bin/headscale $out/bin/headscale
-         '')
-    ];
-}
+        environment.etc."headscale".source = headscale;
 
+        # Ensure /etc/headscale/config.json exists and is properly configured
+        environment.etc."headscale/config.json".text = ''
+        {
+            "server_url": "http://127.0.0.1:8080",
+            "listen_addr": "0.0.0.0:8080",
+            "log_level": "info",
+            "db_type": "sqlite3",
+            "db_path": "/var/lib/headscale/db.sqlite",
+            "tls_key_path": "",
+            "tls_cert_path": "",
+            "private_key_path": "",
+            "private_key_passphrase": "",
+            "disable_check_updates": true,
+            "derp_map": "default",
+            "acl_policy_path": "",
+            "logtail": {
+                "collection": "tailhead",
+                "url": "",
+                "enabled": false
+            }
+        }
+    '';
+    }
