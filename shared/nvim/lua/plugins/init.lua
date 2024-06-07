@@ -9,15 +9,6 @@ local plugins = {
     { 'hrsh7th/cmp-cmdline' },
     { 'hrsh7th/nvim-cmp' },
 
-    -- DEBUGGER
-    -- { 'mfussenegger/nvim-dap',        event = 'VeryLazy' },
-    -- { 'rcarriga/nvim-dap-ui',         event = 'VeryLazy' },
-    -- { 'theHamsta/nvim-dap-virtual-text',   event = 'VeryLazy' },
-    -- { 'nvim-telescope/telescope-dap.nvim', event = 'VeryLazy' },
-    -- { 'williamboman/mason.nvim',      event = 'VeryLazy' },
-    -- { 'jayp0521/mason-nvim-dap.nvim', event = 'VeryLazy' },
-    -- { 'nvim-neotest/nvim-nio',        event = 'VeryLazy' },
-
     -- EDITOR
     { 'airblade/vim-gitgutter' },                       -- git column
     { 'numToStr/Comment.nvim', event = 'VeryLazy' },    -- easier commenting

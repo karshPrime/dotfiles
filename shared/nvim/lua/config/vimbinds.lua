@@ -29,3 +29,5 @@ vim.cmd('set softtabstop=4')
 vim.cmd('set undolevels=1000')
 vim.cmd('set backspace=indent,eol,start')
 
+vim.cmd('let g:netrw_banner = 0')
+vim.cmd('let g:netrw_sort_options = "i"')
