@@ -183,7 +183,7 @@ alias tmn="$TMUXIFIER new-session"
 alias tme="$TMUXIFIER edit-session"
 alias tmk="tmux kill-session -t"
 alias tmK="tmux kill-session"
-alias tma='tmux attach-session'
+alias tma='tmux attach-session -t'
 alias tml="tmux ls"
 alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
 
