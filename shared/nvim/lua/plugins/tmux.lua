@@ -28,17 +28,8 @@ vim.keymap.set('n', '<leader>\\', ':TMUXcompile Make<CR>', {silent = true})
 
 --# Only TMUX #----------------------------------------------------------------
 
-require('only_tmux').setup({
-    new_window_name = "session"
-})
+require('only_tmux').setup({ new_window_name = "session" })
 
-vim.keymap.set('n', '<leader>o',
-    ':lua require("only_tmux").tmuxCloseAll()<CR>', 
-    { noremap = true, }
-)
-
-vim.keymap.set('n', '<leader>O',
-    ':lua require("only_tmux").tmuxMoveOthers()<CR>', 
-    { noremap = true, silent = true }
-)
+vim.keymap.set('n', '<leader>o', ':TMUXonly close<CR>', { silent = true })
+vim.keymap.set('n', '<leader>O', ':TMUXonly move<CR>', { silent = true })
 
