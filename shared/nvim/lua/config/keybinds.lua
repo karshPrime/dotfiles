@@ -30,15 +30,6 @@ Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
 Map('<leader>l', ':set colorcolumn=80<CR>')     -- show colorcolumn at 80
 Map('<leader>L', ':set colorcolumn=<CR>')       -- hide colorcolumn
 
-
---# Development #-------------------------------------------------------------
-
-Map('<F5>', ':w<CR>:!./upload.sh<CR>')          -- call upload script
-Map('<F6>', ':w<CR>:!cargo run<CR>')            -- run cargo run
-Map('<F7>', ':w<CR>:!cargo build<CR>')          -- run cargo build
-Map('<F8>', ':w<CR>:term make<CR>')             -- run make command
-
-
 --# Conveniences #------------------------------------------------------------
 
 vim.cmd([[command! -nargs=0 W w]])              -- :W work same as :w

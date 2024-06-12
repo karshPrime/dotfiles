@@ -52,6 +52,7 @@ alias nedit="$EDITOR $DOTFILES_CONFIG/nvim/"
 
 # tmux
 alias tedit="$EDITOR $DOTFILES_CONFIG/tmux/tmux.conf"
+alias tupdate="tmux source-file $DOTFILES_CONFIG/tmux/tmux.conf"
 
 # alacritty
 alias aedit="$EDITOR $DOTFILES_CONFIG/alacritty/alacritty.toml"
@@ -173,7 +174,6 @@ alias tmK="tmux kill-session"
 alias tma='tmux attach-session -t'
 alias tml="tmux ls"
 alias tmr="tmux rename"
-alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
 
 # remove tmux session
 tmd() { 
@@ -226,6 +226,7 @@ bindkey -s '^[r' ' | less^M'        # display output in less
 bindkey -s '^[n' ' | wc -l^M'       # count (Number of) results
 bindkey -s '^[h' ' --help | less^M' # display help
 bindkey -s '^[x' 'mr '              # help fix rm habit
+alias x=exit
 alias v=$EDITOR
 alias vim=$EDITOR 
 alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
