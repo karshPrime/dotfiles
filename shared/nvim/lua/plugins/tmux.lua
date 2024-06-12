@@ -14,22 +14,17 @@ require('tmux-compile').setup({
         build = 'cargo build',
         run = 'cargo run',
     },
+    {
+        extension = {'go'},
+        build = 'go build',
+        run = 'go run .',
+    }
 })
 
--- compile and run
-vim.keymap.set('n', 'v<F5>', ':TMUXcompile RunV<CR>',
-    { noremap = true, silent = true })
-
-vim.keymap.set('n', 'h<F5>', ':TMUXcompile RunH<CR>',
-    { noremap = true, silent = true })
-
-vim.keymap.set('n', '<F5>', ':TMUXcompile RunBG<CR>',
-    { noremap = true, silent = true })
-
--- just compile 
-vim.keymap.set('n', '<leader><F5>', ':TMUXcompile Make<CR>',
-    { noremap = true, silent = true })
-
+vim.keymap.set('n', '<leader>]', ':TMUXcompile RunV<CR>',  {silent = true})
+vim.keymap.set('n', '<leader>[', ':TMUXcompile RunH<CR>',  {silent = true})
+vim.keymap.set('n', '<leader>`', ':TMUXcompile RunBG<CR>', {silent = true})
+vim.keymap.set('n', '<leader>\\', ':TMUXcompile Make<CR>', {silent = true})
 
 --# Only TMUX #----------------------------------------------------------------
 
@@ -39,7 +34,7 @@ require('only_tmux').setup({
 
 vim.keymap.set('n', '<leader>o',
     ':lua require("only_tmux").tmuxCloseAll()<CR>', 
-    { noremap = true, silent = true }
+    { noremap = true, }
 )
 
 vim.keymap.set('n', '<leader>O',

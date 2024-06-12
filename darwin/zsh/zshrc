@@ -48,7 +48,7 @@ fpath=(~/.config/zsh/zsh-completions/src $fpath)
 DOTFILES_CONFIG="$HOME/.config/dotfiles/darwin"
 
 # neovim
-alias nedit="$EDITOR $DOTFILES_CONFIG/nvim/"
+nedit() { $EDITOR "$DOTFILES_CONFIG/nvim/lua/$1" }
 
 # tmux
 alias tedit="$EDITOR $DOTFILES_CONFIG/tmux/tmux.conf"
@@ -229,6 +229,7 @@ bindkey -s '^[x' 'mr '              # help fix rm habit
 alias x=exit
 alias v=$EDITOR
 alias vim=$EDITOR 
+alias matrix="iamb -C ~/.config/"
 alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 
 
@@ -249,7 +250,7 @@ alias colors='bash $HACK_SCRIPTS/colors.sh'
 alias periodic='bash $HACK_SCRIPTS/periodic.sh'
 alias resistor=$HACK_SCRIPTS/resistor
 alias fetch='bash ~/.config/fetch.sh'
-alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
+# alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 
 
 # -----------------------------------------------------------------------------
