@@ -250,6 +250,7 @@ alias colors='bash $HACK_SCRIPTS/colors.sh'
 alias periodic='bash $HACK_SCRIPTS/periodic.sh'
 alias resistor=$HACK_SCRIPTS/resistor
 alias fetch='bash ~/.config/fetch.sh'
+alias rename='bash $HACK_SCRIPTS/rename.sh'
 # alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 
 
