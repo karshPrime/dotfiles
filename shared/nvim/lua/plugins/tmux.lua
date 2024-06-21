@@ -24,7 +24,9 @@ require('tmux-compile').setup({
 vim.keymap.set('n','<leader>]', ':w<CR> :TMUXcompile RunV<CR>', {silent=true})
 vim.keymap.set('n','<leader>[', ':w<CR> :TMUXcompile RunH<CR>', {silent=true})
 vim.keymap.set('n','<leader>`', ':w<CR> :TMUXcompile RunBG<CR>',{silent=true})
-vim.keymap.set('n','<leader>\\', ':w<CR> :TMUXcompile Make<CR>',{silent=true})
+vim.keymap.set('n','`<leader>]', ':w<CR> :TMUXcompile MakeV<CR>', {silent=true})
+vim.keymap.set('n','`<leader>[', ':w<CR> :TMUXcompile MakeH<CR>', {silent=true})
+vim.keymap.set('n','`<leader>`', ':w<CR> :TMUXcompile Make<CR>',{silent=true})
 
 --# Only TMUX #----------------------------------------------------------------
 
