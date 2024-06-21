@@ -12,6 +12,9 @@ local plugins = {
     -- EDITOR
     { 'airblade/vim-gitgutter' },                       -- git column
     { 'numToStr/Comment.nvim', event = 'VeryLazy' },    -- easier commenting
+    { 'vyfor/cord.nvim',                                -- discord presence
+       build = './build', event = 'VeryLazy', opts = {},
+    },
 
     -- LAYOUT
     { 'nvim-tree/nvim-web-devicons', lazy = true },     -- icons
