@@ -91,10 +91,10 @@ alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
 
 # easier navigate
 cdir() { mkdir $1 && cd $1 }
+p() { cd ~/Projects; cd $(find . -type d -maxdepth 1 | fzf) }
 desk() { cd ~/Desktop/; cd $(find . -type d -maxdepth 1 | fzf) }
 down() { cd ~/Downloads/; cd $(find . -type d -maxdepth 1 | fzf) }
 docs() { cd ~/Documents/; cd $(find . -type d -maxdepth 1 | fzf) }
-proj() { cd ~/Projects; cd $(find . -type d -maxdepth 1 | fzf) }
 conf() { cd ~/.config/; cd $(find . -type d -maxdepth 1 | fzf) }
 count() { ls $1 | wc -l }
 
@@ -164,28 +164,15 @@ gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
 # tmux launch shortcuts
-TMUXIFIER="$HOME/.config/tmux/plugins/tmuxifier/bin/tmuxifier"
-alias tmn="$TMUXIFIER new-session"
-alias tme="$TMUXIFIER edit-session"
-alias tmk="tmux kill-session -t"
-alias tmK="tmux kill-session"
-alias tma='tmux attach-session -t'
+TMFIER="$HOME/.config/tmux/plugins/tmuxifier/bin/tmuxifier"
+TMFIER_LYT=~/.config/tmux/plugins/tmuxifier/layouts
+alias tmn="$TMFIER new-session"
 alias tml="tmux ls"
-alias tmr="tmux rename"
-
-# remove tmux session
-tmd() { 
-    rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh 
-}
-
-# start new tmux session in full-screen terminal
-tm()  { "$TMUXIFIER load-session $1" }
-
-# list all sessions
-tmL() { 
-    eza ~/.config/tmux/plugins/tmuxifier/layouts | awk -F\. '{ORS=" "; print $1}'; 
-    echo ""
-}
+alias tmK="tmux kill-session"
+tmk() { tmux kill-session -t $(tmux ls | fzf | awk -F':' '{ print $1 }') }
+tma() { tmux attach-session -t $(tmux ls | fzf | awk -F':' '{ print $1 }') }
+tmd() { rm $TMFIER_LYT/$(ls $TMFIER_LYT | fzf | awk -F' ' '{print $1}') }
+tme() { $TMFIER edit-session $(ls $TMFIER_LYT | fzf | awk -F' ' '{print $1}') }
 
 # Save path for go packages
 export GOPATH=$HOME/.local/share/go
