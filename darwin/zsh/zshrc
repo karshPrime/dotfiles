@@ -45,21 +45,19 @@ fpath=(~/.config/zsh/zsh-completions/src $fpath)
 
 # --# dotfiles #---------------------------------------------------------------
 
-DOTFILES_CONFIG="$HOME/.config/dotfiles/darwin"
-
 # neovim
-nedit() { $EDITOR "$DOTFILES_CONFIG/nvim/lua/$1" }
+nedit() { pushd ~/.config/nvim/lua/; nvim $(fzf); popd }
 
 # tmux
-alias tedit="$EDITOR $DOTFILES_CONFIG/tmux/tmux.conf"
-alias tupdate="tmux source-file $DOTFILES_CONFIG/tmux/tmux.conf"
+alias tedit="$EDITOR ~/.config/tmux/tmux.conf"
+alias tupdate="tmux source-file ~/.config/tmux/tmux.conf"
 
 # alacritty
-alias aedit="$EDITOR $DOTFILES_CONFIG/alacritty/alacritty.toml"
+alias aedit="$EDITOR ~/.config/alacritty/alacritty.toml"
 
 # zsh
-alias zedit="$EDITOR $DOTFILES_CONFIG/zsh/zshrc"
-alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
+alias zedit="$EDITOR ~/.zshrc"
+alias zupdate="source ~/.zshrc"
 
 
 # --# package management #-----------------------------------------------------
@@ -93,11 +91,11 @@ alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
 
 # easier navigate
 cdir() { mkdir $1 && cd $1 }
-desk() { cd ~/Desktop/$1/$2 }
-down() { cd ~/Downloads/$1/$2 }
-docs() { cd ~/Documents/$1/$2 }
-proj() { cd ~/Projects/$1/$2 }
-conf() { cd ~/.config/$1/$2 }
+desk() { cd ~/Desktop/; cd $(find . -type d -maxdepth 1 | fzf) }
+down() { cd ~/Downloads/; cd $(find . -type d -maxdepth 1 | fzf) }
+docs() { cd ~/Documents/; cd $(find . -type d -maxdepth 1 | fzf) }
+proj() { cd ~/Projects; cd $(find . -type d -maxdepth 1 | fzf) }
+conf() { cd ~/.config/; cd $(find . -type d -maxdepth 1 | fzf) }
 count() { ls $1 | wc -l }
 
 
