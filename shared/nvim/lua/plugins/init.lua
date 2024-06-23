@@ -12,9 +12,7 @@ local plugins = {
     -- EDITOR
     { 'airblade/vim-gitgutter' },                       -- git column
     { 'numToStr/Comment.nvim', event = 'VeryLazy' },    -- easier commenting
-    { 'vyfor/cord.nvim',                                -- discord presence
-       build = './build', event = 'VeryLazy', opts = {},
-    },
+    { 'declancm/cinnamon.nvim', event = 'VeryLazy' },   -- smoother scrolling
 
     -- LAYOUT
     { 'nvim-tree/nvim-web-devicons', lazy = true },     -- icons
@@ -32,6 +30,7 @@ local plugins = {
 
     -- NO CONFIG
     { 'mg979/vim-visual-multi' },                       -- multi cursors (ctrl+n)
+    { 'ggandor/lightspeed.nvim' },
  
     -- NAVIGATE
     { 'nvim-tree/nvim-tree.lua' },                      -- file tree

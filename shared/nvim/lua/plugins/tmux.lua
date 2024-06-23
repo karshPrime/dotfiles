@@ -4,20 +4,26 @@
 --# TMUX Compile #-------------------------------------------------------------
 
 require('tmux-compile').setup({
-    {
-        extension = {'c', 'cpp', 'h'},
-        build = 'make',
-        run = 'make run',
-    },
-    {
-        extension = {'rs'},
-        build = 'cargo build',
-        run = 'cargo run',
-    },
-    {
-        extension = {'go'},
-        build = 'go build',
-        run = 'go run .',
+    overlay_sleep = 1,
+    overlay_width_percent = 80,
+    overlay_height_percent = 80,
+    build_run_window_title = "build",
+    build_run_config = {
+        {
+            extension = {'c', 'cpp', 'h'},
+            build = 'make',
+            run = 'make run',
+        },
+        {
+            extension = {'rs'},
+            build = 'cargo build',
+            run = 'cargo run',
+        },
+        {
+            extension = {'go'},
+            build = 'go build',
+            run = 'go run .',
+        }
     }
 })
 

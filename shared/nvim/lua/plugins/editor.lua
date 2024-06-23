@@ -17,9 +17,11 @@ vim.cmd('highlight GitGutterDelete guifg=red ctermfg=red')
 
 require('Comment').setup()
 
-
---# Discord Presence #---------------------------------------------------------
-
-require('cord').setup()
-vim.keymap.set('n','<leader>D', ':CordTogglePresence<CR>', {silent=true})
+require('cinnamon').setup {
+    max_length = 500,
+    scroll_limit = -1,
+    extra_keymaps = true,
+    extended_keymaps = true,
+    override_keymaps = true,
+}
 

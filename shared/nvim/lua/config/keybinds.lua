@@ -27,9 +27,6 @@ end
 
 Map('ZZ', ':lua custom_zz()<CR>')               -- save close buffers as well
 
-Map('<C-u>', ':norm Hzz<CR>')                   -- better up scroll
-Map('<C-d>', ':norm Lzz<CR>')                   -- better down scroll
-
 
 --# Windows #-----------------------------------------------------------------
 
@@ -47,6 +44,7 @@ Map('<leader>l', ':lua ToggleColumn()<CR>')     -- toggle Column
 Map('ZE', ':Ex<CR>')                            -- Explore mode
 Map('ZH', ':vsplit | :Explore<CR><C-w>r')       -- RHS new pane
 Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
+
 
 --# Conveniences #------------------------------------------------------------
 
