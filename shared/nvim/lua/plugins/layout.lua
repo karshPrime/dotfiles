@@ -11,7 +11,7 @@ require('vscode').setup({
     underline_links = true,
     disable_nvimtree_bg = true,
     color_overrides = {
-        vscLineNumber = '#FF9E64',
+        vscLineNumber = '#554040',
     },
     group_overrides = {
         Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=false },
@@ -30,13 +30,13 @@ require('lualine').setup({
         lualine_x = { {
             require("noice").api.statusline.mode.get,
             cond = require("noice").api.statusline.mode.has,
-            color = { fg = "#FF9E64" },
+            color = { fg = "#554040" },
         } },
     },
 })
 
 -- border line colour
-vim.cmd('highlight VertSplit guifg=#FF9E64 guibg=NONE ctermfg=160 ctermbg=NONE')
+vim.cmd('highlight VertSplit guifg=#554040 guibg=NONE ctermfg=160 ctermbg=NONE')
 
 
 --# noice #--------------------------------------------------------------------

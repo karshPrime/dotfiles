@@ -2,7 +2,6 @@
 --# Additions #----------------------------------------------------------------
 
 vim.o.clipboard = "unnamedplus"
-vim.cmd('let g:netrw_bufsettings = "noma nomod nu nobl nowrap ro rnu"')
 
 vim.cmd('syntax enable')
 vim.cmd('set laststatus=3')
@@ -30,5 +29,7 @@ vim.cmd('set softtabstop=4')
 vim.cmd('set undolevels=1000')
 vim.cmd('set backspace=indent,eol,start')
 
+vim.cmd('let g:netrw_bufsettings = "noma nomod nu nobl nowrap ro rnu"')
 vim.cmd('let g:netrw_banner = 0')
 vim.cmd('let g:netrw_sort_options = "i"')
+

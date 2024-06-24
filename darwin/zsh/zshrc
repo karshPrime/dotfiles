@@ -32,6 +32,10 @@ else
     autoload -Uz compinit && compinit
 fi
 
+# fzf shell integration
+eval "$(fzf --zsh)"
+alias fzf='fzf --ansi --layout=reverse --cycle -i'
+
 # Plugins
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -90,13 +94,14 @@ alias mr='bash $HACK_SCRIPTS/trash.sh' # my rm
 alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
 
 # easier navigate
+nav_fzf() { cd $1/$( find $1/. -type d -maxdepth 1 | xargs basename | fzf)}
+
 cdir() { mkdir $1 && cd $1 }
-p() { cd ~/Projects; cd $(find . -type d -maxdepth 1 | fzf) }
-desk() { cd ~/Desktop/; cd $(find . -type d -maxdepth 1 | fzf) }
-down() { cd ~/Downloads/; cd $(find . -type d -maxdepth 1 | fzf) }
-docs() { cd ~/Documents/; cd $(find . -type d -maxdepth 1 | fzf) }
-conf() { cd ~/.config/; cd $(find . -type d -maxdepth 1 | fzf) }
-count() { ls $1 | wc -l }
+count() { ls $1 | wc -l | tr -d ' '}
+alias p="nav_fzf ~/Projects"
+alias conf="nav_fzf ~/.config"
+alias docs="nav_fzf ~/Documents"
+alias down="nav_fzf ~/Downloads"
 
 
 # --# notes #------------------------------------------------------------------
@@ -114,6 +119,7 @@ nd() { rm ~/Documents/notes/$1 }
 # shell
 alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
 alias tst='. $HACK_SCRIPTS/testing.sh'
+alias tstrm='mr /tmp/test*'
 
 # ssh
 alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
@@ -159,7 +165,8 @@ alias gitb='git branch -a'
 alias gitu="git reset --soft 'HEAD^'"
 alias gito='git remote add origin'
 alias gitr="git restore"
-alias giti='onefetch --no-title --no-color-palette --ascii-input "$(cat ~/.config/onefetch.art)"'
+alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art
+'
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 

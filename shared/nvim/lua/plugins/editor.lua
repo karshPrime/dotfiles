@@ -13,15 +13,19 @@ vim.cmd('highlight GitGutterChange guifg=blue ctermfg=blue')
 vim.cmd('highlight GitGutterDelete guifg=red ctermfg=red')
 
 
---# Better Commenting #--------------------------------------------------------
-
-require('Comment').setup()
+--# Scroll Animations #--------------------------------------------------------
 
 require('cinnamon').setup {
+    default_delay = 2,
     max_length = 500,
     scroll_limit = -1,
     extra_keymaps = true,
     extended_keymaps = true,
     override_keymaps = true,
 }
+
+
+--# Better Commenting #--------------------------------------------------------
+
+require('Comment').setup()
 
