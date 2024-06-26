@@ -17,7 +17,7 @@ local plugins = {
     -- LAYOUT
     { 'nvim-tree/nvim-web-devicons', lazy = true },     -- icons
     { 'nvim-lualine/lualine.nvim' },                    -- statusbar
-    { "Mofiqul/vscode.nvim" },                          -- color theme
+    { 'karshPrime/tokyoburn.nvim' },                    -- color theme
     { 'folke/noice.nvim', event = 'VeryLazy',           -- message UI
        dependencies = { "MunifTanjim/nui.nvim" } 
     },

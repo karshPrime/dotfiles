@@ -3,40 +3,32 @@
 
 --# Color Theme #--------------------------------------------------------------
 
-vim.o.background = 'dark'
-local c = require('vscode.colors').get_colors()
-require('vscode').setup({
+require("tokyoburn").setup({
     transparent = true,
-    italic_comments = true,
-    underline_links = true,
-    disable_nvimtree_bg = true,
-    color_overrides = {
-        vscLineNumber = '#554040',
+    styles = {
+        sidebars = "transparent",
+        floats = "transparent",
     },
-    group_overrides = {
-        Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=false },
-    }
+    terminal_colors = true,
+    lualine_bold = true,
 })
-vim.cmd.colorscheme "vscode"
+vim.cmd[[colorscheme tokyoburn-night]]
 
 
 --# Statusline #---------------------------------------------------------------
 
 require('lualine').setup({
-    options = {
-        theme = 'vscode',
-    },
     sections = {
         lualine_x = { {
             require("noice").api.statusline.mode.get,
             cond = require("noice").api.statusline.mode.has,
-            color = { fg = "#554040" },
+            color = { fg = "#ff5f87" },
         } },
     },
 })
 
 -- border line colour
-vim.cmd('highlight VertSplit guifg=#554040 guibg=NONE ctermfg=160 ctermbg=NONE')
+vim.cmd('highlight VertSplit guifg=#ff5f87 guibg=NONE ctermfg=160 ctermbg=NONE')
 
 
 --# noice #--------------------------------------------------------------------

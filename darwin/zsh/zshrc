@@ -81,9 +81,8 @@ alias update='brew upgrade; brew update'
 HACK_SCRIPTS="$HOME/Projects/SysHacks"
 
 # look around
-alias l='eza -la --color=always --group-directories-first'
-alias ls='eza'
-alias lh='eza -a | egrep "^\."'
+alias l='eza -lag --color=always --group-directories-first'
+alias ls='eza -g'
 alias la='eza -a --color=always --group-directories-first --icons'
 alias tree='eza -T --group-directories-first --icons=always'
 

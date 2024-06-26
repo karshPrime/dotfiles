@@ -53,7 +53,7 @@ Map('<leader>n', ':noh<CR>')                    -- clear searches (:noh)
 Map('dA', ':norm gg0dG<CR>')                    -- delete everything
 Map('yA', ':norm myLgg0yG``zb`y<CR>')           -- yank everything
 Map('=A', ':norm myLgg=G``zb`y<cr>')            -- format the whole file
-Map('<leader>R', ':norm Gpkdgg<CR>')            -- replace whole text
+Map('<leader>R', ':norm "_dp<CR>')              -- replace whole text
 Map('<space>s', ':%s/', true, false)            -- faster %s
 Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
 Map('<leader>p', ':reg<CR>')                    -- registers (paste) view

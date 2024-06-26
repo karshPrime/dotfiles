@@ -8,6 +8,8 @@ require('tmux-compile').setup({
     sleep_duration = 0,
     overlay_width_percent = 95,
     overlay_height_percent = 95,
+
+
     build_run_config = {{
         extension = {'c', 'cpp', 'h'},
         build = 'make',
@@ -20,6 +22,7 @@ require('tmux-compile').setup({
     },{
         extension = {'go'},
         run = 'go run .',
+        build = 'go build'
     }}
 })
 
