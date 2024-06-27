@@ -27,7 +27,6 @@ end
 
 Map('ZZ', ':lua custom_zz()<CR>')               -- save close buffers as well
 
-
 --# Windows #-----------------------------------------------------------------
 
 -- toggle color column
@@ -49,12 +48,12 @@ Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
 --# Conveniences #------------------------------------------------------------
 
 vim.cmd([[command! -nargs=0 W w]])              -- :W work same as :w
-Map('<leader>n', ':noh<CR>')                    -- clear searches (:noh)
+Map('<leader>/', ':noh<CR>')                    -- clear searches (:noh)
 Map('dA', ':norm gg0dG<CR>')                    -- delete everything
 Map('yA', ':norm myLgg0yG``zb`y<CR>')           -- yank everything
 Map('=A', ':norm myLgg=G``zb`y<cr>')            -- format the whole file
 Map('<leader>R', ':norm "_dp<CR>')              -- replace whole text
 Map('<space>s', ':%s/', true, false)            -- faster %s
 Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
-Map('<leader>p', ':reg<CR>')                    -- registers (paste) view
+Map('X', '"_d')                                 -- since x is pretty useless
 

@@ -10,8 +10,9 @@ vim.keymap.set('n', '<leader>x', builtin.find_files)
 vim.keymap.set('n', '<leader>c', builtin.buffers)
 vim.keymap.set('n', '<leader>m', builtin.marks)
 
-vim.keymap.set('n', '<leader>v', ':Telescope noice<CR>')
+vim.keymap.set('n', '<leader>n', ':Telescope noice<CR>')
 vim.keymap.set('n', '<leader>b', builtin.live_grep)
+vim.keymap.set('n', '<leader>p', builtin.registers)
 
 
 --# Nvim-tree #----------------------------------------------------------------
