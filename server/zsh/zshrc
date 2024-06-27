@@ -31,6 +31,11 @@ else
     autoload -Uz compinit && compinit
 fi
 
+
+# fzf shell integration
+eval "$(fzf --zsh)"
+alias fzf='fzf --ansi --layout=reverse --cycle -i'
+
 # Plugins
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh 
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
@@ -46,11 +51,12 @@ fpath=(~/.config/zsh/zsh-completions/src $fpath)
 
 DOTFILES_CONFIG="$HOME/.config/dotfiles/config"
 
-# neofetch
-alias nedit="$EDITOR $DOTFILES_CONFIG/nvim/"
+# nvim
+nedit() { pushd ~/.config/nvim/lua/; nvim $(fzf); popd }
 
 # tmux
-alias tedit="$EDITOR $DOTFILES_CONFIG/tmux/tmux.conf"
+alias tedit="$EDITOR ~/.config/tmux/tmux.conf"
+alias tupdate="tmux source-file ~/.config/tmux/tmux.conf"
 
 # zsh
 alias zedit="$EDITOR $DOTFILES_CONFIG/zsh/zshrc"
@@ -71,15 +77,6 @@ alias xupdate="sudo nixos-rebuild switch" # --upgrade to upgrade all packages
 alias xpkgs="nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2- | less"
 alias xfind="nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2- | grep -i"
 
-# flatpak 
-alias fpa='flatpak install'
-alias fpr='flatpak uninstall --delete-data'
-alias fpR='flatpak uninstall --all'
-alias fps='flatpak search'
-alias fpl='flatpak list'
-alias fpi='flatpak info'
-alias fpx='flatpak remote-add --if-not-exists'
-
 
 # --# file navigation #-----------------------------------------------------------------
 
@@ -87,29 +84,27 @@ alias fpx='flatpak remote-add --if-not-exists'
 HACK_SCRIPTS="$HOME/Projects/SysHacks"
 
 # look around
-alias l='eza -la --color=always --group-directories-first'
-alias ls='eza'
-alias lh='eza -a | egrep "^\."'
-alias la='eza -a --color=always --group-directories-first'
+alias l='eza -lag --color=always --group-directories-first'
+alias ls='eza -g'
+alias la='eza -a --color=always --group-directories-first --icons'
 alias tree='eza -T --group-directories-first --icons=always'
-alias wk='cd $(walk --icons)'
 
 # process files
 alias c='bat -n'
 alias cat='bat -pp'
-alias mr='sh $HACK_SCRIPTS/trash.sh' # my rm
-alias mrc='rm $HOME/.local/share/Trash/files/*'
-alias smr='sudo sh $HACK_SCRIPTS/trash.sh'
+alias mr='bash $HACK_SCRIPTS/trash.sh' # my rm
+alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
 
 # easier navigate
-alias tordown="cd ~/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
+nav_fzf() { cd $1/$( find $1/. -type d -maxdepth 1 | xargs basename | fzf)}
+
 cdir() { mkdir $1 && cd $1 }
-desk() { cd ~/Desktop/$1/$2 }
-down() { cd ~/Downloads/$1/$2 }
-docs() { cd ~/Documents/$1/$2 }
-proj() { cd ~/Projects/$1/$2 }
-conf() { cd ~/.config/$1/$2 }
-count() { ls $1 | wc -l }
+count() { ls $1 | wc -l | tr -d ' '}
+alias p="nav_fzf ~/Projects"
+alias conf="nav_fzf ~/.config"
+alias docs="nav_fzf ~/Documents"
+alias down="nav_fzf ~/Downloads"
+alias tordown="cd ~/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
 
 
 # --# notes #---------------------------------------------------------------------------
@@ -128,12 +123,10 @@ nd() { rm ~/Documents/notes/$1 }
 alias dev='nix-shell --run zsh'
 alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
 alias tst='. $HACK_SCRIPTS/testing.sh'
+alias tstrm='mr /tmp/test*'
 
 # ssh
 alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
-
-# EAT40005
-alias eatlog='$HOME/Projects/eat40005/worklog/run-nix.sh'
 
 # navigate
 alias readme="$HACK_SCRIPTS/cddev.sh readme"
@@ -173,40 +166,24 @@ alias gitb='git branch -a'
 alias gitu="git reset --soft 'HEAD^'"
 alias gito='git remote add origin'
 alias gitr="git restore"
-alias giti='onefetch --no-title --no-color-palette --ascii-input "$(cat ~/.config/onefetch.art)"'
+alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art
+'
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
 # tmux launch shortcuts
-TMUXIFIER="$HOME/.config/tmux/tmuxifier/bin/tmuxifier"
-alias tmn="$TMUXIFIER new-session"
-alias tme="$TMUXIFIER edit-session"
-alias tmk="tmux kill-session -t"
-alias tmK="tmux kill-session"
-alias tma='tmux attach-session -t'
+TMFIER="$HOME/.config/tmux/plugins/tmuxifier/bin/tmuxifier"
+TMFIER_LYT=~/.config/tmux/plugins/tmuxifier/layouts
+alias tmn="$TMFIER new-session"
 alias tml="tmux ls"
-alias tmu='tmux source-file ~/.config/tmux/tmux.conf'
+alias tmK="tmux kill-session"
+tmk() { tmux kill-session -t $(tmux ls | fzf | awk -F':' '{ print $1 }') }
+tma() { tmux attach-session -t $(tmux ls | fzf | awk -F':' '{ print $1 }') }
+tmd() { rm $TMFIER_LYT/$(ls $TMFIER_LYT | fzf | awk -F' ' '{print $1}') }
+tme() { $TMFIER edit-session $(ls $TMFIER_LYT | fzf | awk -F' ' '{print $1}') }
 
-# remove tmux session
-tmd() { 
-    rm ~/.config/tmux/plugins/tmuxifier/layouts/$1.session.sh 
-}
-
-# start new tmux session in full-screen terminal
-tm()  { 
-    mate-terminal --full-screen -e "$TMUXIFIER load-session $1" && exit
-}
-
-# list all sessions
-tmL() { 
-    exa ~/.config/tmux/plugins/tmuxifier/layouts | awk -F\. '{ORS=" "; print $1}'; 
-    echo ""
-}
-
-# search for cmds
-# cmd() { 
-#     man -k $1|sed "s/ - \(.*\)/ - \o033[35m\1\o033[0m/"; 
-# }
+# Save path for go packages
+export GOPATH=$HOME/.local/share/go
 
 
 # --# better defaults #-----------------------------------------------------------------
@@ -237,6 +214,7 @@ alias sv="sudo $EDITOR"
 # human result
 alias free='free -h'
 alias df='df -h'
+alias diff="diff --color='always'"
 
 # convenience 
 bindkey -s '^[c' ' | wl-copy^M'  # copy output to clipboard
@@ -245,6 +223,7 @@ bindkey -s '^[r' ' | less^M'     # display output in less
 bindkey -s '^[n' ' | wc -l^M'    # count (Number of) results
 bindkey -s '^[h' ' --help | less^M' # display help
 bindkey -s '^[x' 'mr '           # help fix rm habit
+alias x=exit
 alias v=$EDITOR
 alias vim=$EDITOR 
 alias fonts='fc-list | cut -f2 -d: | sort -u'
@@ -271,8 +250,7 @@ alias periodic='sh $HACK_SCRIPTS/periodic.sh'
 alias resistor=$HACK_SCRIPTS/resistor
 alias toipe='./.local/share/cargo/bin/toipe'
 alias fetch='sh ~/.config/fetch.sh'
-alias cpbig='$HACK_SCRIPTS/cpbig.sh'
-alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
+alias rename='bash $HACK_SCRIPTS/rename.sh'
 
 
 # --# xdg-ninja #-----------------------------------------------------------------------
