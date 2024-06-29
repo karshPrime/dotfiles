@@ -154,11 +154,10 @@ alias gitC='git commit -m'
 alias gitD='git diff --stat'
 alias gitd='git diff'
 alias gitl='git log'
-alias gitg='git clone'
 alias gits='git status'
 alias gitS='git switch'
-alias gitp='git push'
-alias gitP='git pull'
+alias gitP='git push'
+alias gitp='git pull'
 alias gith='git checkout'
 alias gitb='git branch -a'
 alias gitu="git reset --soft 'HEAD^'"
@@ -166,6 +165,7 @@ alias gito='git remote add origin'
 alias gitr="git restore"
 alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art
 '
+gitg() { git clone git@github.com:$1.git ; cd $(basename $1) }
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 

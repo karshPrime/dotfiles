@@ -37,11 +37,11 @@ eval "$(fzf --zsh)"
 alias fzf='fzf --ansi --layout=reverse --cycle -i'
 
 # Plugins
-source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh 
-source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 
-source ~/.config/zsh/zsh-history/zsh-history.zsh 
+source /home/shared/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/shared/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/shared/zsh_plugins/zsh-history/zsh-history.zsh
 
-fpath=(~/.config/zsh/zsh-completions/src $fpath) 
+fpath=(/home/shared/zsh_plugins/zsh-completions/src $fpath) 
 
 
 # --------------------------------------------------------------------------------------
@@ -49,39 +49,42 @@ fpath=(~/.config/zsh/zsh-completions/src $fpath)
 
 # --# dotfiles #------------------------------------------------------------------------
 
-DOTFILES_CONFIG="$HOME/.config/dotfiles/config"
+DOTFILES_CONFIG="/home/shared/dotfiles/server"
 
 # nvim
 nedit() { pushd ~/.config/nvim/lua/; nvim $(fzf); popd }
 
 # tmux
-alias tedit="$EDITOR ~/.config/tmux/tmux.conf"
-alias tupdate="tmux source-file ~/.config/tmux/tmux.conf"
+alias tedit="$EDITOR $DOTFILES_CONFIG/tmux/tmux.conf"
+alias tupdate="tmux source-file $DOTFILES_CONFIG/tmux/tmux.conf"
 
 # zsh
 alias zedit="$EDITOR $DOTFILES_CONFIG/zsh/zshrc"
 alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
 
-# nixos
-alias xedit="sudo $EDITOR /etc/nixos/configuration.nix"
-alias xhedit="sudo $EDITOR /etc/nixos/hardware-configuration.nix"
-alias xlist="sudo nix-env --list-generations --profile /nix/var/nix/profiles/system"
-alias xrm="sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations"
-alias xrmall="sudo nix-collect-garbage --delete-old"
-alias xupdate="sudo nixos-rebuild switch" # --upgrade to upgrade all packages
-
 
 # --# package management #--------------------------------------------------------------
 
-# nix packages
-alias xpkgs="nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2- | less"
-alias xfind="nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2- | grep -i"
+alias pkga='sudo apt install'
+alias pkgr='sudo apt purge'
+alias pkgs='apt search'
+alias pkgl='apt list --installed | less'
+alias pkgi='apt show'
+alias pkgx='sudo apt autoclean; sudo apt autoremove'
+
+update() {
+    sudo apt update;
+    sudo apt full-upgrade -y;
+    pushd /home/shared/dotfiles; git pull
+    pushd /home/shared/SysHacks; git pull
+    popd; popd;
+}
 
 
 # --# file navigation #-----------------------------------------------------------------
 
 # common dirs 
-HACK_SCRIPTS="$HOME/Projects/SysHacks"
+HACK_SCRIPTS="/home/shared/SysHacks"
 
 # look around
 alias l='eza -lag --color=always --group-directories-first'
@@ -107,26 +110,12 @@ alias down="nav_fzf ~/Downloads"
 alias tordown="cd ~/.local/share/torbrowser/tbb/x86_64/tor-browser/Browser/Downloads"
 
 
-# --# notes #---------------------------------------------------------------------------
-
-alias nl="eza ~/Documents/notes/"
-alias td="$EDITOR ~/Documents/notes/todo"
-
-nr() { bat -n ~/Documents/notes/$1 }
-nw() { $EDITOR ~/Documents/notes/$1 }
-nd() { rm ~/Documents/notes/$1 }
-
-
 # --# development #---------------------------------------------------------------------
 
 # shell
-alias dev='nix-shell --run zsh'
 alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
 alias tst='. $HACK_SCRIPTS/testing.sh'
-alias tstrm='mr /tmp/test*'
-
-# ssh
-alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
+alias tstrm='rm -rf /tmp/test*'
 
 # navigate
 alias readme="$HACK_SCRIPTS/cddev.sh readme"
@@ -156,7 +145,6 @@ alias gitC='git commit -m'
 alias gitD='git diff --stat'
 alias gitd='git diff'
 alias gitl='git log'
-alias gitg='git clone'
 alias gits='git status'
 alias gitS='git switch'
 alias gitp='git push'
@@ -168,6 +156,7 @@ alias gito='git remote add origin'
 alias gitr="git restore"
 alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art
 '
+gitg() { git clone git@github.com:$1.git ; cd $(basename $1) }
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
@@ -230,16 +219,6 @@ alias fonts='fc-list | cut -f2 -d: | sort -u'
 alias diff="diff --color='always'"
 
 
-# --# media control #-------------------------------------------------------------------
-
-alias yt='yt-dlp'
-alias ytvb='yt-dlp -q -f bestvideo -o "~/Videos/offlineYT/%(title)s.%(ext)s"'
-alias ytab='yt-dlp -q -f bestaudio -o "~/Music/offlineYT/%(title)s.%(ext)s"'
-alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
-alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
-alias snap='wl-paste > $HOME/Pictures/snaps/snap_$(date "+%Y-%m-%d-%H%M%S").png'
-
-
 # --# hacks and patches #---------------------------------------------------------------
 
 alias batcap='echo 80 | sudo tee /sys/class/power_supply/BAT1/charge_control_end_threshold'
@@ -247,8 +226,6 @@ alias tools="$HACK_SCRIPTS/tools.sh"
 alias toolx="$EDITOR $HACK_SCRIPTS/tools.sh"
 alias colors='sh $HACK_SCRIPTS/colors.sh'
 alias periodic='sh $HACK_SCRIPTS/periodic.sh'
-alias resistor=$HACK_SCRIPTS/resistor
-alias toipe='./.local/share/cargo/bin/toipe'
 alias fetch='sh ~/.config/fetch.sh'
 alias rename='bash $HACK_SCRIPTS/rename.sh'
 
