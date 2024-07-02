@@ -5,7 +5,7 @@ configurations can be cloned and installed according to the specific system in
 use.
 
 Systems
-- Server: nixOS
+- Server: ubuntu 24.02
 - Darwin: MacBook Pro
 - Shared: Common configs, such as for `tmux` and `nvim`
 
