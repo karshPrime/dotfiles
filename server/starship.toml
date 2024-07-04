@@ -1,9 +1,10 @@
+
 # starship.toml
 
 #-- Prompt -----------------------------------------------------------------------------
 
 format = """
-$nix_shell  \
+  \
     $directory\
     $c\
     $golang\
@@ -13,7 +14,7 @@ $nix_shell  \
     $rust\
     $git_branch\
     $git_status
-[  ](blue bold)"""
+$username[  ](yellow bold)"""
 
 
 #-- Git --------------------------------------------------------------------------------
@@ -39,11 +40,6 @@ up_to_date = "monke"
 untracked = "󱅘 ${count} "
 style = "fg:#55ff55"
 format = "$style$stashed$ahead$behind$diverged$conflicted$deleted$renamed$modified$staged$untracked"
-
-
-# [custom.github]
-# symbol = "  "
-# require_repo = true
 
 
 #-- Languages --------------------------------------------------------------------------
@@ -83,9 +79,10 @@ style = "fg:#FF2525"
 
 #-- Shell ------------------------------------------------------------------------------
 
-[nix_shell]
+[username]
 disabled = false
-format = '[\($name\)](bold blue) '
+format = "\\[$user\\]"
+show_always = true
 
 [cmd_duration]
 min_time = 10_000
