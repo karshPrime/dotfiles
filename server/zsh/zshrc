@@ -9,7 +9,7 @@ if [[ -z "$TMUX" ]]; then
 fi
 
 # zsh history
-HISTFILE=~/.config/zsh/histfile 
+HISTFILE=~/.config/zsh_histfile
 HISTSIZE=1000 
 SAVEHIST=1000
 setopt HIST_IGNORE_DUPS
@@ -33,13 +33,12 @@ fi
 
 
 # fzf shell integration
-eval "$(fzf --zsh)"
 alias fzf='fzf --ansi --layout=reverse --cycle -i'
 
 # Plugins
-source /home/shared/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /home/shared/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/shared/zsh_plugins/zsh-history/zsh-history.zsh
+source /home/base0/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/base0/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/base0/zsh_plugins/zsh-history/zsh-history.zsh
 
 fpath=(/home/shared/zsh_plugins/zsh-completions/src $fpath) 
 
@@ -49,18 +48,16 @@ fpath=(/home/shared/zsh_plugins/zsh-completions/src $fpath)
 
 # --# dotfiles #------------------------------------------------------------------------
 
-DOTFILES_CONFIG="/home/shared/dotfiles/server"
-
 # nvim
 nedit() { pushd ~/.config/nvim/lua/; nvim $(fzf); popd }
 
 # tmux
-alias tedit="$EDITOR $DOTFILES_CONFIG/tmux/tmux.conf"
-alias tupdate="tmux source-file $DOTFILES_CONFIG/tmux/tmux.conf"
+alias tedit="$EDITOR ~/.config/tmux/tmux.conf"
+alias tupdate="tmux source-file ~/.config/tmux/tmux.conf"
 
 # zsh
-alias zedit="$EDITOR $DOTFILES_CONFIG/zsh/zshrc"
-alias zupdate="source $DOTFILES_CONFIG/zsh/zshrc"
+alias zedit="$EDITOR ~/.zshrc"
+alias zupdate="source ~/.zshrc"
 
 
 # --# package management #--------------------------------------------------------------
@@ -75,8 +72,8 @@ alias pkgx='sudo apt autoclean; sudo apt autoremove'
 update() {
     sudo apt update;
     sudo apt full-upgrade -y;
-    pushd /home/shared/dotfiles; git pull
-    pushd /home/shared/SysHacks; git pull
+    pushd /home/base0/.dotfiles; sudo -u base0 git pull
+    pushd /home/base0/SysHacks; sudo -u base0 git pull
     popd; popd;
 }
 
@@ -84,7 +81,7 @@ update() {
 # --# file navigation #-----------------------------------------------------------------
 
 # common dirs 
-HACK_SCRIPTS="/home/shared/SysHacks"
+HACK_SCRIPTS="/home/base0/SysHacks"
 
 # look around
 alias l='eza -lag --color=always --group-directories-first'
@@ -93,8 +90,8 @@ alias la='eza -a --color=always --group-directories-first --icons'
 alias tree='eza -T --group-directories-first --icons=always'
 
 # process files
-alias c='bat -n'
-alias cat='bat -pp'
+alias c='batcat -n'
+alias cat='batcat -pp'
 alias mr='bash $HACK_SCRIPTS/trash.sh' # my rm
 alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
 
@@ -217,6 +214,7 @@ alias v=$EDITOR
 alias vim=$EDITOR 
 alias fonts='fc-list | cut -f2 -d: | sort -u'
 alias diff="diff --color='always'"
+alias b0="sudo -u base0"
 
 
 # --# hacks and patches #---------------------------------------------------------------
