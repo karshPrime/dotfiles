@@ -50,7 +50,11 @@ fpath=(~/.config/zsh/zsh-completions/src $fpath)
 # --# dotfiles #---------------------------------------------------------------
 
 # neovim
-nedit() { pushd ~/.config/nvim/lua/; nvim $(fzf); popd }
+nedit() {
+    pushd ~/.config/nvim/lua/ > /dev/null;
+    nvim $(fzf -m --preview="bat --color=always --number {}");
+    popd > /dev/null
+}
 
 # tmux
 alias tedit="$EDITOR ~/.config/tmux/tmux.conf"
@@ -67,12 +71,12 @@ alias zupdate="source ~/.zshrc"
 # --# package management #-----------------------------------------------------
 
 alias pkga='brew install'
-alias pkgr='brew uninstall'
+alias pkgr='brew uninstall --zap'
 alias pkgs='brew search'
 alias pkgl='brew list'
 alias pkgi='brew info'
-alias pkgx='brew cleanup'
-alias update='brew upgrade; brew update'
+alias pkgx='brew cleanup --prune=all'
+alias update='brew upgrade; brew update; brew cleanup'
 
 
 # --# file navigation #--------------------------------------------------------
@@ -81,8 +85,8 @@ alias update='brew upgrade; brew update'
 HACK_SCRIPTS="$HOME/Projects/SysHacks"
 
 # look around
-alias l='eza -lag --color=always --group-directories-first'
-alias ls='eza -g'
+alias l='eza -lag --color=always --group-directories-first --icons'
+alias ls='eza -g --icons'
 alias la='eza -a --color=always --group-directories-first --icons'
 alias tree='eza -T --group-directories-first --icons=always'
 
@@ -103,16 +107,6 @@ alias docs="nav_fzf ~/Documents"
 alias down="nav_fzf ~/Downloads"
 
 
-# --# notes #------------------------------------------------------------------
-
-alias nl="eza ~/Documents/notes/"
-alias td="$EDITOR ~/Documents/notes/todo"
-
-nr() { bat -n ~/Documents/notes/$1 }
-nw() { $EDITOR ~/Documents/notes/$1 }
-nd() { rm ~/Documents/notes/$1 }
-
-
 # --# development #------------------------------------------------------------
 
 # shell
@@ -126,7 +120,7 @@ alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
 # EAT40005
 alias eatlog='$HOME/Projects/eat40005/worklog/run.sh'
 
-# navigate
+# development
 alias readme="$HACK_SCRIPTS/cddev.sh readme"
 alias gignore="$HACK_SCRIPTS/cddev.sh gitignore"
 alias gconfig="$HACK_SCRIPTS/cddev.sh gitconfig"
@@ -139,11 +133,6 @@ alias cpcode='$HACK_SCRIPTS/copy_code.sh'
 
 # assemby
 alias assem="objdump -M intel -D"
-
-# docker 
-alias dcompu='sudo docker-compose up -d'
-alias dcompd='sudo docker-compose down'
-alias dockerd='sudo dockerd'
 
 # git shortcuts
 alias g=lazygit
@@ -158,7 +147,7 @@ alias gits='git status'
 alias gitS='git switch'
 alias gitP='git push'
 alias gitp='git pull'
-alias gith='git checkout'
+alias gitk='git checkout'
 alias gitb='git branch -a'
 alias gitu="git reset --soft 'HEAD^'"
 alias gito='git remote add origin'
@@ -220,8 +209,7 @@ bindkey -s '^[x' 'mr '              # help fix rm habit
 alias x=exit
 alias v=$EDITOR
 alias vim=$EDITOR 
-alias matrix="iamb -C ~/.config/"
-alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
+alias cp='cp -ripv'
 
 
 # --# media control #----------------------------------------------------------
