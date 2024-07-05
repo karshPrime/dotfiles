@@ -55,5 +55,6 @@ Map('=A', ':norm myLgg=G``zb`y<cr>')            -- format the whole file
 Map('<leader>R', ':norm "_dp<CR>')              -- replace whole text
 Map('<space>s', ':%s/', true, false)            -- faster %s
 Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
-Map('X', '"_d')                                 -- since x is pretty useless
+Map('X', '"_d')                                 -- delete without buffer
+Map('XA', ':norm gg"_dG<CR>')                   -- delete without buffer all
 
