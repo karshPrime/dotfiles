@@ -37,9 +37,9 @@ eval "$(fzf --zsh)"
 alias fzf='fzf --ansi --layout=reverse --cycle -i'
 
 # Plugins
-source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.config/zsh/zsh-history/zsh-history.zsh
+source ~/.config/zsh/highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/history/zsh-history-substring-search.zsh
 
 fpath=(~/.config/zsh/zsh-completions/src $fpath)
 

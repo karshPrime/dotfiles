@@ -36,9 +36,9 @@ fi
 alias fzf='fzf --ansi --layout=reverse --cycle -i'
 
 # Plugins
-source /home/base0/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /home/base0/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/base0/zsh_plugins/zsh-history/zsh-history.zsh
+source ~/.config/zsh/highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/history/zsh-history-substring-search.zsh
 
 fpath=(/home/shared/zsh_plugins/zsh-completions/src $fpath) 
 
@@ -72,8 +72,8 @@ alias pkgx='sudo apt autoclean; sudo apt autoremove'
 update() {
     sudo apt update;
     sudo apt full-upgrade -y;
-    pushd /home/base0/.dotfiles; sudo -u base0 git pull
-    pushd /home/base0/SysHacks; sudo -u base0 git pull
+    pushd $HOME/.config/dotfiles; git pull
+    pushd $HOME/.hacks; git pull
     popd; popd;
 }
 
@@ -81,7 +81,7 @@ update() {
 # --# file navigation #-----------------------------------------------------------------
 
 # common dirs 
-HACK_SCRIPTS="/home/base0/SysHacks"
+HACK_SCRIPTS="$HOME/.hacks"
 
 # look around
 alias l='eza -lag --color=always --group-directories-first'
