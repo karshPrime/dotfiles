@@ -9,7 +9,7 @@ Map = function(key, action, nrmap, quiet)
         quiet = true
     end
     vim.keymap.set('n', key, action,
-        { noremap = nrmap, silent = quiet }
+    { noremap = nrmap, silent = quiet }
     )
 end
 
@@ -26,6 +26,9 @@ function custom_zz()
 end
 
 Map('ZZ', ':lua custom_zz()<CR>')               -- save close buffers as well
+Map('s', '"_d')                                 -- delete without buffer
+Map('S', '"_d$a')                               -- delete without buffer line
+Map('X', '"_x')                                 -- delete without buffer char
 
 --# Windows #-----------------------------------------------------------------
 
@@ -49,12 +52,11 @@ Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
 
 vim.cmd([[command! -nargs=0 W w]])              -- :W work same as :w
 Map('<leader>/', ':noh<CR>')                    -- clear searches (:noh)
-Map('dA', ':norm gg0dG<CR>')                    -- delete everything
-Map('yA', ':norm myLgg0yG``zb`y<CR>')           -- yank everything
+Map('sA', ':norm gg"_dG<CR>')                   -- delete without buffer all
+Map('dA', ':norm gg0dG<CR>')                    -- delete with buffer all
+Map('yA', ':norm myLgg0yG``zb`y<CR>')           -- yank all
 Map('=A', ':norm myLgg=G``zb`y<cr>')            -- format the whole file
 Map('<leader>R', ':norm "_dp<CR>')              -- replace whole text
 Map('<space>s', ':%s/', true, false)            -- faster %s
 Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
-Map('X', '"_d')                                 -- delete without buffer
-Map('XA', ':norm gg"_dG<CR>')                   -- delete without buffer all
 

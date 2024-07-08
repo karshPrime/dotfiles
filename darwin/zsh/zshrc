@@ -52,7 +52,7 @@ fpath=(~/.config/zsh/zsh-completions/src $fpath)
 # neovim
 nedit() {
     pushd ~/.config/nvim/lua/ > /dev/null;
-    nvim $(fzf -m --preview="bat --color=always --number {}");
+    $EDITOR $(fzf -m --preview="bat --color=always --number {}");
     popd > /dev/null
 }
 
@@ -126,7 +126,7 @@ alias gignore="$HACK_SCRIPTS/cddev.sh gitignore"
 alias gconfig="$HACK_SCRIPTS/cddev.sh gitconfig"
 alias makefile="$HACK_SCRIPTS/cddev.sh makefile"
 alias main="$HACK_SCRIPTS/cddev.sh main"
-alias code="$HACK_SCRIPTS/cddev.sh alltype"
+alias vi="$HACK_SCRIPTS/cddev.sh alltype"
 alias parent=". $HACK_SCRIPTS/cddev.sh parent"
 alias todo='$HACK_SCRIPTS/todo.sh'
 alias cpcode='$HACK_SCRIPTS/copy_code.sh'
@@ -154,7 +154,7 @@ alias gito='git remote add origin'
 alias gitr="git restore"
 alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art
 '
-gitg() { git clone git@github.com:$1.git ; cd $(basename $1) }
+gitg() { git clone --depth=1 git@github.com:$1.git; cd $(basename $1) }
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
@@ -210,6 +210,7 @@ alias x=exit
 alias v=$EDITOR
 alias vim=$EDITOR 
 alias cp='cp -ripv'
+alias ed='ed -p "> "'
 
 
 # --# media control #----------------------------------------------------------
