@@ -28,12 +28,13 @@ local plugins = {
     { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' }, -- multiline errors
 
     -- NO CONFIG
-    { 'mg979/vim-visual-multi' },                       -- multi cursors (ctrl+n)
+    { 'mg979/vim-visual-multi', event = 'VeryLazy' },   -- multi cursors (ctrl+n)
  
     -- NAVIGATE
     { 'nvim-tree/nvim-tree.lua' },                      -- file tree
-    { 'nvim-telescope/telescope.nvim', tag = '0.1.6',   -- telescope
-       dependencies = { 'nvim-lua/plenary.nvim' } 
+    { 'nvim-telescope/telescope.nvim', tag = '0.1.8',   -- telescope
+       dependencies = { 'nvim-lua/plenary.nvim' },
+       event = 'VeryLazy'
     },
 
     -- TMUX
