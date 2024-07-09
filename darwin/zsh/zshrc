@@ -93,18 +93,25 @@ alias tree='eza -T --group-directories-first --icons=always'
 # process files
 alias c='bat -n'
 alias cat='bat -pp'
+alias re='grep -o -E'
 alias mr='bash $HACK_SCRIPTS/trash.sh' # my rm
 alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
+i() { cat ~/Documents/Info/$1 }
 
 # easier navigate
-nav_fzf() { cd $1/$( find $1/. -type d -maxdepth 1 | xargs basename | fzf)}
+gt() {
+    dir="${1:-.}"
+    cd "$dir/$(
+        find "$dir" -maxdepth 1 -type d | sed -E 's|^.*/([^/]*)$|\1|' | sort | fzf
+    )"
+}
 
 cdir() { mkdir $1 && cd $1 }
 count() { ls $1 | wc -l | tr -d ' '}
-alias p="nav_fzf ~/Projects"
-alias conf="nav_fzf ~/.config"
-alias docs="nav_fzf ~/Documents"
-alias down="nav_fzf ~/Downloads"
+alias p="gt ~/Projects"
+alias conf="gt ~/.config"
+alias docs="gt ~/Documents"
+alias down="gt ~/Downloads"
 
 
 # --# development #------------------------------------------------------------
@@ -211,6 +218,7 @@ alias v=$EDITOR
 alias vim=$EDITOR 
 alias cp='cp -ripv'
 alias ed='ed -p "> "'
+alias rmf='mr $(find . -maxdepth 1 | sort | fzf -m)'
 
 
 # --# media control #----------------------------------------------------------
