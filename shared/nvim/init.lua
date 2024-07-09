@@ -1,7 +1,7 @@
 
--- configuration init
-require("config.keybinds")
-require("config.vimbinds")
+-- bindings
+require("binds.keybinds")
+require("binds.vimbinds")
 
 -- plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
