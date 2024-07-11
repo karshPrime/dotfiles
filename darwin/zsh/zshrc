@@ -9,8 +9,8 @@ if [[ -z "$TMUX" ]]; then
 fi
 
 # zsh history
-HISTFILE=~/.config/zsh/histfile 
-HISTSIZE=1000 
+HISTFILE=~/.config/zsh/histfile
+HISTSIZE=1000
 SAVEHIST=1000
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
@@ -24,7 +24,7 @@ export PATH=/opt/homebrew/bin:$PATH
 
 # better auto-complete
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
- 
+
 if [[ -f "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION" ]]; then
     autoload -Uz compinit
     compinit -C "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
@@ -40,8 +40,6 @@ alias fzf='fzf --ansi --layout=reverse --cycle -i'
 source ~/.config/zsh/highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/history/zsh-history-substring-search.zsh
-
-fpath=(~/.config/zsh/zsh-completions/src $fpath)
 
 
 # -----------------------------------------------------------------------------
@@ -81,7 +79,7 @@ alias update='brew upgrade; brew update; brew cleanup'
 
 # --# file navigation #--------------------------------------------------------
 
-# common dirs 
+# common dirs
 HACK_SCRIPTS="$HOME/Projects/SysHacks"
 
 # look around
@@ -102,7 +100,7 @@ i() { cat ~/Documents/Info/$1 }
 gt() {
     dir="${1:-.}"
     cd "$dir/$(
-        find "$dir" -maxdepth 1 -type d | sed -E 's|^.*/([^/]*)$|\1|' | sort | fzf
+    find "$dir" -maxdepth 1 -type d | sed -E 's|^.*/([^/]*)$|\1|' | sort | fzf
     )"
 }
 
@@ -182,7 +180,7 @@ export GOPATH=$HOME/.local/share/go
 
 # --# better defaults #--------------------------------------------------------
 
-# keyboard behaviour 
+# keyboard behaviour
 bindkey "^[l"     clear-screen
 bindkey '^[[1;9D' backward-word
 bindkey '^[[1;9C' forward-word
@@ -206,16 +204,16 @@ alias ntop='sudo bandwhich'
 alias df='df -h'
 alias diff="diff --color='always'"
 
-# convenience 
+# convenience
 bindkey -s '^[c' ' | pbcopy^M'      # copy output to clipboard
 bindkey -s '^[p' 'pbpaste > '       # paste clipboard content to a file
-bindkey -s '^[r' ' | less^M'        # display output in less 
+bindkey -s '^[r' ' | less^M'        # display output in less
 bindkey -s '^[n' ' | wc -l^M'       # count (Number of) results
 bindkey -s '^[h' ' --help | less^M' # display help
 bindkey -s '^[x' 'mr '              # help fix rm habit
 alias x=exit
 alias v=$EDITOR
-alias vim=$EDITOR 
+alias vim=$EDITOR
 alias cp='cp -ripv'
 alias ed='ed -p "> "'
 alias rmf='mr $(find . -maxdepth 1 | sort | fzf -m)'

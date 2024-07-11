@@ -29,7 +29,8 @@ Map('ZZ', ':lua custom_zz()<CR>')               -- save close buffers as well
 Map('s', '"_d')                                 -- delete without buffer
 Map('S', '"_d$a')                               -- delete without buffer line
 Map('X', '"_x')                                 -- delete without buffer char
-Map('<Esc>', ':noh<CR><Esc>')                   -- extend Esc to also hide search
+Map('<Esc>', '<Esc>:noh<CR>')                   -- extend Esc to also hide search
+Map('<CR>', 'zo<CR>')                           -- unfold with Return
 
 
 --# Windows #-----------------------------------------------------------------
@@ -53,11 +54,11 @@ Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
 --# Conveniences #------------------------------------------------------------
 
 vim.cmd([[command! -nargs=0 W w]])              -- :W work same as :w
-Map('sA', ':norm gg"_dG<CR>')                   -- delete without buffer all
-Map('dA', ':norm gg0dG<CR>')                    -- delete with buffer all
-Map('yA', ':norm myLgg0yG``zb`y<CR>')           -- yank all
-Map('=A', ':norm myLgg=G``zb`y<CR>:%s/ *$//g<CR>')  -- format the whole file
-Map('<leader>R', ':norm gg"_dGp<CR>')           -- replace whole text
+Map('sA', 'gg"_dG<CR>')                         -- delete without buffer all
+Map('dA', 'gg0dG<CR>')                          -- delete with buffer all
+Map('yA', 'myLgg0yG``zb`y<CR>')                 -- yank all
+Map('=A', 'myLgg=G``zb`y<CR>:%s/ *$//g<CR>')    -- format the whole file
+Map('<leader>R', 'gg"_dGp<CR>')                 -- replace whole text
 Map('<space>s', ':%s/', true, false)            -- faster %s
 Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
 
