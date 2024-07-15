@@ -6,8 +6,8 @@
 require('tmux-compile').setup({
     save_session = true,
     sleep_duration = 0,
-    overlay_width_percent = 90,
-    overlay_height_percent = 80,
+    overlay_width_percent = 80,
+    overlay_height_percent = 75,
 
     build_run_config = {{
         extension = {'c', 'cpp', 'h'},
@@ -26,7 +26,7 @@ require('tmux-compile').setup({
 })
 
 
-Map('<leader>g', ':TMUXcompile lazygit<CR>')
+Map('<C-g>', ':TMUXcompile lazygit<CR>')
 
 Map('<leader>`', ':TMUXcompile Run<CR>')
 Map('<leader>|', ':TMUXcompile RunBG<CR>')

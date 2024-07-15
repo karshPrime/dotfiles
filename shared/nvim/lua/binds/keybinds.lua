@@ -59,6 +59,5 @@ Map('dA', 'gg0dG<CR>')                          -- delete with buffer all
 Map('yA', 'myLgg0yG``zb`y<CR>')                 -- yank all
 Map('=A', 'myLgg=G``zb`y<CR>:%s/ *$//g<CR>')    -- format the whole file
 Map('<leader>R', 'gg"_dGp<CR>')                 -- replace whole text
-Map('<space>s', ':%s/', true, false)            -- faster %s
 Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
 
