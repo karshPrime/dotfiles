@@ -60,4 +60,5 @@ Map('yA', 'myLgg0yG``zb`y<CR>')                 -- yank all
 Map('=A', 'myLgg=G``zb`y<CR>:%s/ *$//g<CR>')    -- format the whole file
 Map('<leader>R', 'gg"_dGp<CR>')                 -- replace whole text
 Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
+Map('<space>s', ':%s/', true, false)            -- faster %s
 

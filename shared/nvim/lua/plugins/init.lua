@@ -10,7 +10,6 @@ local plugins = {
     { 'hrsh7th/nvim-cmp' },
 
     -- EDITOR
-    { 'chrisgrieser/nvim-rip-substitute' },             -- search n replace regex
     { 'airblade/vim-gitgutter' },                       -- git column
     { 'numToStr/Comment.nvim', event = 'VeryLazy' },    -- easier commenting
 

@@ -21,7 +21,7 @@ require('tmux-compile').setup({
     },{
         extension = {'go'},
         run = 'go run .',
-        build = 'go build'
+        build = 'go build -race -o ./bin/test main.go'
     }}
 })
 
