@@ -21,6 +21,7 @@ setopt autocd extendedglob
 # explicit declaration
 export EDITOR=nvim
 export PATH=/opt/homebrew/bin:$PATH
+export HOMEBREW_NO_ENV_HINTS=1
 
 # better auto-complete
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -91,16 +92,19 @@ alias tree='eza -T --group-directories-first --icons=always'
 # process files
 alias c='bat -n'
 alias cat='bat -pp'
-alias re='grep -o -E'
 alias mr='bash $HACK_SCRIPTS/trash.sh' # my rm
 alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
+alias vm='$HACK_SCRIPTS/vimacro.sh'
 i() { cat ~/Documents/Info/$1 }
 
 # easier navigate
 gt() {
     dir="${1:-.}"
     cd "$dir/$(
-    find "$dir" -maxdepth 1 -type d | sed -E 's|^.*/([^/]*)$|\1|' | sort | fzf
+        find "$dir" -maxdepth 1 -mindepth 1 -type d |
+        grep -o -E "[^/]*$" |
+        sort |
+        fzf --height=40% --border=rounded
     )"
 }
 
@@ -133,8 +137,9 @@ alias makefile="$HACK_SCRIPTS/cddev.sh makefile"
 alias main="$HACK_SCRIPTS/cddev.sh main"
 alias vi="$HACK_SCRIPTS/cddev.sh alltype"
 alias parent=". $HACK_SCRIPTS/cddev.sh parent"
-alias todo='$HACK_SCRIPTS/todo.sh'
-alias cpcode='$HACK_SCRIPTS/copy_code.sh'
+alias todo="$HACK_SCRIPTS/todo.sh"
+alias cpcode="$HACK_SCRIPTS/copy_code.sh"
+alias gomake="$HACK_SCRIPTS/gomake.sh"
 
 # assemby
 alias assem="objdump -M intel -D"
@@ -157,22 +162,18 @@ alias gitb='git branch -a'
 alias gitu="git reset --soft 'HEAD^'"
 alias gito='git remote add origin'
 alias gitr="git restore"
-alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art
-'
+alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art'
+
 gitg() { git clone --depth=1 git@github.com:$1.git; cd $(basename $1) }
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
 # tmux launch shortcuts
-TMFIER="$HOME/.config/tmux/plugins/tmuxifier/bin/tmuxifier"
-TMFIER_LYT=~/.config/tmux/plugins/tmuxifier/layouts
-alias tmn="$TMFIER new-session"
 alias tml="tmux ls"
 alias tmK="tmux kill-session"
-tmk() { tmux kill-session -t $(tmux ls | fzf | awk -F':' '{ print $1 }') }
-tma() { tmux attach-session -t $(tmux ls | fzf | awk -F':' '{ print $1 }') }
-tmd() { rm $TMFIER_LYT/$(ls $TMFIER_LYT | fzf | awk -F' ' '{print $1}') }
-tme() { $TMFIER edit-session $(ls $TMFIER_LYT | fzf | awk -F' ' '{print $1}') }
+alias tmL="tmux ls | fzf --height=40% --border=rounded | cut -f 1 -d ':'"
+tmk() { tmux kill-session -t $(tmL) }
+tma() { tmux attach-session -t $(tmL) }
 
 # Save path for go packages
 export GOPATH=$HOME/.local/share/go
@@ -211,12 +212,17 @@ bindkey -s '^[r' ' | less^M'        # display output in less
 bindkey -s '^[n' ' | wc -l^M'       # count (Number of) results
 bindkey -s '^[h' ' --help | less^M' # display help
 bindkey -s '^[x' 'mr '              # help fix rm habit
+bindkey -s '^[g' 'gt '
 alias x=exit
 alias v=$EDITOR
+alias sv="sudo $EDITOR"
 alias vim=$EDITOR
-alias cp='cp -ripv'
+alias cp=ditto
 alias ed='ed -p "> "'
-alias rmf='mr $(find . -maxdepth 1 | sort | fzf -m)'
+alias re='grep -o -E'
+alias sed='sed -r'
+alias rmf='mr $(find . -maxdepth 1 -mindepth 1 | sort | fzf -m --height=40%)'
+alias weather='curl wttr.in/melbourne'
 
 
 # --# media control #----------------------------------------------------------
