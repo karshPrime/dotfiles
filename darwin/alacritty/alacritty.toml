@@ -7,7 +7,7 @@
 title = "terminal"
 opacity = 0.7
 blur = true
-dimensions = { columns = 120, lines = 27 }
+dimensions = { columns = 90, lines = 24 }
 padding = { x = 10, y = 5 }
 option_as_alt = "Both"
 
@@ -23,6 +23,10 @@ foreground = "0xe6e6e6"
 background = "None"
 foreground = "None"
 
+[[keyboard.bindings]]
+key = "F"
+mods = "Alt"
+action = "ToggleSimpleFullscreen"
 
 # -----------------------------------------------------------------------------
 # -- Fonts --------------------------------------------------------------------
