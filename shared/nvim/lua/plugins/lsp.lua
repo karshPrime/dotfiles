@@ -11,29 +11,60 @@ require('lspconfig')['gopls'].setup { capabilities = capabilities }
 
 require("mason").setup()
 require("mason-lspconfig").setup()
+local lspconfig = require('lspconfig')
 
-require("lspconfig").rust_analyzer.setup {}
-require("lspconfig").gopls.setup {}
-require('lspconfig').clangd.setup {
-    cmd = {
-        "clangd",
-        "--background-index",
-        "--compile-commands-dir=.",
-        "--fallback-style=LLVM"
-    },
-    init_options = { clangdFileStatus = true, },
-    root_dir = require('lspconfig').util.root_pattern( ".git"),
+--# Rust LSP
+lspconfig.rust_analyzer.setup {}
 
-    on_new_config = function(new_config, new_root_dir)
-        new_config.cmd = {
-            "clangd",
-            "--background-index",
-            "--compile-commands-dir=" .. new_root_dir,
-            "--fallback-style=Google"
-        }
-    end,
+--# Go LSP
+lspconfig.gopls.setup {}
+
+--# C/C++ LSP
+lspconfig.clangd.setup {
+	cmd = {
+		"clangd",
+		"--background-index",
+		"--compile-commands-dir=.",
+		"--fallback-style=LLVM"
+	},
+	init_options = { clangdFileStatus = true, },
+	root_dir = require('lspconfig').util.root_pattern( ".git"),
+
+	on_new_config = function(new_config, new_root_dir)
+		new_config.cmd = {
+			"clangd",
+			"--background-index",
+			"--compile-commands-dir=" .. new_root_dir,
+			"--fallback-style=Google"
+		}
+	end,
 }
 
+--# Java LSP
+lspconfig.jdtls.setup {
+	cmd = { 'jdtls' },
+	root_dir = lspconfig.util.root_pattern('.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'),
+	settings = {
+		java = {
+			signatureHelp = { enabled = true },
+			contentProvider = { preferred = 'fernflower' },
+			completion = {
+				favoriteStaticMembers = {
+					"org.hamcrest.MatcherAssert.assertThat",
+					"org.hamcrest.Matchers.*",
+					"org.hamcrest.CoreMatchers.*",
+					"org.junit.jupiter.api.Assertions.*",
+					"java.util.Objects.requireNonNull",
+					"java.util.Objects.requireNonNullElse",
+					"org.mockito.Mockito.*"
+				}
+			}
+		}
+	},
+	init_options = {
+		bundles = {}
+	}
+}
 
 --# Multiline Errors #---------------------------------------------------------
 
@@ -55,34 +86,34 @@ Map(']d', vim.diagnostic.goto_next)
 Map('<space>q', vim.diagnostic.setloclist)
 
 vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+	callback = function(ev)
+		-- Enable completion triggered by <c-x><c-o>
+		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-        local opts = { buffer = ev.buf }
-        Map('gD', vim.lsp.buf.declaration, opts)
-        Map('gd', vim.lsp.buf.definition, opts)
-        Map('gi', vim.lsp.buf.implementation, opts)
-        Map('gr', vim.lsp.buf.references, opts)
-        Map('K',  vim.lsp.buf.hover, opts)
-        Map('<space>k',  vim.lsp.buf.signature_help, opts)
-        Map('<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        Map('<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        Map('<space>D',  vim.lsp.buf.type_definition, opts)
-        Map('<space>rn', vim.lsp.buf.rename, opts)
+		local opts = { buffer = ev.buf }
+		Map('gD', vim.lsp.buf.declaration, opts)
+		Map('gd', vim.lsp.buf.definition, opts)
+		Map('gi', vim.lsp.buf.implementation, opts)
+		Map('gr', vim.lsp.buf.references, opts)
+		Map('K',  vim.lsp.buf.hover, opts)
+		Map('<space>k',  vim.lsp.buf.signature_help, opts)
+		Map('<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+		Map('<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+		Map('<space>D',  vim.lsp.buf.type_definition, opts)
+		Map('<space>rn', vim.lsp.buf.rename, opts)
 
-        vim.keymap.set({ 'n', 'v' }, '<space>ca',
-            vim.lsp.buf.code_action, opts
-        )
+		vim.keymap.set({ 'n', 'v' }, '<space>ca',
+		vim.lsp.buf.code_action, opts
+		)
 
-        vim.keymap.set('n', '<space>f', function()
-            vim.lsp.buf.format { async = true }
-        end, opts)
+		vim.keymap.set('n', '<space>f', function()
+			vim.lsp.buf.format { async = true }
+		end, opts)
 
-        vim.keymap.set('n', '<space>wl', function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, opts)
-    end,
+		vim.keymap.set('n', '<space>wl', function()
+			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		end, opts)
+	end,
 })
 

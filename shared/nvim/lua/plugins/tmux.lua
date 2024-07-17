@@ -4,25 +4,30 @@
 --# TMUX Compile #-------------------------------------------------------------
 
 require('tmux-compile').setup({
-    save_session = true,
-    sleep_duration = 0,
-    overlay_width_percent = 80,
-    overlay_height_percent = 75,
+	save_session = true,
+	sleep_duration = 0,
+	overlay_width_percent = 80,
+	overlay_height_percent = 75,
 
-    build_run_config = {{
-        extension = {'c', 'cpp', 'h'},
-        build = 'make',
-        run = 'make run',
-        debug = 'lldb',
-    },{
-        extension = {'rs'},
-        build = 'cargo build',
-        run = 'cargo run',
-    },{
-        extension = {'go'},
-        run = 'go run .',
-        build = 'go build -race -o ./bin/test main.go'
-    }}
+	build_run_config = {{
+		extension = {'c', 'cpp', 'h'},
+		build = 'make',
+		run = 'make run',
+		debug = 'lldb',
+	},{
+		extension = {'java'},
+		build = './gradlew build',
+		run = './gradlew run',
+		debug = 'jdb'
+	},{
+		extension = {'rs'},
+		build = 'cargo build',
+		run = 'cargo run',
+	},{
+		extension = {'go'},
+		run = 'go run .',
+		build = 'go build -race -o ./bin/test main.go'
+	}}
 })
 
 
