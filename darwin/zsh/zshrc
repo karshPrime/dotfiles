@@ -171,13 +171,22 @@ gitt() { touch $1; git add $1; git commit -m "create $1" }
 alias tml="tmux ls"
 alias tmK="tmux kill-session"
 alias tmL="tmux ls | fzf --height=40% --border=rounded | cut -f 1 -d ':'"
-bindkey -s '^[s' 'tmux choose-session -Z^M'
 tmk() { tmux kill-session -t $(tmL) }
 tma() { tmux attach-session -t $(tmL) }
 
+tmux_fzf_switch_session() {
+	local session
+	session=$(tmux ls | fzf --tmux bottom,100,15 | cut -f 1 -d ':')
+	if [ -n "$session" ]; then
+		tmux switch-client -t "$session"
+	fi
+}
+
+zle -N tmux_fzf_switch_session
+bindkey '^[s' tmux_fzf_switch_session
+
 # Save path for go packages
 export GOPATH=$HOME/.local/share/go
-
 
 # --# better defaults #--------------------------------------------------------
 

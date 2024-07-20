@@ -62,5 +62,3 @@ Map('<leader>R', 'gg"_dGp<CR>')                 -- replace whole text
 Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
 Map('<space>s', ':%s/', true, false)            -- faster %s
 
-Map('<M-s>', '! tmux choose-session -Z<CR>')
-
