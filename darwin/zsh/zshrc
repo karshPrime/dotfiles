@@ -111,9 +111,9 @@ gt() {
 cdir() { mkdir $1 && cd $1 }
 count() { ls $1 | wc -l | tr -d ' '}
 alias p="gt ~/Projects"
-alias conf="gt ~/.config"
 alias docs="gt ~/Documents"
 alias down="gt ~/Downloads"
+alias conf="cd ~/.config/dotfiles"
 
 
 # --# development #------------------------------------------------------------
@@ -134,7 +134,6 @@ alias readme="$HACK_SCRIPTS/cddev.sh readme"
 alias gignore="$HACK_SCRIPTS/cddev.sh gitignore"
 alias gconfig="$HACK_SCRIPTS/cddev.sh gitconfig"
 alias makefile="$HACK_SCRIPTS/cddev.sh makefile"
-alias main="$HACK_SCRIPTS/cddev.sh main"
 alias vi="$HACK_SCRIPTS/cddev.sh alltype"
 alias parent=". $HACK_SCRIPTS/cddev.sh parent"
 alias todo="$HACK_SCRIPTS/todo.sh"
@@ -172,6 +171,7 @@ gitt() { touch $1; git add $1; git commit -m "create $1" }
 alias tml="tmux ls"
 alias tmK="tmux kill-session"
 alias tmL="tmux ls | fzf --height=40% --border=rounded | cut -f 1 -d ':'"
+bindkey -s '^[s' 'tmux choose-session -Z^M'
 tmk() { tmux kill-session -t $(tmL) }
 tma() { tmux attach-session -t $(tmL) }
 
