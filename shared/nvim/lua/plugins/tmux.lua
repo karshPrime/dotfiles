@@ -13,7 +13,7 @@ require('tmux-compile').setup({
 		extension = {'c', 'cpp', 'h'},
 		build = 'make',
 		run = 'make run',
-		debug = 'lldb',
+		debug = 'make debug',
 	},{
 		extension = {'java'},
 		build = './gradlew build',
