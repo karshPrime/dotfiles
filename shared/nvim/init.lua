@@ -2,6 +2,7 @@
 -- bindings
 require("binds.keybinds")
 require("binds.vimbinds")
+require("binds.shellbinds")
 
 -- plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
