@@ -13,6 +13,19 @@ Map = function(key, action, nrmap, quiet)
     )
 end
 
+MapV = function(key, action, nrmap, quiet)
+    if nrmap == nil then
+        nrmap = true
+    end
+    if quiet == nil then
+        quiet = true
+    end
+    vim.keymap.set({'n', 'v'}, key, action,
+       { noremap = nrmap, silent = quiet }
+    )
+end
+
+
 
 --# Default Override #--------------------------------------------------------
 
@@ -26,7 +39,7 @@ function custom_zz()
 end
 
 Map('ZZ', ':lua custom_zz()<CR>')               -- save close buffers as well
-Map('s', '"_d')                                 -- delete without buffer
+MapV('s', '"_d')                                -- delete without buffer
 Map('S', '"_d$a')                               -- delete without buffer line
 Map('X', '"_x')                                 -- delete without buffer char
 Map('<Esc>', '<Esc>:noh<CR>')                   -- extend Esc to also hide search

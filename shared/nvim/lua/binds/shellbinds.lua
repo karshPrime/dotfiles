@@ -19,5 +19,5 @@ local function tmux_fzf_switch_session()
 	end
 end
 
-Map('<M-s>', tmux_fzf_switch_session)
+MapV('<M-s>', tmux_fzf_switch_session)
 
