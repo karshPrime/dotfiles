@@ -111,6 +111,7 @@ gt() {
 cdir() { mkdir $1 && cd $1 }
 count() { ls $1 | wc -l | tr -d ' '}
 alias p="gt ~/Projects"
+alias uni="gt ~/Documents/Semester7"
 alias docs="gt ~/Documents"
 alias down="gt ~/Downloads"
 alias conf="cd ~/.config/dotfiles"
@@ -230,8 +231,21 @@ alias cp=ditto
 alias ed='ed -p "> "'
 alias re='grep -o -E'
 alias sed='sed -r'
-alias rmf='mr $(find . -maxdepth 1 -mindepth 1 | sort | fzf -m --height=40%)'
 alias weather='curl wttr.in/melbourne'
+
+alias rmf='
+	find . -maxdepth 1 -mindepth 1 |
+	sort |
+	fzf -m --height=40% |
+	sed "s/ /\\\ /g" |
+	xargs $HACK_SCRIPTS/trash.sh
+'
+
+alias of='open "$(
+	find . -maxdepth 1 -type f |
+	sort |
+	fzf --height=40% --border=rounded
+)"'
 
 
 # --# media control #----------------------------------------------------------
