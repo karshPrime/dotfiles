@@ -43,7 +43,6 @@ MapV('s', '"_d')                                -- delete without buffer
 Map('S', '"_d$a')                               -- delete without buffer line
 Map('X', '"_x')                                 -- delete without buffer char
 Map('<Esc>', '<Esc>:noh<CR>')                   -- extend Esc to also hide search
-Map('<CR>', 'zo<CR>')                           -- unfold with Return
 
 
 --# Windows #-----------------------------------------------------------------

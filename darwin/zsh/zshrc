@@ -20,7 +20,7 @@ setopt autocd extendedglob
 
 # explicit declaration
 export EDITOR=nvim
-export PATH=/opt/homebrew/bin:$PATH
+export PATH=/opt/homebrew/bin:$PATH:/Users/alias/Projects/.bin/
 export HOMEBREW_NO_ENV_HINTS=1
 
 # better auto-complete
@@ -75,7 +75,7 @@ alias pkgs='brew search'
 alias pkgl='brew list'
 alias pkgi='brew info'
 alias pkgx='brew cleanup --prune=all'
-alias update='brew upgrade; brew update; brew cleanup'
+alias update='brew upgrade; brew update; brew cleanup --prune=all'
 
 
 # --# file navigation #--------------------------------------------------------
@@ -108,6 +108,16 @@ gt() {
     )"
 }
 
+of() {
+    dir="${1:-.}"
+	open "$dir/$(
+		find "$dir/" -maxdepth 1 -type f |
+		grep -o -E "[^/]*$" |
+		sort |
+		fzf --height=40% --border=rounded
+	)"
+}
+
 cdir() { mkdir $1 && cd $1 }
 count() { ls $1 | wc -l | tr -d ' '}
 alias p="gt ~/Projects"
@@ -120,8 +130,6 @@ alias conf="cd ~/.config/dotfiles"
 # --# development #------------------------------------------------------------
 
 # shell
-alias devinit='. $HACK_SCRIPTS/project_initialise.sh'
-alias tst='. $HACK_SCRIPTS/testing.sh'
 alias tstrm='mr /tmp/test*'
 
 # ssh
@@ -138,8 +146,6 @@ alias makefile="$HACK_SCRIPTS/cddev.sh makefile"
 alias vi="$HACK_SCRIPTS/cddev.sh alltype"
 alias parent=". $HACK_SCRIPTS/cddev.sh parent"
 alias todo="$HACK_SCRIPTS/todo.sh"
-alias cpcode="$HACK_SCRIPTS/copy_code.sh"
-alias gomake="$HACK_SCRIPTS/gomake.sh"
 
 # assemby
 alias assem="objdump -M intel -D"
@@ -236,17 +242,10 @@ alias weather='curl wttr.in/melbourne'
 alias rmf='
 	find . -maxdepth 1 -mindepth 1 |
 	sort |
-	fzf -m --height=40% |
+	fzf -m --height=40% --border=rounded |
 	sed "s/ /\\\ /g" |
 	xargs $HACK_SCRIPTS/trash.sh
 '
-
-alias of='open "$(
-	find . -maxdepth 1 -type f |
-	sort |
-	fzf --height=40% --border=rounded
-)"'
-
 
 # --# media control #----------------------------------------------------------
 
@@ -261,11 +260,8 @@ alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
 
 alias tools="$HACK_SCRIPTS/tools.sh"
 alias toolx="$EDITOR $HACK_SCRIPTS/tools.sh"
-alias colors='bash $HACK_SCRIPTS/colors.sh'
-alias periodic='bash $HACK_SCRIPTS/periodic.sh'
 alias resistor=$HACK_SCRIPTS/resistor
 alias fetch='bash ~/.config/fetch.sh'
-alias rename='bash $HACK_SCRIPTS/rename.sh'
 alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 
 

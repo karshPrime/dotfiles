@@ -33,3 +33,5 @@ vim.cmd('let g:netrw_bufsettings = "noma nomod nu nobl nowrap ro rnu"')
 vim.cmd('let g:netrw_banner = 0')
 vim.cmd('let g:netrw_sort_options = "i"')
 
+vim.cmd('set rtp+=/opt/homebrew/opt/fzf')
+
