@@ -74,3 +74,6 @@ Map('<leader>R', 'gg"_dGp<CR>')                 -- replace whole text
 Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
 Map('<space>s', ':%s/', true, false)            -- faster %s
 
+Map('<M-z>', 'zf')
+Map('<M-Z>', 'zo')
+

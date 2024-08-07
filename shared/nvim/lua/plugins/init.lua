@@ -12,9 +12,8 @@ local plugins = {
 	-- EDITOR
 	{ 'airblade/vim-gitgutter' },						-- git column
 	{ 'numToStr/Comment.nvim', event = 'VeryLazy' },	-- easier commenting
-	{ 'kylechui/nvim-surround', version = "*",			-- more surround actions
-	   event = "VeryLazy",
-	},
+	{ 'kylechui/nvim-surround', event = 'VeryLazy' },	-- more surround actions
+	{ 'lukas-reineke/indent-blankline.nvim' },
 
 	-- LAYOUT
 	{ 'nvim-lualine/lualine.nvim' },					-- statusbar
@@ -27,6 +26,7 @@ local plugins = {
 	{ 'williamboman/mason.nvim' },
 	{ 'williamboman/mason-lspconfig.nvim' },
 	{ 'neovim/nvim-lspconfig' },
+	{ 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 	{ 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' }, -- multiline errors
 
 	-- NO CONFIG

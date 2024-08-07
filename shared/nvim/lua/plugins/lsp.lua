@@ -1,6 +1,17 @@
 -------------------------------------------------------------------------------
 --# LSP #----------------------------------------------------------------------
 
+--# Tree Sitter #--------------------------------------------------------------
+
+require('nvim-treesitter').setup({
+	ensure_installed = { "c", "cpp", "lua", "python", "go", "rust", "java", "vhdl", "bash" },
+	sync_install = false,
+	highlight = { enable = true },
+	indent = { enable = true },
+	folding = { enable = true, },
+})
+
+
 --# Language Support #---------------------------------------------------------
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -41,28 +52,17 @@ lspconfig.clangd.setup {
 }
 
 --# Java LSP
-lspconfig.jdtls.setup {
+require'lspconfig'.jdtls.setup{
 	cmd = { 'jdtls' },
-	root_dir = lspconfig.util.root_pattern('.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'),
+	root_dir = function(fname)
+		return require'lspconfig'.util.root_pattern('build.gradle', 'pom.xml')(fname) or
+		require'lspconfig'.util.find_git_ancestor(fname) or
+		vim.fn.getcwd()
+	end,
 	settings = {
 		java = {
-			signatureHelp = { enabled = true },
-			contentProvider = { preferred = 'fernflower' },
-			completion = {
-				favoriteStaticMembers = {
-					"org.hamcrest.MatcherAssert.assertThat",
-					"org.hamcrest.Matchers.*",
-					"org.hamcrest.CoreMatchers.*",
-					"org.junit.jupiter.api.Assertions.*",
-					"java.util.Objects.requireNonNull",
-					"java.util.Objects.requireNonNullElse",
-					"org.mockito.Mockito.*"
-				}
-			}
+			-- Any additional Java-specific settings
 		}
-	},
-	init_options = {
-		bundles = {}
 	}
 }
 
