@@ -1,78 +1,41 @@
-# .zshrc
 
-# -----------------------------------------------------------------------------
-# --# INIT CONFIG #------------------------------------------------------------
-
-# run fetch script only when not in tmux session
-if [[ -z "$TMUX" ]]; then
-    bash ~/.config/fetch.sh
-fi
+#            _
+#    _______| |__  _ __ ___
+#   |_  / __| '_ \| '__/ __|
+#  _ / /\__ | | | | | | (__
+# (_/___|___|_| |_|_|  \___|
+#
+# The idea is to have this as the only variable in the configs, such that
+# everything else is system independent.
+#
 
 # Update PATH
 if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
     export PATH=/opt/homebrew/bin:$PATH:/Users/alias/Projects/.bin/
 fi
 
-# zsh history
-HISTFILE=~/.config/zsh/histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-
-# cd into directories without cd
-setopt autocd extendedglob
-
-# explicit declaration
-export EDITOR=nvim
-export HOMEBREW_NO_ENV_HINTS=1
-
-# better auto-complete
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-
-if [[ -f "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION" ]]; then
-    autoload -Uz compinit
-    compinit -C "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
-else
-    autoload -Uz compinit && compinit
+# Fetch when not in TMux
+if [[ -z "$TMUX" ]]; then
+    bash ~/.config/fetch.sh
 fi
 
-# fzf shell integration
-eval "$(fzf --zsh)"
-alias fzf='fzf --ansi --layout=reverse --cycle -i'
+# Default Editor
+export EDITOR=nvim
 
-# Plugins
-source ~/.config/zsh/highlighting/zsh-syntax-highlighting.zsh
-source ~/.config/zsh/autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh/history/zsh-history-substring-search.zsh
+# System Variables
+ZFILES="$HOME/.config/zsh"
+DOTFILES="$HOME/.config/dotfiles/darwin"
+HACK_SCRIPTS="$HOME/Projects/SysHacks"
 
+# Configuration Modules
+source "$DOTFILES/zsh/define.zsh"       # define exports & initialise plugins
+source "$DOTFILES/zsh/navigations.zsh"  # file processing
+source "$DOTFILES/zsh/management.zsh"   # manage config files
+source "$DOTFILES/zsh/shortcuts.zsh"    # convenience aliases & keybinds
+source "$DOTFILES/zsh/devenv.zsh"       # development shortcuts
 
-# -----------------------------------------------------------------------------
-# --# EASE OF LIFE #-----------------------------------------------------------
-
-# --# dotfiles #---------------------------------------------------------------
-
-# neovim
-nedit() {
-    pushd ~/.config/nvim/lua/ > /dev/null;
-    $EDITOR $(fzf -m --preview="bat --color=always --number {}");
-    popd > /dev/null
-}
-
-# tmux
-alias tedit="$EDITOR ~/.config/tmux/tmux.conf"
-alias tupdate="tmux source-file ~/.config/tmux/tmux.conf"
-
-# alacritty
-alias aedit="$EDITOR ~/.config/alacritty/alacritty.toml"
-
-# zsh
-alias zedit="$EDITOR ~/.zshrc"
-alias zupdate="source ~/.zshrc"
-
-
-# --# package management #-----------------------------------------------------
-
+# System Packages
+export HOMEBREW_NO_ENV_HINTS=1
 alias pkga='brew install'
 alias pkgr='brew uninstall --zap'
 alias pkgs='brew search'
@@ -81,176 +44,6 @@ alias pkgi='brew info'
 alias pkgx='brew cleanup --prune=all'
 alias update='brew upgrade; brew update; brew cleanup --prune=all'
 
-
-# --# file navigation #--------------------------------------------------------
-
-# common dirs
-HACK_SCRIPTS="$HOME/Projects/SysHacks"
-
-# look around
-alias l='eza -lag --color=always --group-directories-first --icons'
-alias ls='eza -g --icons'
-alias la='eza -a --color=always --group-directories-first --icons'
-alias tree='eza -T --group-directories-first --icons=always'
-
-# process files
-alias c='bat -n'
-alias cat='bat -pp'
-alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
-i() { cat ~/Documents/Info/$1 }
-
-# easier navigate
-gt() {
-    dir="${1:-.}"
-    cd "$dir/$(
-        find "$dir" -maxdepth 1 -mindepth 1 -type d |
-        grep -o -E "[^/]*$" |
-        sort |
-        fzf --height=40% --border=rounded
-    )"
-}
-
-of() {
-    dir="${1:-.}"
-	open "$dir/$(
-		find "$dir/" -maxdepth 1 -type f |
-		grep -o -E "[^/]*$" |
-		sort |
-		fzf --height=40% --border=rounded
-	)"
-}
-
-cdir() { mkdir $1 && cd $1 }
-count() { ls $1 | wc -l | tr -d ' '}
-alias p="gt ~/Projects"
-alias uni="gt ~/Documents/Semester7"
-alias docs="gt ~/Documents"
-alias down="gt ~/Downloads"
-alias conf="cd ~/.config/dotfiles"
-
-
-# --# development #------------------------------------------------------------
-
-# test environment
-alias tst='. $HACK_SCRIPTS/testing.sh'
-alias tstrm='mr /tmp/test*'
-
-# ssh
-alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
-
-# quick access
-alias parent=". $HACK_SCRIPTS/cddev.sh parent"
-alias readme="$EDITOR $($HACK_SCRIPTS/cddev.sh readme)"
-alias gignore="$EDITOR $($HACK_SCRIPTS/cddev.sh gitignore)"
-alias gconfig="$EDITOR $($HACK_SCRIPTS/cddev.sh gitconfig)"
-alias makefile="$EDITOR $($HACK_SCRIPTS/cddev.sh makefile)"
-alias main="$EDITOR $($HACK_SCRIPTS/cddev.sh main)"
-alias vi="bash $HACK_SCRIPTS/cddev.sh alltype"
-
-# git shortcuts
-alias g=lazygit
-alias gita='git add'
-alias gitA='git add -A'
-alias gitc='git commit'
-alias gitC='git commit -m'
-alias gitD='git diff --stat'
-alias gitd='git diff'
-alias gitl='git log'
-alias gits='git status'
-alias gitS='git switch'
-alias gitP='git push'
-alias gitp='git pull'
-alias gitk='git checkout'
-alias gitb='git branch -a'
-alias gitu="git reset --soft 'HEAD^'"
-alias gito='git remote add origin'
-alias gitr="git restore"
-alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art'
-
-gitg() { git clone --depth=1 git@github.com:$1.git; cd $(basename $1) }
-gitR() { git rebase -i HEAD~$1 }
-gitt() { touch $1; git add $1; git commit -m "create $1" }
-
-# tmux launch shortcuts
-alias tml="tmux ls"
-alias tmK="tmux kill-session"
-alias tmL="tmux ls | fzf --height=40% --border=rounded | cut -f 1 -d ':'"
-tmk() { tmux kill-session -t $(tmL) }
-tma() { tmux attach-session -t $(tmL) }
-
-# Save path for go packages
-export GOPATH=$HOME/.local/share/go
-
-
-# --# better defaults #--------------------------------------------------------
-
-# keyboard behaviour
-bindkey "^[l"     clear-screen
-bindkey '^[[1;9D' backward-word
-bindkey '^[[1;9C' forward-word
-bindkey '^[[3~'   delete-char
-bindkey '^[[1;9B' backward-kill-word
-bindkey '^[[3;5~' kill-word
-
-bindkey '^[[1;3D' beginning-of-line
-bindkey '^[[1;3C' end-of-line
-
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# tops
-alias htop=btop
-alias ntop='sudo bandwhich'
-
-# human result
-alias df='df -h'
-alias diff="diff --color='always'"
-
-# convenience
-bindkey -s '^[c' ' | pbcopy^M'      # copy output to clipboard
-bindkey -s '^[p' 'pbpaste > '       # paste clipboard content to a file
-bindkey -s '^[n' ' | wc -l^M'       # count (Number of) results
-alias x=exit
-alias v=$EDITOR
-alias sv="sudo $EDITOR"
-alias vim=$EDITOR
-alias cp=ditto
-alias ed='ed -p "> "'
-alias re='grep -o -E'
-alias sed='sed -r'
-alias assem="objdump -M intel -D"
-alias path="echo $PATH | tr ':' '\n'"
-alias weather='curl wttr.in/melbourne'
-
-alias rmf='
-	find . -maxdepth 1 -mindepth 1 |
-	sort |
-	fzf -m --height=40% --border=rounded |
-	sed "s/ /\\\ /g" |
-	xargs $HACK_SCRIPTS/trash.sh
-'
-
-# --# media control #----------------------------------------------------------
-
-alias yt='yt-dlp'
-alias ytvb='yt-dlp -q -f bestvideo -o "~/Videos/offlineYT/%(title)s.%(ext)s"'
-alias ytab='yt-dlp -q -f bestaudio -o "~/Music/offlineYT/%(title)s.%(ext)s"'
-alias ytvs="yt-dlp -q -f 'bv*/+size' -o '~/Videos/offlineYT/%(title)s.%(ext)s'"
-alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
-
-
-# --# hacks and patches #------------------------------------------------------
-
-alias tools="$HACK_SCRIPTS/tools.sh"
-alias toolx="$EDITOR $HACK_SCRIPTS/tools.sh"
-alias resistor=$HACK_SCRIPTS/resistor
-alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
-
-
-# -----------------------------------------------------------------------------
-# --# STARSHIP PROMPT #--------------------------------------------------------
-
+# Starship Prompt
 eval "$(starship init zsh)"
 
