@@ -28,10 +28,10 @@ DOTFILES="$HOME/.config/dotfiles/darwin"
 HACK_SCRIPTS="$HOME/Projects/SysHacks"
 
 # Configuration Modules
-source "$DOTFILES/zsh/define.zsh"       # define exports & initialise plugins
+source "$DOTFILES/zsh/define.zsh"       # init, exports & plugins
 source "$DOTFILES/zsh/navigations.zsh"  # file processing
 source "$DOTFILES/zsh/management.zsh"   # manage config files
-source "$DOTFILES/zsh/shortcuts.zsh"    # convenience aliases & keybinds
+source "$DOTFILES/zsh/convenience.zsh"  # aliases & keybinds
 source "$DOTFILES/zsh/devenv.zsh"       # development shortcuts
 
 # System Packages
