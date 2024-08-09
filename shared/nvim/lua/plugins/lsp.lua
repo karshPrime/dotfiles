@@ -4,8 +4,13 @@
 --# Tree Sitter #--------------------------------------------------------------
 
 require('nvim-treesitter').setup({
-	ensure_installed = { "c", "cpp", "lua", "python", "go", "rust", "java", "vhdl", "bash" },
-	sync_install = false,
+	ensure_installed = {
+		"c", "cpp", "rust",				-- low level
+		"java", "go",					-- app dev
+		"lua", "python", "bash",		-- scripting
+		"vhdl",							-- HDL
+		"html", "css"					-- web
+	},
 	highlight = { enable = true },
 	indent = { enable = true },
 	folding = { enable = true, },
@@ -19,6 +24,8 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('lspconfig')['rust_analyzer'].setup { capabilities = capabilities }
 require('lspconfig')['clangd'].setup { capabilities = capabilities }
 require('lspconfig')['gopls'].setup { capabilities = capabilities }
+require('lspconfig')['jdtls'].setup { capabilities = capabilities }
+require('lspconfig')['rust_hdl'].setup { capabilities = capabilities }
 
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -29,6 +36,9 @@ lspconfig.rust_analyzer.setup {}
 
 --# Go LSP
 lspconfig.gopls.setup {}
+
+--# VHDL LSP
+lspconfig.rust_hdl.setup {}
 
 --# C/C++ LSP
 lspconfig.clangd.setup {
@@ -59,12 +69,8 @@ require'lspconfig'.jdtls.setup{
 		require'lspconfig'.util.find_git_ancestor(fname) or
 		vim.fn.getcwd()
 	end,
-	settings = {
-		java = {
-			-- Any additional Java-specific settings
-		}
-	}
 }
+
 
 --# Multiline Errors #---------------------------------------------------------
 
