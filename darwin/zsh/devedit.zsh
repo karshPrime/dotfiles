@@ -104,6 +104,7 @@ vi() {
     # use fzf to select files, displaying with bat
     FILES_CMD=$(
 		echo "$FILES" |
+		sort |
         fzf -m --preview="bat --color=always --number {}"
 	)
 

@@ -5,14 +5,14 @@
 # Neovim Configs
 nedit() {
     pushd $DOTFILES/nvim/lua/ > /dev/null;
-    $EDITOR $(fzf -m --preview="bat --color=always --number {}");
+	vi lua .
     popd > /dev/null
 }
 
 # ZSH Configs
 zedit() {
     pushd $DOTFILES/zsh > /dev/null;
-    $EDITOR $(fzf -m --preview="bat --color=always --number {}");
+	vi .
     popd > /dev/null
 }
 alias zupdate="source ~/.zshrc"
