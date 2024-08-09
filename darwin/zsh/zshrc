@@ -8,6 +8,11 @@ if [[ -z "$TMUX" ]]; then
     bash ~/.config/fetch.sh
 fi
 
+# Update PATH
+if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
+    export PATH=/opt/homebrew/bin:$PATH:/Users/alias/Projects/.bin/
+fi
+
 # zsh history
 HISTFILE=~/.config/zsh/histfile
 HISTSIZE=1000
@@ -20,7 +25,6 @@ setopt autocd extendedglob
 
 # explicit declaration
 export EDITOR=nvim
-export PATH=/opt/homebrew/bin:$PATH:/Users/alias/Projects/.bin/
 export HOMEBREW_NO_ENV_HINTS=1
 
 # better auto-complete
@@ -92,9 +96,7 @@ alias tree='eza -T --group-directories-first --icons=always'
 # process files
 alias c='bat -n'
 alias cat='bat -pp'
-alias mr='bash $HACK_SCRIPTS/trash.sh' # my rm
 alias smr='sudo bash $HACK_SCRIPTS/trash.sh'
-alias vm='$HACK_SCRIPTS/vimacro.sh'
 i() { cat ~/Documents/Info/$1 }
 
 # easier navigate
@@ -129,26 +131,21 @@ alias conf="cd ~/.config/dotfiles"
 
 # --# development #------------------------------------------------------------
 
-# shell
+# test environment
+alias tst='. $HACK_SCRIPTS/testing.sh'
 alias tstrm='mr /tmp/test*'
 
 # ssh
 alias core='ssh core3b+ "sudo date -s" "\\"$(date)\\""; clear; ssh core3b+'
 
-# EAT40005
-alias eatlog='$HOME/Projects/eat40005/worklog/run.sh'
-
-# development
-alias readme="$HACK_SCRIPTS/cddev.sh readme"
-alias gignore="$HACK_SCRIPTS/cddev.sh gitignore"
-alias gconfig="$HACK_SCRIPTS/cddev.sh gitconfig"
-alias makefile="$HACK_SCRIPTS/cddev.sh makefile"
-alias vi="$HACK_SCRIPTS/cddev.sh alltype"
+# quick access
 alias parent=". $HACK_SCRIPTS/cddev.sh parent"
-alias todo="$HACK_SCRIPTS/todo.sh"
-
-# assemby
-alias assem="objdump -M intel -D"
+alias readme="$EDITOR $($HACK_SCRIPTS/cddev.sh readme)"
+alias gignore="$EDITOR $($HACK_SCRIPTS/cddev.sh gitignore)"
+alias gconfig="$EDITOR $($HACK_SCRIPTS/cddev.sh gitconfig)"
+alias makefile="$EDITOR $($HACK_SCRIPTS/cddev.sh makefile)"
+alias main="$EDITOR $($HACK_SCRIPTS/cddev.sh main)"
+alias vi="bash $HACK_SCRIPTS/cddev.sh alltype"
 
 # git shortcuts
 alias g=lazygit
@@ -195,6 +192,7 @@ bindkey '^[s' tmux_fzf_switch_session
 # Save path for go packages
 export GOPATH=$HOME/.local/share/go
 
+
 # --# better defaults #--------------------------------------------------------
 
 # keyboard behaviour
@@ -224,11 +222,7 @@ alias diff="diff --color='always'"
 # convenience
 bindkey -s '^[c' ' | pbcopy^M'      # copy output to clipboard
 bindkey -s '^[p' 'pbpaste > '       # paste clipboard content to a file
-bindkey -s '^[r' ' | less^M'        # display output in less
 bindkey -s '^[n' ' | wc -l^M'       # count (Number of) results
-bindkey -s '^[h' ' --help | less^M' # display help
-bindkey -s '^[x' 'mr '              # help fix rm habit
-bindkey -s '^[g' 'gt '
 alias x=exit
 alias v=$EDITOR
 alias sv="sudo $EDITOR"
@@ -237,6 +231,8 @@ alias cp=ditto
 alias ed='ed -p "> "'
 alias re='grep -o -E'
 alias sed='sed -r'
+alias assem="objdump -M intel -D"
+alias path="echo $PATH | tr ':' '\n'"
 alias weather='curl wttr.in/melbourne'
 
 alias rmf='
@@ -261,7 +257,6 @@ alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
 alias tools="$HACK_SCRIPTS/tools.sh"
 alias toolx="$EDITOR $HACK_SCRIPTS/tools.sh"
 alias resistor=$HACK_SCRIPTS/resistor
-alias fetch='bash ~/.config/fetch.sh'
 alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 
 
