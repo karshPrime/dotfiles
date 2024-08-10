@@ -7,7 +7,7 @@
 title = "terminal"
 opacity = 0.6
 blur = true
-dimensions = { columns = 90, lines = 24 }
+dimensions = { columns = 100, lines = 24 }
 padding = { x = 10, y = 5 }
 option_as_alt = "Both"
 

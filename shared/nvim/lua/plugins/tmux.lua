@@ -5,7 +5,6 @@
 
 require('tmux-compile').setup({
 	save_session = true,
-	sleep_duration = 0,
 	overlay_width_percent = 80,
 	overlay_height_percent = 75,
 
@@ -33,19 +32,18 @@ require('tmux-compile').setup({
 	}}
 })
 
-
 Map('<leader>g',  ':TMUXcompile lazygit<CR>')
 Map('<leader>d',  ':TMUXcompile Debug<CR>')
 
-Map('<leader>rr',  ':TMUXcompile Run<CR>')
-Map('<leader>r]',  ':TMUXcompile RunV<CR>')
-Map('<leader>r[',  ':TMUXcompile RunH<CR>')
-Map('<leader>r\\', ':TMUXcompile RunBG<CR>')
+Map('<leader>rr', ':TMUXcompile Run<CR>')
+Map('<leader>r[', ':TMUXcompile RunV<CR>')
+Map('<leader>r]', ':TMUXcompile RunH<CR>')
+Map('<leader>r\\',':TMUXcompile RunBG<CR>')
 
-Map('<leader>mm',  ':TMUXcompile Make<CR>')
-Map('<leader>m]',  ':TMUXcompile MakeH<CR>')
-Map('<leader>m[',  ':TMUXcompile MakeH<CR>')
-Map('<leader>m\\', ':TMUXcompile MakeBG<CR>')
+Map('<leader>mm', ':TMUXcompile Make<CR>')
+Map('<leader>m[', ':TMUXcompile MakeH<CR>')
+Map('<leader>m]', ':TMUXcompile MakeH<CR>')
+Map('<leader>m\\',':TMUXcompile MakeBG<CR>')
 
 
 --# Only TMUX #----------------------------------------------------------------

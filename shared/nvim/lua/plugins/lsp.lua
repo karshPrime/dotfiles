@@ -25,7 +25,6 @@ require('lspconfig')['rust_analyzer'].setup { capabilities = capabilities }
 require('lspconfig')['clangd'].setup { capabilities = capabilities }
 require('lspconfig')['gopls'].setup { capabilities = capabilities }
 require('lspconfig')['jdtls'].setup { capabilities = capabilities }
-require('lspconfig')['rust_hdl'].setup { capabilities = capabilities }
 
 require("mason").setup()
 require("mason-lspconfig").setup()
@@ -36,9 +35,6 @@ lspconfig.rust_analyzer.setup {}
 
 --# Go LSP
 lspconfig.gopls.setup {}
-
---# VHDL LSP
-lspconfig.rust_hdl.setup {}
 
 --# C/C++ LSP
 lspconfig.clangd.setup {
@@ -100,17 +96,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		local opts = { buffer = ev.buf }
 		Map('gD', vim.lsp.buf.declaration, opts)
 		Map('gd', vim.lsp.buf.definition, opts)
+		Map('gtd',  vim.lsp.buf.type_definition, opts)
+
 		Map('gi', vim.lsp.buf.implementation, opts)
 		Map('gr', vim.lsp.buf.references, opts)
+		Map('gR', vim.lsp.buf.rename, opts)
+
 		Map('K',  vim.lsp.buf.hover, opts)
-		Map('<space>k',  vim.lsp.buf.signature_help, opts)
-		Map('<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-		Map('<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-		Map('<space>D',  vim.lsp.buf.type_definition, opts)
-		Map('<space>rn', vim.lsp.buf.rename, opts)
+		Map('gk',  vim.lsp.buf.signature_help, opts)
+		Map('gwa', vim.lsp.buf.add_workspace_folder, opts)
+		Map('gwr', vim.lsp.buf.remove_workspace_folder, opts)
 
 		vim.keymap.set({ 'n', 'v' }, '<space>ca',
-		vim.lsp.buf.code_action, opts
+			vim.lsp.buf.code_action, opts
 		)
 
 		vim.keymap.set('n', '<space>f', function()
