@@ -14,11 +14,6 @@ if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
     export PATH=/opt/homebrew/bin:$PATH:/Users/alias/Projects/.bin/
 fi
 
-# Fetch when not in TMux
-if [[ -z "$TMUX" ]]; then
-    bash ~/.config/fetch.sh
-fi
-
 # Default Editor
 export EDITOR=nvim
 
@@ -43,7 +38,4 @@ alias pkgl='brew list'
 alias pkgi='brew info'
 alias pkgx='brew cleanup --prune=all'
 alias update='brew upgrade; brew update; brew cleanup --prune=all'
-
-# Starship Prompt
-eval "$(starship init zsh)"
 

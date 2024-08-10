@@ -16,6 +16,7 @@ zedit() {
     popd > /dev/null
 }
 alias zupdate="source ~/.zshrc"
+alias ztime="time zsh -i -c exit"
 
 # TMux Config
 alias tedit="$EDITOR $DOTFILES/tmux/tmux.conf"

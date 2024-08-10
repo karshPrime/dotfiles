@@ -1,5 +1,5 @@
 
-#- DevEdit----------------------------------------------------------------------
+#- DevEdit ---------------------------------------------------------------------
 #- plugin to quick edit project files irrespective of language -----------------
 
 # helper functions -------------------------------------------------------------
@@ -56,7 +56,7 @@ main() {
 	exit_if_not_git_repo || return
 	PROJECT_NAME=$(git rev-parse --show-toplevel)
 
-	MAIN_FILE=$(git ls-files "$PROJECT_NAME" | grep -i 'main')
+	MAIN_FILE=$(git ls-files "$PROJECT_NAME" | grep -i -E "main|index|init")
 
 	if [ -z "$MAIN_FILE" ]; then
 		echo -e "\e[31mError: \e[0mNo main file found."
@@ -75,45 +75,49 @@ parent() {
 
 # Vim Interactive
 vi() {
-    exit_if_not_git_repo || return
-    pushd "$(git rev-parse --show-toplevel)" > /dev/null
+	exit_if_not_git_repo || return
+	pushd "$(git rev-parse --show-toplevel)" > /dev/null
 
-    CONDITIONS=()
+	CONDITIONS=()
 
-    # construct find conditions based on arguments
-    for ARG in "$@"; do
-        if [ "$ARG" = "." ]; then
+	# construct find conditions based on arguments
+	for ARG in "$@"; do
+		if [ "$ARG" = "." ]; then
 			popd > /dev/null
 			pushd . > /dev/null
-        else
-            CONDITIONS+=("-iname" "*.$ARG" "-o")
-        fi
-    done
+		else
+			CONDITIONS+=("-iname" "*.$ARG" "-o")
+		fi
+	done
 
-    # remove trailing '-o' if present
-    if [ ${#CONDITIONS[@]} -gt 0 ]; then
-        if [ "${CONDITIONS[-1]}" = "-o" ]; then
-            CONDITIONS=("${CONDITIONS[@]:0:${#CONDITIONS[@]}-1}")
-        fi
+	# remove trailing '-o' if present
+	if [ ${#CONDITIONS[@]} -gt 0 ]; then
+		if [ "${CONDITIONS[-1]}" = "-o" ]; then
+			CONDITIONS=("${CONDITIONS[@]:0:${#CONDITIONS[@]}-1}")
+		fi
 		# find files based on constructed conditions, excluding .git directory
-        FILES=$(find "." -type f \( "${CONDITIONS[@]}" \) -not -path '*/.git/*')
-    else
-        FILES=$(find "." -type f -not -path '*/.git/*')
-    fi
+		FILES=$(find "." -type f \( "${CONDITIONS[@]}" \) -not -path '*/.git/*')
+	else
+		FILES=$(find "." -type f -not -path '*/.git/*')
+	fi
 
-    # use fzf to select files, displaying with bat
-    FILES_CMD=$(
-		echo "$FILES" |
+	# use fzf to select files, displaying with bat
+	FILES_OPEN=$(
+	echo "$FILES" |
 		sort |
-        fzf -m --preview="bat --color=always --number {}"
+		fzf -m --preview="bat --color=always --number {}"
 	)
+	# Count the number of selected files
+	FILE_COUNT=$(echo "$FILES_OPEN" | wc -l)
 
-    # open the selected files in the editor
-    if [ -n "$FILES_CMD" ]; then
-        $EDITOR $(echo "$FILES_CMD")
-    else
-        echo "No files selected."
-    fi
+	# open the selected files in the editor
+	if [ -z "$FILES_OPEN" ]; then
+		echo "No files selected."
+	elif [ "$FILE_COUNT" -gt 1 ]; then
+		$EDITOR -O2 $(echo "$FILES_OPEN")
+	else
+		$EDITOR $(echo "$FILES_OPEN")
+	fi
 	popd > /dev/null
 }
 

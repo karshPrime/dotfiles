@@ -24,6 +24,11 @@ else
     autoload -Uz compinit && compinit
 fi
 
+# Fetch when not in TMux
+if [[ -z "$TMUX" ]]; then
+    bash ~/.config/fetch.sh
+fi
+
 
 # Explicit Declaration ---------------------------------------------------------
 
@@ -33,6 +38,9 @@ export FZF_DEFAULT_OPTS='-i --cycle --ansi --layout=reverse'
 
 
 # Integrations -----------------------------------------------------------------
+
+# Starship Prompt
+eval "$(starship init zsh)"
 
 # fzf 
 eval "$(fzf --zsh)"

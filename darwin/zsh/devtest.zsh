@@ -1,5 +1,5 @@
 
-#- DevTest----------------------------------------------------------------------
+#- DevTest ---------------------------------------------------------------------
 #- plugin to create quick test directories with specified language template ----
 
 # Path for project_initialise script
