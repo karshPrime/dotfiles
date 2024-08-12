@@ -65,15 +65,18 @@ Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
 
 --# Conveniences #------------------------------------------------------------
 
-vim.cmd([[command! -nargs=0 W w]])              -- :W work same as :w
-Map('sA', 'gg"_dG<CR>')                         -- delete without buffer all
-Map('dA', 'gg0dG<CR>')                          -- delete with buffer all
-Map('yA', 'myLgg0yG``zb`y<CR>')                 -- yank all
-Map('=A', 'myLgg=G``zb`y<CR>:%s/ *$//g<CR>')    -- format the whole file
-Map('<leader>R', 'gg"_dGp<CR>')                 -- replace whole text
-Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
-Map('<space>s', ':%s/', true, false)            -- faster %s
+vim.cmd([[command! -nargs=0 W w]])   -- :W work same as :w
 
-Map('<M-z>', 'zfi{')
-Map('<M-Z>', 'zo')
+-- to whole file
+Map('sA', 'gg"_dG<CR>')              -- delete all without buffer
+Map('dA', ':%delete<CR>')            -- delete all with buffer
+Map('yA', ':%yank<CR>')              -- yank all
+Map('=A', 'myLgg=G``zb`y<CR>:%s/ *$//g<CR>')    -- format the whole file
+Map('<leader>R', 'gg"_dGp<CR>')      -- replace whole text
+
+-- faster actions
+Map('<space>/', '/--#<CR> kztj<CR>') -- jump headings
+Map('<space>s', ':%s/', true, false) -- faster %s
+Map('<M-z>', 'zfi{')                 -- fold inside {}
+Map('<M-Z>', 'zo')                   -- fold open
 
