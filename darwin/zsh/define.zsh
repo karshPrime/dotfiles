@@ -34,7 +34,9 @@ fi
 
 # Save path for go packages
 export GOPATH=$HOME/.local/share/go
-export FZF_DEFAULT_OPTS='-i --cycle --ansi --layout=reverse'
+export FZF_DEFAULT_OPTS="-i --cycle --ansi --color=dark --layout=reverse\
+	--pointer='▶ ' --prompt='  '"
+export FZF_DEFAULT_COMMAND='find . -maxdepth 1 ! -path "*git*"'
 
 
 # Integrations -----------------------------------------------------------------
@@ -49,8 +51,8 @@ eval "$(fzf --zsh)"
 source "$ZFILES/highlighting/zsh-syntax-highlighting.zsh"
 source "$ZFILES/autosuggestions/zsh-autosuggestions.zsh"
 source "$ZFILES/history/zsh-history-substring-search.zsh"
-source "$DOTFILES/zsh/devedit.zsh"
-source "$DOTFILES/zsh/devtest.zsh"
+source "$ZFILES/karSH/devedit.zsh"
+source "$ZFILES/karSH/devtest.zsh"
 
 # Updated defaults behaviour
 bindkey "^[l"     clear-screen
