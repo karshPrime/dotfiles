@@ -13,18 +13,16 @@ alias gits='git status'
 alias gitS='git switch'
 alias gitP='git push'
 alias gitp='git pull'
+alias gitl='git log'
 alias gitk='git checkout'
 alias gitb='git branch -a'
 alias gitu="git reset --soft 'HEAD^'"
 alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art'
 
+# Docker Shortcuts -------------------------------------------------------------
 
-# TMux Launch Shortcuts --------------------------------------------------------
+alias d=lazydocker
 
-alias tml="tmux ls"
-alias tmK="tmux kill-session"
-alias tmL="tmux ls | fzf --height=40% --border=rounded | cut -f 1 -d ':'"
 
-tmk() { tmux kill-session -t $(tmL) }
-tma() { tmux attach-session -t $(tmL) }
+
 
