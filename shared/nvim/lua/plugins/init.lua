@@ -27,6 +27,7 @@ local plugins = {
 	{ 'williamboman/mason-lspconfig.nvim' },
 	{ 'neovim/nvim-lspconfig' },
 	{ 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+	{ 'mfussenegger/nvim-jdtls' },
 	{ 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' }, -- multiline errors
 
 	-- NO CONFIG
