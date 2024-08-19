@@ -25,14 +25,14 @@ require('tmux-compile').setup({
 	},{
 		extension = {'go'},
 		run = 'go run .',
-		build = 'go build -race -o ./bin/testbuild main.go'
+		build = 'echo "Building..."; go build -race -o ./bin/testbuild main.go'
 	},{
 		extension = {'py'},
 		run = 'python main.py'
 	}}
 })
 
-Map('<leader>g',  ':TMUXcompile lazygit<CR>')
+Map('<M-g>',  ':TMUXcompile lazygit<CR>')
 Map('<leader>d',  ':TMUXcompile Debug<CR>')
 
 Map('<leader>rr', ':TMUXcompile Run<CR>')
@@ -40,10 +40,10 @@ Map('<leader>r[', ':TMUXcompile RunV<CR>')
 Map('<leader>r]', ':TMUXcompile RunH<CR>')
 Map('<leader>r\\',':TMUXcompile RunBG<CR>')
 
-Map('<leader>mm', ':TMUXcompile Make<CR>')
-Map('<leader>m[', ':TMUXcompile MakeH<CR>')
-Map('<leader>m]', ':TMUXcompile MakeH<CR>')
-Map('<leader>m\\',':TMUXcompile MakeBG<CR>')
+Map('<leader>bb', ':TMUXcompile Make<CR>')
+Map('<leader>b[', ':TMUXcompile MakeH<CR>')
+Map('<leader>b]', ':TMUXcompile MakeH<CR>')
+Map('<leader>b\\',':TMUXcompile MakeBG<CR>')
 
 
 --# Only TMUX #----------------------------------------------------------------

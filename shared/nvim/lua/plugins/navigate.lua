@@ -34,7 +34,7 @@ Map('<leader>c', builtin.buffers)
 Map('<leader>m', builtin.marks)
 
 Map('<leader>n', ':Telescope noice<CR>')
-Map('<leader>b', builtin.live_grep)
+Map('<leader>g', builtin.live_grep)
 Map('<leader>p', builtin.registers)
 Map('<leader>k', builtin.keymaps)
 
