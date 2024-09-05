@@ -19,10 +19,15 @@ alias gitb='git branch -a'
 alias gitu="git reset --soft 'HEAD^'"
 alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art'
 
-# Docker Shortcuts -------------------------------------------------------------
 
-alias d=lazydocker
+# HACK SCRIPTS -----------------------------------------------------------------
 
+alias pinit=". $HACK_SCRIPTS/project_initialise.sh"
 
-
+jlab() {
+	"$HACK_SCRIPTS/project_initialise.sh" "$1.java"
+	mv "$1" "lab$2"
+	cd "lab$2"
+	rm -rf ./.git* ./README.md ./LICENSE
+}
 

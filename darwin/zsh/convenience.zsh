@@ -43,6 +43,7 @@ alias c='bat -n'
 alias cat='bat -pp'
 alias htop=btop
 alias ntop='sudo bandwhich'
+alias gr='./gradlew'
 
 # Media Control
 alias yt='yt-dlp'
