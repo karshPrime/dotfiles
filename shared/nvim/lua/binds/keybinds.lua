@@ -80,3 +80,19 @@ Map('<space>s', ':%s/', true, false) -- faster %s
 Map('<M-z>', 'zfi{')                 -- fold inside {}
 Map('<M-Z>', 'zo')                   -- fold open
 
+
+--# Inserts #-----------------------------------------------------------------
+
+-- autoclose brackets
+vim.keymap.set('i', '(', '(  )<Left><Left>', { noremap = true, silent = true })
+vim.keymap.set('i', '[', '[  ]<Left><Left>', { noremap = true, silent = true })
+vim.keymap.set('i', '{', '{  }<Left><Left>', { noremap = true, silent = true })
+vim.keymap.set('i', ')', '()', { noremap = true, silent = true })
+vim.keymap.set('i', ']', '[]', { noremap = true, silent = true })
+vim.keymap.set('i', '}', '{}', { noremap = true, silent = true })
+vim.keymap.set('i', '"', '""<Left>', { noremap = true, silent = true })
+vim.keymap.set('i', "'", "''<Left>", { noremap = true, silent = true })
+
+Map('<leader>(', 'a(  )<Left><Left>')
+Map('<leader>{', 'o{<CR>}<Esc>O')
+

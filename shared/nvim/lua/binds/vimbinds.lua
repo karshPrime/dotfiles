@@ -24,6 +24,7 @@ vim.cmd('set breakindent')
 vim.cmd('set tabstop=4')
 vim.cmd('set shiftwidth=4')
 vim.cmd('set softtabstop=4')
+vim.cmd('set expandtab')
 
 vim.cmd('set undolevels=1000')
 vim.cmd('set backspace=indent,eol,start')

@@ -96,7 +96,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		local opts = { buffer = ev.buf }
 		Map('gD', vim.lsp.buf.declaration, opts)
 		Map('gd', vim.lsp.buf.definition, opts)
-		Map('gtd',  vim.lsp.buf.type_definition, opts)
+		Map('gtd',vim.lsp.buf.type_definition, opts)
 
 		Map('gi', vim.lsp.buf.implementation, opts)
 		Map('gr', vim.lsp.buf.references, opts)
