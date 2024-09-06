@@ -28,12 +28,11 @@ alias ztime="time zsh -i -c exit"
 alias tedit="$EDITOR $DOTFILES/tmux/tmux.conf"
 alias tupdate="tmux source-file $DOTFILES/tmux/tmux.conf"
 
-alias tml="tmux ls"
 alias tmK="tmux kill-session"
-alias tmL="tmux ls | fzf --height=40% --border=rounded | cut -f 1 -d ':'"
+alias TML="tmux ls | fzf --height=40% --border=rounded | cut -f 1 -d ':' 2>/dev/null"
 
-tmk() { tmux kill-session -t $(tmL) }
-tma() { tmux attach-session -t $(tmL) }
+tmk() { tmux kill-session -t $(TML) }
+tma() { tmux ls >/dev/null && tmux attach-session -t $(TML) 2>/dev/null }
 
 alias aedit="$EDITOR $DOTFILES/alacritty/alacritty.toml"
 
