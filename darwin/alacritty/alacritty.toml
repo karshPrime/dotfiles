@@ -5,10 +5,11 @@
 
 [window]
 title = "terminal"
-opacity = 0.6
+opacity = 0.75
 blur = true
-dimensions = { columns = 100, lines = 24 }
-padding = { x = 10, y = 5 }
+dimensions = { columns = 100, lines = 25 }
+position = { x = 745, y = 650 }
+padding = { x = 5, y = 5 }
 option_as_alt = "Both"
 
 [cursor]
