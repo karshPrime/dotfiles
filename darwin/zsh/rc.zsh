@@ -11,8 +11,14 @@
 
 # Update PATH
 if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
-    export PATH=/opt/homebrew/bin:$PATH:/Users/alias/Projects/.bin/
+    PATH="/opt/homebrew/bin:$PATH:"
+    PATH+="/Users/alias/Projects/.bin/:"
+    PATH+="/Applications/Docker.app/Contents/Resources/bin/:"
+    PATH+="/opt/streak/bin/"
+
+    export PATH
 fi
+
 
 # Default Editor
 export EDITOR=nvim
@@ -37,5 +43,14 @@ alias pkgs='brew search'
 alias pkgl='brew list'
 alias pkgi='brew info'
 alias pkgx='brew cleanup --prune=all'
-alias update='brew upgrade; brew update; brew cleanup --prune=all'
+
+update() {
+    figlet "System Packages"
+    brew upgrade
+    brew update
+    figlet "System Cleanup"
+    brew cleanup --prune=all
+    figlet "vim Plugins"
+    nvim --headless "+Lazy! update" +qa
+}
 
