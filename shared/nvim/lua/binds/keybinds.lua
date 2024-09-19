@@ -83,16 +83,27 @@ Map('<M-Z>', 'zo')                   -- fold open
 
 --# Inserts #-----------------------------------------------------------------
 
--- autoclose brackets
-vim.keymap.set('i', '(', '(  )<Left><Left>', { noremap = true, silent = true })
-vim.keymap.set('i', '[', '[  ]<Left><Left>', { noremap = true, silent = true })
-vim.keymap.set('i', '{', '{  }<Left><Left>', { noremap = true, silent = true })
-vim.keymap.set('i', ')', '()', { noremap = true, silent = true })
-vim.keymap.set('i', ']', '[]', { noremap = true, silent = true })
-vim.keymap.set('i', '}', '{}', { noremap = true, silent = true })
-vim.keymap.set('i', '"', '""<Left>', { noremap = true, silent = true })
-vim.keymap.set('i', "'", "''<Left>", { noremap = true, silent = true })
+inserts = function(key, action, nrmap, quiet)
+    vim.keymap.set('i', key, action,
+       { noremap = true, silent = true }
+    )
+end
 
-Map('<leader>(', 'a(  )<Left><Left>')
-Map('<leader>{', 'o{<CR>}<Esc>O')
+-- autoclose brackets: get in
+inserts('<M-9>', '(  )<Left><Left>')
+inserts('<M-[>', '[  ]<Left><Left>')
+inserts('<M-{>', '{  }<Left><Left>')
+inserts('<M-">', '""<Left>')
+inserts("<M-'>", "''<Left>")
+
+-- autoclose brackets: stay out
+inserts('<M-0>', '()')
+inserts('<M-]>', '[]')
+inserts('<M-}>', '{}')
+
+-- insert new line
+vim.keymap.set(
+    {'n', 'i'}, "<leader>{", '<Esc>A {<CR>}<Esc>O',
+    { noremap = true, silent = true }
+)
 

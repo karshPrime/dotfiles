@@ -42,7 +42,7 @@ Map('<leader>r]', ':TMUXcompile RunH<CR>')
 Map('<leader>r\\',':TMUXcompile RunBG<CR>')
 
 Map('<leader>bb', ':TMUXcompile Make<CR>')
-Map('<leader>b[', ':TMUXcompile MakeH<CR>')
+Map('<leader>b[', ':TMUXcompile MakeV<CR>')
 Map('<leader>b]', ':TMUXcompile MakeH<CR>')
 Map('<leader>b\\',':TMUXcompile MakeBG<CR>')
 
