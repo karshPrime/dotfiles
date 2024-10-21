@@ -2,6 +2,21 @@
 #- DEVELOPMENT -----------------------------------------------------------------
 #- shortcuts for common dev actions --------------------------------------------
 
+# Vim Shortcuts ----------------------------------------------------------------
+
+v() {
+    if [ "$#" -lt 2 ]; then
+        $EDITOR $1
+    elif [ "$(tput cols)" -lt 126 ]; then
+        $EDITOR -o2 $@
+    else
+        $EDITOR -O2 $@
+    fi
+}
+
+alias sv="sudo $EDITOR"
+
+
 # Git Shortcuts ----------------------------------------------------------------
 
 gitg() { git clone --depth=1 git@github.com:$1.git; cd $(basename $1) }
@@ -20,7 +35,7 @@ alias gitu="git reset --soft 'HEAD^'"
 alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art'
 
 
-# HACK SCRIPTS -----------------------------------------------------------------
+# Hack Scripts -----------------------------------------------------------------
 
 alias pinit=". $HACK_SCRIPTS/project_initialise.sh"
 

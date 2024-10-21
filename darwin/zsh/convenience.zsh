@@ -36,14 +36,14 @@ alias la='eza -a --color=always --group-directories-first --icons'
 alias tree='eza -T --group-directories-first --icons=always'
 
 # Easier Calls
-alias v=$EDITOR
-alias sv="sudo $EDITOR"
-alias vim=$EDITOR
 alias c='bat -n'
 alias cat='bat -pp'
 alias htop=btop
 alias ntop='sudo bandwhich'
 alias gr='./gradlew'
+alias pip='python3 -m pip'
+alias py=python3
+alias python=python3
 
 # Media Control
 alias yt='yt-dlp'
