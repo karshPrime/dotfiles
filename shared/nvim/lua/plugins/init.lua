@@ -44,6 +44,15 @@ local plugins = {
 	   event = 'VeryLazy'
 	},
 
+    -- PLOATFORM IO
+    { 'anurag3301/nvim-platformio.lua',
+       dependencies = {
+          { "akinsho/nvim-toggleterm.lua" },
+          { "nvim-telescope/telescope.nvim" },
+          { "nvim-lua/plenary.nvim" },
+       }
+    },
+
 	-- TMUX
 	{ 'christoomey/vim-tmux-navigator' },				-- vim tmux keybinds
 	{ 'karshPrime/only-tmux.nvim', event = 'VeryLazy' },-- tmux panels :only
@@ -61,5 +70,6 @@ require("plugins.editor")
 require("plugins.layout")
 require("plugins.lsp")
 require("plugins.navigate")
+require("plugins.platIO")
 require("plugins.tmux")
 

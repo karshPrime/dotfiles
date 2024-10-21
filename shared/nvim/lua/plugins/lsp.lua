@@ -5,7 +5,7 @@
 
 require('nvim-treesitter').setup({
 	ensure_installed = {
-		"c", "cpp", "rust",				-- low level
+		"c", "cpp", "rust", "zig",      -- low level
 		"java", "go",					-- app dev
 		"lua", "python", "bash",		-- scripting
 		"vhdl",							-- HDL
@@ -25,6 +25,7 @@ require('lspconfig')['rust_analyzer'].setup { capabilities = capabilities }
 require('lspconfig')['clangd'].setup { capabilities = capabilities }
 require('lspconfig')['gopls'].setup { capabilities = capabilities }
 require('lspconfig')['jdtls'].setup { capabilities = capabilities }
+require('lspconfig')['zls'].setup { capabilities = capabilities }
 
 require("mason").setup()
 require("mason-lspconfig").setup()
