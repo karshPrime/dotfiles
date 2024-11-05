@@ -7,10 +7,11 @@
 title = "terminal"
 opacity = 0.75
 blur = true
-dimensions = { columns = 100, lines = 25 }
-position = { x = 745, y = 650 }
+dimensions = { columns = 120, lines = 29 }
+position = { x = 600, y = 700 }
 padding = { x = 5, y = 5 }
 option_as_alt = "Both"
+resize_increments = true
 
 [cursor]
 style = "Block"
@@ -29,8 +30,10 @@ key = "F"
 mods = "Alt"
 action = "ToggleSimpleFullscreen"
 
+
 # -----------------------------------------------------------------------------
 # -- Fonts --------------------------------------------------------------------
+
 [font]
 size = 17
 

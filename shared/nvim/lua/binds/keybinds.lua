@@ -58,6 +58,20 @@ end
 Map('<leader>l', ':lua ToggleColumn()<CR>')
 
 
+-- toggle horizontal/vertical panes
+local type = "vertical"
+function RotatePanes()
+    if type == "horizontal" then
+        type = "vertical"
+        vim.cmd('wincmd K')
+    else
+        type = "horizontal"
+        vim.cmd('wincmd H')
+    end
+end
+Map('<leader>w', ':lua RotatePanes()<CR>')
+
+
 -- explore and panes
 Map('ZE', ':Ex<CR>')                            -- Explore mode
 Map('ZH', ':vsplit | :Explore<CR><C-w>r')       -- RHS new pane
