@@ -18,6 +18,7 @@ local plugins = {
 	-- LAYOUT
 	{ 'nvim-lualine/lualine.nvim' },					-- statusbar
 	{ 'karshPrime/tokyoburn.nvim' },					-- color theme
+    { 'norcalli/nvim-colorizer.lua' },                  -- preview hex colour
 	{ 'folke/noice.nvim', event = 'VeryLazy',			-- message UI
 	   dependencies = { 'MunifTanjim/nui.nvim' }
 	},
@@ -48,8 +49,6 @@ local plugins = {
     { 'anurag3301/nvim-platformio.lua',
        dependencies = {
           { "akinsho/nvim-toggleterm.lua" },
-          { "nvim-telescope/telescope.nvim" },
-          { "nvim-lua/plenary.nvim" },
        }
     },
 

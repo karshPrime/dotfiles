@@ -12,12 +12,17 @@ vim.o.signcolumn = 'yes'          -- Always show the sign column (gutter)
 require('Comment').setup()
 
 
+--# Preview Colours #-----------------------------------------------------------
+
+require 'colorizer'.setup()
+
+
 --# Surround Actions #---------------------------------------------------------
 
 require("nvim-surround").setup()
 
 --     Old text                    Command         New text
--- --------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 --     surr*ound_words             ysiw)           (surround_words)
 --     *make strings               ys$"            "make strings"
 --     [delete ar*ound me!]        ds]             delete around me!
