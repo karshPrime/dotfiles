@@ -7,7 +7,6 @@ require('tmux-compile').setup({
 	save_session = true,
 	overlay_width_percent = 80,
 	overlay_height_percent = 75,
-	overlay_sleep = 0,
 
 	build_run_config = {{
 		extension = {'c', 'cpp', 'h'},
