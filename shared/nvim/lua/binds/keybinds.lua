@@ -38,11 +38,11 @@ function custom_zz()
     end
 end
 
-Map('ZZ', ':lua custom_zz()<CR>')               -- save close buffers as well
-MapV('s', '"_d')                                -- delete without buffer
-Map('S', '"_d$a')                               -- delete without buffer line
-Map('X', '"_x')                                 -- delete without buffer char
-Map('<Esc>', '<Esc>:noh<CR>')                   -- extend Esc to also hide search
+Map('ZZ', ':lua custom_zz()<CR>')     -- save close buffers as well
+MapV('s', '"_d')                      -- delete without buffer
+Map('S', '"_d$a')                     -- delete without buffer line
+Map('X', '"_x')                       -- delete without buffer char
+Map('<Esc>', '<Esc>:noh<CR>')         -- extend Esc to also hide search
 
 
 --# Windows #-----------------------------------------------------------------
@@ -55,9 +55,10 @@ function ToggleColumn()
         vim.wo.colorcolumn = ""
     end
 end
+Map('<leader>l', ':lua ToggleColumn()<CR>')
 
-Map('<leader>l', ':lua ToggleColumn()<CR>')     -- toggle Column
 
+-- explore and panes
 Map('ZE', ':Ex<CR>')                            -- Explore mode
 Map('ZH', ':vsplit | :Explore<CR><C-w>r')       -- RHS new pane
 Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
@@ -65,20 +66,21 @@ Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
 
 --# Conveniences #------------------------------------------------------------
 
-vim.cmd([[command! -nargs=0 W w]])   -- :W work same as :w
+vim.cmd([[command! -nargs=0 W w]])              -- :W work same as :w
+vim.cmd([[command! -nargs=0 Wq wq]])            -- :W work same as :w
 
 -- to whole file
-Map('sA', 'gg"_dG<CR>')              -- delete all without buffer
-Map('dA', ':%delete<CR>')            -- delete all with buffer
-Map('yA', ':%yank<CR>')              -- yank all
+Map('sA', 'gg"_dG<CR>')                         -- delete all without buffer
+Map('dA', ':%delete<CR>')                       -- delete all with buffer
+Map('yA', ':%yank<CR>')                         -- yank all
 Map('=A', 'myLgg=G``zb`y<CR>:%s/ *$//g<CR>')    -- format the whole file
-Map('<leader>R', 'gg"_dGp<CR>')      -- replace whole text
+Map('<leader>R', 'gg"_dGp<CR>')                 -- replace whole text
 
 -- faster actions
-Map('<space>/', '/--#<CR> kztj<CR>') -- jump headings
-Map('<space>s', ':%s/', true, false) -- faster %s
-Map('<M-z>', 'zfi{')                 -- fold inside {}
-Map('<M-Z>', 'zo')                   -- fold open
+Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
+Map('<space>s', ':%s/', true, false)            -- faster %s
+Map('<M-z>', 'zfi{')                            -- fold inside {}
+Map('<M-Z>', 'zo')                              -- fold open
 
 
 --# Inserts #-----------------------------------------------------------------

@@ -48,8 +48,11 @@ update() {
     figlet "System Packages"
     brew upgrade
     brew update
+
     figlet "System Cleanup"
     brew cleanup --prune=all
+    brew autoremove
+
     figlet "vim Plugins"
     nvim --headless "+Lazy! update" +qa
 }

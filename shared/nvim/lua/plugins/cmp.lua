@@ -13,11 +13,11 @@ cmp.setup({
     window = { },
 
     mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-b>']     = cmp.mapping.scroll_docs(-4),
+        ['<C-f>']     = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-e>']     = cmp.mapping.abort(),
+        ['<CR>']      = cmp.mapping.confirm({ select = true }),
     }),
 
     sources = cmp.config.sources(
@@ -28,7 +28,9 @@ cmp.setup({
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({ { name = 'git' }, }, { { name = 'buffer' }, })
+    sources = cmp.config.sources(
+        { { name = 'git' }, }, { { name = 'buffer' }, }
+    )
 })
 
 -- Use buffer source for `/` and `?`
@@ -40,6 +42,8 @@ cmp.setup.cmdline({ '/', '?' }, {
 -- Use cmdline & path source for ':' 
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } })
+    sources = cmp.config.sources(
+        { { name = 'path' } }, { { name = 'cmdline' } }
+    )
 })
 
