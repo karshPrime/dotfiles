@@ -1,0 +1,73 @@
+{
+    "files.exclude": {
+        "**/.pio": true
+    },
+    "workbench.editor.enablePreview": false,
+    "editor.defaultFoldingRangeProvider": "platformio.platformio-ide",
+    "workbench.enableExperiments": false,
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "extensions.autoUpdate": "onlyEnabledExtensions",
+    "telemetry.telemetryLevel": "off",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font', Menlo, Monaco, 'Courier New', monospace",
+    "workbench.startupEditor": "none",
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "cmake.options.statusBarVisibility": "compact",
+    "cmake.showOptionsMovedNotification": false,
+    "cmake.showConfigureWithDebuggerNotification": false,
+    "editor.lineNumbers": "relative",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "vim.cursorStylePerMode.insert": "underline",
+    "vim.cursorStylePerMode.normal": "block",
+    "vim.cursorStylePerMode.replace": "block-outline",
+    "vim.cursorStylePerMode.visual": "line",
+    "vim.visualModeKeyBindings": [],
+    "editor.cursorBlinking": "solid",
+    "editor.fontSize": 14,
+    "terminal.integrated.localEchoStyle": "dim",
+    "editor.guides.bracketPairs": true,
+    "editor.rulers": [80],
+    "terminal.integrated.profiles.osx": {
+        "bash": {
+            "path": "bash",
+            "args": [
+                "-l"
+            ],
+            "icon": "terminal-bash"
+        },
+        "zsh": {
+            "path": "zsh",
+            "args": [
+                "-l"
+            ]
+        },
+        "fish": {
+            "path": "fish",
+            "args": [
+                "-l"
+            ]
+        },
+        "tmux": {
+            "path": "tmux",
+            "icon": "terminal-tmux"
+        },
+        "pwsh": {
+            "path": "pwsh",
+            "icon": "terminal-powershell"
+        }
+    },
+    "window.confirmSaveUntitledWorkspace": false,
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "/Users/alias/.config/dotfiles/darwin/vscode/init.vim",
+    "vim.useSystemClipboard": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "workbench.colorTheme": "Panda Syntax",
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+}
+
