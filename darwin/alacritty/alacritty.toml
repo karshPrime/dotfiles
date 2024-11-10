@@ -5,7 +5,7 @@
 
 [window]
 title = "terminal"
-opacity = 0.90
+opacity = 0.85
 blur = true
 dimensions = { columns = 120, lines = 29 }
 position = { x = 600, y = 700 }
@@ -18,7 +18,7 @@ style = "Block"
 unfocused_hollow = true
 
 [colors.primary]
-background = "0x121314"
+background = "0x232425"
 foreground = "0xe6e6e6"
 
 [colors.line_indicator]

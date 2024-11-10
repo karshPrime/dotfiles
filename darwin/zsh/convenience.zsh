@@ -54,5 +54,5 @@ alias ytas="yt-dlp -q -f 'ba*/+size' -o '~/Music/offlineYT/%(title)s.%(ext)s'"
 alias spotfix='bash <(curl -sSL https://spotx-official.github.io/run.sh)'
 
 # Fixed Path
-i() { cat ~/Documents/Info/$1 }
+i() { c ~/Documents/Info/$1 }
 

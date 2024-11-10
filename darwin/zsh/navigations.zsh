@@ -53,4 +53,5 @@ alias docs="gt ~/Documents"
 alias down="gt ~/Downloads"
 alias astro="gt ~/Projects/AstroStreak"
 alias conf="cd ~/.config/dotfiles"
+alias vols="gt /Volumes/"
 

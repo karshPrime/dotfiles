@@ -1,6 +1,7 @@
 {
     "files.exclude": {
-        "**/.pio": true
+        "**/.pio": true,
+        "**/.vscode": true
     },
     "workbench.editor.enablePreview": false,
     "editor.defaultFoldingRangeProvider": "platformio.platformio-ide",
@@ -30,7 +31,9 @@
     "editor.fontSize": 14,
     "terminal.integrated.localEchoStyle": "dim",
     "editor.guides.bracketPairs": true,
-    "editor.rulers": [80],
+    "editor.rulers": [
+        80
+    ],
     "terminal.integrated.profiles.osx": {
         "bash": {
             "path": "bash",
@@ -45,25 +48,25 @@
                 "-l"
             ]
         },
-        "fish": {
-            "path": "fish",
-            "args": [
-                "-l"
-            ]
-        },
         "tmux": {
             "path": "tmux",
             "icon": "terminal-tmux"
-        },
-        "pwsh": {
-            "path": "pwsh",
-            "icon": "terminal-powershell"
         }
     },
     "window.confirmSaveUntitledWorkspace": false,
     "vim.vimrc.enable": true,
     "vim.vimrc.path": "/Users/alias/.config/dotfiles/darwin/vscode/init.vim",
     "vim.useSystemClipboard": true,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [":", "W"],
+            "commands": [ "workbench.action.files.save" ]
+        },
+        {
+            "before": [":", "w"],
+            "commands": [ "workbench.action.files.save" ]
+        },
+    ],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "workbench.colorTheme": "Panda Syntax",
     "[cpp]": {
