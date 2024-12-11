@@ -10,11 +10,10 @@
 #
 
 # Update PATH
-if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
+if [[ ":$PATH:" != *"/opt/homebrew/bin:"* ]]; then
     PATH="/opt/homebrew/bin:$PATH:"
-    PATH+="/Users/alias/Projects/.bin/:"
-    PATH+="/Applications/Docker.app/Contents/Resources/bin/:"
-    PATH+="/opt/streak/bin/"
+    PATH+="/Users/zul/Projects/.bin/:"
+    PATH+="/Applications/Docker.app/Contents/Resources/bin/"
 
     export PATH
 fi

@@ -39,23 +39,23 @@ lspconfig.gopls.setup {}
 
 --# C/C++ LSP
 lspconfig.clangd.setup {
-	cmd = {
-		"clangd",
-		"--background-index",
-		"--compile-commands-dir=.",
-		"--fallback-style=LLVM"
-	},
-	init_options = { clangdFileStatus = true, },
-	root_dir = require('lspconfig').util.root_pattern( ".git"),
+    cmd = {
+        "clangd",
+        "--background-index",
+        "--compile-commands-dir=build",
+        "--fallback-style=LLVM"
+    },
+    init_options = { clangdFileStatus = true },
+    root_dir = require('lspconfig').util.root_pattern("CMakeLists.txt"),
 
-	on_new_config = function(new_config, new_root_dir)
-		new_config.cmd = {
-			"clangd",
-			"--background-index",
-			"--compile-commands-dir=" .. new_root_dir,
-			"--fallback-style=Google"
-		}
-	end,
+    on_new_config = function(new_config, new_root_dir)
+        new_config.cmd = {
+            "clangd",
+            "--background-index",
+            "--compile-commands-dir=" .. new_root_dir .. "/build",
+            "--fallback-style=Google"
+        }
+    end,
 }
 
 --# Java LSP

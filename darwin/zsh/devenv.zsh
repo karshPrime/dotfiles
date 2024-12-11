@@ -19,7 +19,7 @@ alias sv="sudo $EDITOR"
 
 # Git Shortcuts ----------------------------------------------------------------
 
-gitg() { git clone --depth=1 git@github.com:$1.git; cd $(basename $1) }
+gitg() { git clone --depth=1 --recursive git@github.com:$1.git; cd $(basename $1) }
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
@@ -35,14 +35,18 @@ alias gitu="git reset --soft 'HEAD^'"
 alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art'
 
 
+# ESPIDF -----------------------------------------------------------------------
+
+alias idf="idf.py build && idf.py -p /dev/cu.usbmodem1101 flash monitor"
+alias idfg="source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh"
+alias idfb="idf.py build"
+alias idff="idf.py -p /dev/cu.usbmodem1101 flash"
+alias idfm="idf.py -p /dev/cu.usbmodem1101 monitor"
+alias idfc="idf.py clean; rm -rf ./build ./main/build 2>/dev/null"
+alias idfx="idf.py menuconfig"
+
+
 # Hack Scripts -----------------------------------------------------------------
 
 alias pinit=". $HACK_SCRIPTS/project_initialise.sh"
-
-jlab() {
-	"$HACK_SCRIPTS/project_initialise.sh" "$1.java"
-	mv "$1" "lab$2"
-	cd "lab$2"
-	rm -rf ./.git* ./README.md ./LICENSE
-}
 

@@ -55,7 +55,7 @@
     },
     "window.confirmSaveUntitledWorkspace": false,
     "vim.vimrc.enable": true,
-    "vim.vimrc.path": "/Users/alias/.config/dotfiles/darwin/vscode/init.vim",
+    "vim.vimrc.path": "/Users/zul/.config/dotfiles/darwin/vscode/init.vim",
     "vim.useSystemClipboard": true,
     "vim.normalModeKeyBindingsNonRecursive": [
         {
@@ -72,5 +72,26 @@
     "[cpp]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
+    "editor.minimap.enabled": false,
+    "terminal.explorerKind": "external",
+    "terminal.external.osxExec": "Alacritty.app",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "idf.espIdfPath": "/Users/zul/Projects/espidf-builds/v5.1.5/esp-idf",
+    "idf.pythonBinPath": "/Users/zul/.espressif/python_env/idf5.1_py3.9_env/bin/python",
+    "idf.toolsPath": "/Users/zul/.espressif",
+    "idf.customExtraPaths": "/Users/zul/.espressif/tools/xtensa-esp-elf-gdb/12.1_20231023/xtensa-esp-elf-gdb/bin:/Users/zul/.espressif/tools/riscv32-esp-elf-gdb/12.1_20231023/riscv32-esp-elf-gdb/bin:/Users/zul/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin:/Users/zul/.espressif/tools/xtensa-esp32s2-elf/esp-12.2.0_20230208/xtensa-esp32s2-elf/bin:/Users/zul/.espressif/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin:/Users/zul/.espressif/tools/riscv32-esp-elf/esp-12.2.0_20230208/riscv32-esp-elf/bin:/Users/zul/.espressif/tools/esp32ulp-elf/2.35_20220830/esp32ulp-elf/bin:/Users/zul/.espressif/tools/openocd-esp32/v0.12.0-esp32-20240821/openocd-esp32/bin:/Users/zul/.espressif/tools/esp-rom-elfs/20230320",
+    "idf.customExtraVars": {
+        "OPENOCD_SCRIPTS": "/Users/zul/.espressif/tools/openocd-esp32/v0.12.0-esp32-20240821/openocd-esp32/share/openocd/scripts",
+        "ESP_ROM_ELF_DIR": "/Users/zul/.espressif/tools/esp-rom-elfs/20230320/"
+    },
+    "idf.gitPath": "git",
+    "extensions.ignoreRecommendations": true,
+    "idf.openOcdConfigs": [
+        "board/esp32s3-builtin.cfg"
+    ],
+    "idf.adapterTargetName": "esp32s3",
+    "idf.hasWalkthroughBeenShown": true,
+    "idf.pythonInstallPath": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3",
 }
 
