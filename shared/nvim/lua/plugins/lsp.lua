@@ -21,18 +21,9 @@ require('nvim-treesitter').setup({
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require('lspconfig')['rust_analyzer'].setup { capabilities = capabilities }
 require('lspconfig')['clangd'].setup { capabilities = capabilities }
 require('lspconfig')['gopls'].setup { capabilities = capabilities }
-require('lspconfig')['jdtls'].setup { capabilities = capabilities }
-require('lspconfig')['zls'].setup { capabilities = capabilities }
-
-require("mason").setup()
-require("mason-lspconfig").setup()
 local lspconfig = require('lspconfig')
-
---# Rust LSP
-lspconfig.rust_analyzer.setup {}
 
 --# Go LSP
 lspconfig.gopls.setup {}
@@ -56,16 +47,6 @@ lspconfig.clangd.setup {
             "--fallback-style=Google"
         }
     end,
-}
-
---# Java LSP
-require'lspconfig'.jdtls.setup{
-	cmd = { 'jdtls' },
-	root_dir = function(fname)
-		return require'lspconfig'.util.root_pattern('build.gradle', 'pom.xml')(fname) or
-		require'lspconfig'.util.find_git_ancestor(fname) or
-		vim.fn.getcwd()
-	end,
 }
 
 
