@@ -33,7 +33,8 @@ alias rmf='
 alias l='eza -lag --color=always --group-directories-first --icons'
 alias ls='eza -g --icons'
 alias la='eza -a --color=always --group-directories-first --icons'
-alias tree='eza -T --group-directories-first --icons=always'
+alias tree='eza -T --group-directories-first --icons=always -L'
+alias treg='eza -T --group-directories-first --icons=always --git-ignore -L'
 
 # Easier Calls
 alias c='bat -n'

@@ -10,8 +10,8 @@ require('tmux-compile').setup({
 
 	build_run_config = {{
 		extension = {'c', 'cpp', 'h'},
-		build = 'make',
-		run = 'make run',
+		build = 'cmake -S . -B build && cmake --build build',
+		run = 'cmake -S . -B build && cmake --build build; ./bin',
 		debug = 'make debug',
 	},{
 		extension = {'java'},

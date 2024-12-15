@@ -50,7 +50,7 @@ Map('<Esc>', '<Esc>:noh<CR>')         -- extend Esc to also hide search
 -- toggle color column
 function ToggleColumn()
     if vim.wo.colorcolumn == "" then
-        vim.wo.colorcolumn = "80"
+        vim.wo.colorcolumn = "100"
     else
         vim.wo.colorcolumn = ""
     end

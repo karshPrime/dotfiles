@@ -8,7 +8,7 @@ vim.cmd('set laststatus=3')
 vim.cmd('set nu relativenumber')
 vim.cmd('set nocompatible')
 vim.cmd('set linebreak')
-vim.cmd('set textwidth=80')
+vim.cmd('set textwidth=100')
 vim.cmd('set termguicolors')
 
 vim.cmd('set showmatch')

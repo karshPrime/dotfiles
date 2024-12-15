@@ -76,19 +76,17 @@ require("noice").setup({
         lsp_doc_border = true,        -- add a border to hover docs and signature help
     },
 
-	routes = {
-		{
-			filter = {
-				event = "lsp",
-				kind = "progress",
-				cond = function(message)
-					local client = vim.tbl_get(message.opts, "progress", "client")
-					return client == "jdtls"
-				end,
-			},
-			opts = { skip = true },
-		},
-	},
+    routes = {{
+        filter = {
+            event = "lsp",
+            kind = "progress",
+            cond = function(message)
+                local client = vim.tbl_get(message.opts, "progress", "client")
+                return client == "jdtls"
+            end,
+        },
+        opts = { skip = true },
+    },},
 
     cmdline = { format = {
         regex_down = {

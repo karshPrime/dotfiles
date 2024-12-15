@@ -32,7 +32,7 @@
     "terminal.integrated.localEchoStyle": "dim",
     "editor.guides.bracketPairs": true,
     "editor.rulers": [
-        80
+        100
     ],
     "terminal.integrated.profiles.osx": {
         "bash": {
@@ -92,6 +92,9 @@
     ],
     "idf.adapterTargetName": "esp32s3",
     "idf.hasWalkthroughBeenShown": true,
-    "idf.pythonInstallPath": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3",
+    "idf.pythonInstallPath": "/usr/bin/python3",
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
 }
 

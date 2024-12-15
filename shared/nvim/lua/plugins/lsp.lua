@@ -57,8 +57,8 @@ vim.diagnostic.config({ virtual_text = false, })  -- disable default lsp errors
 
 -- toggle errors
 vim.keymap.set(
-"", "<space><space>", require("lsp_lines").toggle,
-{ desc = "Toggle lsp_lines" }
+    "", "<space><space>", require("lsp_lines").toggle,
+    { desc = "Toggle lsp_lines" }
 )
 
 

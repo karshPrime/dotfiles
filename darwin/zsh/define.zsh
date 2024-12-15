@@ -52,7 +52,7 @@ source "$ZFILES/highlighting/zsh-syntax-highlighting.zsh"
 source "$ZFILES/autosuggestions/zsh-autosuggestions.zsh"
 source "$ZFILES/history/zsh-history-substring-search.zsh"
 source "$ZFILES/karSH/devedit.zsh"
-source "$ZFILES/karSH/devtest.zsh"
+source "$ZFILES/karSH/benches.zsh"
 
 # Updated defaults behaviour
 bindkey "^[l"     clear-screen
