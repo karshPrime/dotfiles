@@ -38,6 +38,9 @@ export FZF_DEFAULT_OPTS="-i --cycle --ansi --color=dark --layout=reverse\
 	--pointer='▶ ' --prompt='  '"
 export FZF_DEFAULT_COMMAND='find . -maxdepth 1 ! -path "*git*"'
 
+export GPG_TTY=$(tty)
+gpgconf --launch gpg-agent
+
 
 # Integrations -----------------------------------------------------------------
 

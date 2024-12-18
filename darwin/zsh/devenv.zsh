@@ -37,11 +37,11 @@ alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art'
 
 # ESPIDF -----------------------------------------------------------------------
 
-alias idf="idf.py build && idf.py -p /dev/cu.usbmodem1101 flash monitor"
+idf() { idf.py build && idf.py -p "/dev/cu.usbmodem$1" flash monitor }
 alias idfg="source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh"
 alias idfb="idf.py build"
-alias idff="idf.py -p /dev/cu.usbmodem1101 flash"
-alias idfm="idf.py -p /dev/cu.usbmodem1101 monitor"
+alias idff="idf.py flash -p"
+alias idfm="idf.py monitor -p"
 alias idfc="idf.py clean; rm -rf ./build ./main/build 2>/dev/null"
 alias idfx="idf.py menuconfig"
 
