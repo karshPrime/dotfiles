@@ -5,15 +5,12 @@
 
 require('nvim-treesitter').setup({
 	ensure_installed = {
-		"c", "cpp", "rust", "zig",      -- low level
-		"java", "go",					-- app dev
-		"lua", "python", "bash",		-- scripting
-		"vhdl",							-- HDL
-		"html", "css"					-- web
+		"c", "cpp", "go", "lua", "python", "bash", "html", "css"
 	},
+
 	highlight = { enable = true },
-	indent = { enable = true },
-	folding = { enable = true, },
+	indent    = { enable = true },
+	folding   = { enable = true },
 })
 
 

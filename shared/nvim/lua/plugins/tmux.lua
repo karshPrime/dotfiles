@@ -1,34 +1,31 @@
--------------------------------------------------------------------------------
---# TMUX Related Plugins #-----------------------------------------------------
 
---# TMUX Compile #-------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+--# TMUX Related Plugins #-------------------------------------------------------------------------
+
+--# TMUX Compile #---------------------------------------------------------------------------------
 
 require('tmux-compile').setup({
 	save_session = true,
 	overlay_width_percent = 80,
 	overlay_height_percent = 75,
+    side_width_percent = 50,
 
 	build_run_config = {{
 		extension = {'c', 'cpp', 'h'},
-		build = 'cmake -S . -B build && cmake --build build',
-		run = 'cmake -S . -B build && cmake --build build; ./bin',
-		debug = 'make debug',
-	},{
-		extension = {'java'},
-		build = './gradlew build',
-		run = './gradlew run',
-		debug = 'jdb'
+        cd_root   =  true,
+		build     = 'cmake -S . -B build && cmake --build build',
+		run       = 'cmake -S . -B build && cmake --build build; ./bin',
 	},{
 		extension = {'rs'},
-		build = 'cargo build',
-		run = 'cargo run',
+		build     = 'cargo build',
+		run       = 'cargo run',
 	},{
 		extension = {'go'},
-		run = 'go run .',
-		build = 'echo "Building..."; go build -race -o ./bin/testbuild main.go'
+		run       = 'go run .',
+		build     = 'echo "Building..."; go build -race -o ./bin/testbuild main.go'
 	},{
 		extension = {'py'},
-		run = 'python main.py'
+		run       = 'python main.py'
 	}}
 })
 
@@ -46,7 +43,7 @@ Map('<leader>b]', ':TMUXcompile MakeH<CR>')
 Map('<leader>b\\',':TMUXcompile MakeBG<CR>')
 
 
---# Only TMUX #----------------------------------------------------------------
+--# Only TMUX #------------------------------------------------------------------------------------
 
 require('only_tmux').setup({ new_window_name = "session" })
 
