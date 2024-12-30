@@ -74,8 +74,8 @@ Map('<leader>w', ':lua RotatePanes()<CR>')
 
 -- explore and panes
 Map('ZE', ':Ex<CR>')                            -- Explore mode
-Map('ZH', ':vsplit | :Explore<CR><C-w>r')       -- RHS new pane
-Map('ZV', ':split | :Explore<CR>')              -- Bottom new pane
+Map('ZH', ':vsplit | :Explore<CR>')             -- RHS new pane
+Map('ZV', ':split  | :Explore<CR>')             -- Bottom new pane
 
 
 --# Conveniences #------------------------------------------------------------

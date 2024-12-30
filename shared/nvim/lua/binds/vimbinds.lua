@@ -2,6 +2,8 @@
 --# Additions #----------------------------------------------------------------
 
 vim.o.clipboard = "unnamedplus"
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 vim.cmd('syntax enable')
 vim.cmd('set laststatus=3')
