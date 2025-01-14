@@ -1,8 +1,8 @@
 
-#- DEVELOPMENT -----------------------------------------------------------------
-#- shortcuts for common dev actions --------------------------------------------
+#- DEVELOPMENT -------------------------------------------------------------------------------------
+#- shortcuts for common dev actions ----------------------------------------------------------------
 
-# Vim Shortcuts ----------------------------------------------------------------
+# Vim Shortcuts ------------------------------------------------------------------------------------
 
 v() {
     if [ "$#" -lt 2 ]; then
@@ -17,9 +17,14 @@ v() {
 alias sv="sudo $EDITOR"
 
 
-# Git Shortcuts ----------------------------------------------------------------
+# Git Shortcuts ------------------------------------------------------------------------------------
 
-gitg() { git clone --depth=1 --recursive git@github.com:$1.git; cd $(basename $1) }
+gitg() {
+    URL="git@github.com:$(echo $1 | cut -c 20-).git"
+    git clone --depth=1 --recursive --verbose "$URL" $2
+    cd "${2:-$(basename "$1")}"
+}
+
 gitR() { git rebase -i HEAD~$1 }
 gitt() { touch $1; git add $1; git commit -m "create $1" }
 
@@ -32,21 +37,32 @@ alias gitl='git log'
 alias gitk='git checkout'
 alias gitb='git branch -a'
 alias gitu="git reset --soft 'HEAD^'"
-alias giti='onefetch --no-title --no-color-palette -d churn -d head --no-art'
 
 
-# ESPIDF -----------------------------------------------------------------------
+# ESPIDF -------------------------------------------------------------------------------------------
 
-idf() { idf.py build && idf.py -p "/dev/cu.usbmodem$1" flash monitor }
+idf() {
+    idf.py build &&
+    idf.py -p "/dev/cu.usbmodem$1" flash &&
+    idf.py -p "/dev/cu.usbmodem${2:-$1}" monitor
+}
+
+alias idfl="ls /dev/cu.*"
 alias idfg="source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh"
 alias idfb="idf.py build"
 alias idff="idf.py flash -p"
 alias idfm="idf.py monitor -p"
-alias idfc="idf.py clean; rm -rf ./build ./main/build 2>/dev/null"
+alias idfc="idf.py fullclean; rm -rf ./build ./main/build 2>/dev/null"
 alias idfx="idf.py menuconfig"
 
 
-# Hack Scripts -----------------------------------------------------------------
+# Hack Scripts -------------------------------------------------------------------------------------
 
 alias pinit=". $HACK_SCRIPTS/project_initialise.sh"
+
+alias pins='
+    pushd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)/main/include" > /dev/null 2>&1;
+    rg "PIN";
+    popd > /dev/null 2>&1;
+'
 

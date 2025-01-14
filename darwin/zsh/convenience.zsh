@@ -41,7 +41,6 @@ alias c='bat -n'
 alias cat='bat -pp'
 alias htop=btop
 alias ntop='sudo bandwhich'
-alias gr='./gradlew'
 alias pip='python3 -m pip'
 alias py=python3
 alias python=python3

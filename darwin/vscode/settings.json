@@ -68,7 +68,6 @@
         },
     ],
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "workbench.colorTheme": "Panda Syntax",
     "[cpp]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
@@ -96,5 +95,7 @@
     "[c]": {
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
+    "idf.showOnboardingOnInit": false,
+    "chat.commandCenter.enabled": false,
 }
 
