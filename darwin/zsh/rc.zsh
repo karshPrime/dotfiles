@@ -33,6 +33,7 @@ source "$DOTFILES/zsh/navigations.zsh"  # file processing
 source "$DOTFILES/zsh/management.zsh"   # manage config files
 source "$DOTFILES/zsh/convenience.zsh"  # aliases & keybinds
 source "$DOTFILES/zsh/devenv.zsh"       # development shortcuts
+source "$DOTFILES/zsh/hacks.zsh"        # :)
 
 # System Packages
 export HOMEBREW_NO_ENV_HINTS=1

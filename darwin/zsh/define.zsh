@@ -16,18 +16,11 @@ setopt autocd extendedglob
 
 # Better auto-complete
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-
-if [[ -f "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION" ]]; then
-    autoload -Uz compinit
-    compinit -C "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
-else
-    autoload -Uz compinit && compinit
-fi
+autoload -Uz compinit
+compinit -C "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 
 # Fetch when not in TMux
-if [[ -z "$TMUX" ]]; then
-    bash ~/.config/fetch.sh
-fi
+[[ -z "$TMUX" ]] && bash ~/.config/fetch.sh
 
 
 # Explicit Declaration ---------------------------------------------------------
