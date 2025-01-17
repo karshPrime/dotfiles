@@ -5,7 +5,7 @@
 # Initialise -------------------------------------------------------------------
 
 # ZSH history
-HISTFILE="$ZFILES/histfile"
+HISTFILE="$HOME/.config/zsh/histfile"
 HISTSIZE=5000
 SAVEHIST=5000
 setopt HIST_IGNORE_DUPS
@@ -44,11 +44,11 @@ eval "$(starship init zsh)"
 eval "$(fzf --zsh)"
 
 # Plugins
-source "$ZFILES/highlighting/zsh-syntax-highlighting.zsh"
-source "$ZFILES/autosuggestions/zsh-autosuggestions.zsh"
-source "$ZFILES/history/zsh-history-substring-search.zsh"
-source "$ZFILES/karSH/devedit.zsh"
-source "$ZFILES/karSH/benches.zsh"
+source "$HOME/.config/zsh/highlighting/zsh-syntax-highlighting.zsh"
+source "$HOME/.config/zsh/autosuggestions/zsh-autosuggestions.zsh"
+source "$HOME/.config/zsh/history/zsh-history-substring-search.zsh"
+source "$HOME/.config/zsh/karSH/devedit.zsh"
+source "$HOME/.config/zsh/karSH/benches.zsh"
 
 # Updated defaults behaviour
 bindkey "^[l"     clear-screen
@@ -65,4 +65,11 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+
+# Other Configs
+source "$HOME/.config/dotfiles/shared/zsh/navigations.zsh"  # file processing
+source "$HOME/.config/dotfiles/shared/zsh/management.zsh"   # manage config files
+source "$HOME/.config/dotfiles/shared/zsh/convenience.zsh"  # aliases & keybinds
+source "$HOME/.config/dotfiles/shared/zsh/devenv.zsh"       # development shortcuts
+source "$HOME/.config/dotfiles/shared/zsh/hacks.zsh"        # :)
 
