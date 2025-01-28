@@ -42,18 +42,30 @@ alias gitu="git reset --soft 'HEAD^'"
 # ESPIDF -------------------------------------------------------------------------------------------
 
 idf() {
+    if ! command -v idf.py &> /dev/null; then
+        source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh
+    fi
     idf.py build &&
     idf.py -p "/dev/cu.usbmodem$1" flash &&
     idf.py -p "/dev/cu.usbmodem${2:-$1}" monitor
 }
 
 alias idfl="ls /dev/cu.*"
-alias idfg="source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh"
-alias idfb="idf.py build"
-alias idff="idf.py flash -p"
-alias idfm="idf.py monitor -p"
-alias idfc="idf.py fullclean; rm -rf ./build ./main/build 2>/dev/null"
-alias idfx="idf.py menuconfig"
+alias idfb='if ! command -v idf.py &> /dev/null; then
+                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+            fi; idf.py build'
+alias idff='if ! command -v idf.py &> /dev/null; then
+                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+            fi; idf.py flash -p'
+alias idfm='if ! command -v idf.py &> /dev/null; then
+                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+            fi; idf.py monitor -p'
+alias idfc='if ! command -v idf.py &> /dev/null; then
+                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+            fi; idf.py fullclean; rm -rf ./build ./main/build 2>/dev/null'
+alias idfx='if ! command -v idf.py &> /dev/null; then
+                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+            fi; idf.py menuconfig'
 
 
 # Hack Scripts -------------------------------------------------------------------------------------
