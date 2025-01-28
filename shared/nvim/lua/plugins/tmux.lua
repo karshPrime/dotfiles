@@ -26,7 +26,13 @@ require('tmux-compile').setup({
 	},{
 		extension = {'py'},
 		run       = 'python main.py'
-	}}
+	}},
+
+    project_override_config = {{
+        project_base_dir = '~/Projects/Haemograph/Rheometer-Firmware',
+        build = 'idfb',
+        run = 'idf 1101'
+    }}
 })
 
 Map('<M-g>',  ':TMUXcompile lazygit<CR>')
