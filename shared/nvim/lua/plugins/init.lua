@@ -10,6 +10,7 @@ local plugins = {
 	{ 'hrsh7th/nvim-cmp' },
 
 	-- EDITOR
+    { 'tpope/vim-obsession' },
 	{ 'airblade/vim-gitgutter' },						-- git column
 	{ 'numToStr/Comment.nvim', event = 'VeryLazy' },	-- easier commenting
 	{ 'kylechui/nvim-surround', event = 'VeryLazy' },	-- more surround actions

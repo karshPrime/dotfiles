@@ -117,9 +117,11 @@ inserts('<M-0>', '()')
 inserts('<M-]>', '[]')
 inserts('<M-}>', '{}')
 
+inserts("<M-;>", "<Esc>A;")
+
 -- insert new line
 vim.keymap.set(
-    {'n', 'i'}, "<leader>{", '<Esc>A {<CR>}<Esc>O',
+    {'n', 'i'}, "<leader>{", '<Esc>o{<CR>}<Esc>O',
     { noremap = true, silent = true }
 )
 
