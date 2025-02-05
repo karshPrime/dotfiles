@@ -55,12 +55,3 @@ Map("<leader>4", function() harpoon:list():select(4) end)
 Map("<leader>,", function() harpoon:list():prev() end)
 Map("<leader>.", function() harpoon:list():next() end)
 
-
---# Nvim-tree #----------------------------------------------------------------
-
-require("nvim-tree").setup({
-	on_attach = on_attach,
-})
-
-Map('ZX', ':NvimTreeToggle<CR>')
-

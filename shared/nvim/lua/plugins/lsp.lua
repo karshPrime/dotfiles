@@ -18,15 +18,11 @@ require('nvim-treesitter').setup({
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require('lspconfig')['clangd'].setup { capabilities = capabilities }
-require('lspconfig')['gopls'].setup { capabilities = capabilities }
-local lspconfig = require('lspconfig')
-
 --# Go LSP
-lspconfig.gopls.setup {}
+require('lspconfig').gopls.setup { capabilities = capabilities }
 
 --# C/C++ LSP
-lspconfig.clangd.setup {
+require('lspconfig').clangd.setup {
     cmd = {
         "clangd",
         "--background-index",
@@ -35,6 +31,7 @@ lspconfig.clangd.setup {
     },
     init_options = { clangdFileStatus = true },
     root_dir = require('lspconfig').util.root_pattern("CMakeLists.txt"),
+    capabilities = capabilities,
 
     on_new_config = function(new_config, new_root_dir)
         new_config.cmd = {

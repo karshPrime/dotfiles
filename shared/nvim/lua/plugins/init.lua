@@ -33,11 +33,9 @@ local plugins = {
 	{ 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' }, -- multiline errors
 
 	-- NO CONFIG
-	{ 'nvim-tree/nvim-web-devicons', lazy = true },		-- icons
 	{ 'mg979/vim-visual-multi', event = 'VeryLazy' },	-- ctrl+n multi cursor
 
 	-- NAVIGATE
-	{ 'nvim-tree/nvim-tree.lua', event = 'VeryLazy' },	-- file tree
 	{ 'ThePrimeagen/harpoon', event = 'VeryLazy',		-- project wise marks
 	   branch = "harpoon2"
 	},
