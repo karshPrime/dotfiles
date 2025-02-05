@@ -107,17 +107,32 @@ end
 
 -- autoclose brackets: get in
 inserts('<M-9>', '(  )<Left><Left>')
-inserts('<M-[>', '[  ]<Left><Left>')
 inserts('<M-{>', '{  }<Left><Left>')
+inserts('<M-[>', '[]<Left>')
 inserts('<M-">', '""<Left>')
 inserts("<M-'>", "''<Left>")
 
 -- autoclose brackets: stay out
 inserts('<M-0>', '()')
+inserts('<M-)>', '( void )<CR>{<CR>}<Esc>O')
 inserts('<M-]>', '[]')
 inserts('<M-}>', '{}')
 
+-- common actions
 inserts("<M-;>", "<Esc>A;")
+inserts("<M-=>", " == ")
+inserts("<M-+>", " != ")
+inserts("=", " = ")
+inserts("*", " *")
+inserts(",", ", ")
+
+-- hjkl nav in insert mode
+inserts("<M-h>", "<Esc>ha")
+inserts("<M-j>", "<Esc>ja")
+inserts("<M-k>", "<Esc>ka")
+inserts("<M-l>", "<Esc>la")
+inserts("<M-i>", "<Esc>I")
+inserts("<M-a>", "<Esc>A")
 
 -- insert new line
 vim.keymap.set(
