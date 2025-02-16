@@ -32,9 +32,6 @@ local plugins = {
 	{ 'mfussenegger/nvim-jdtls' },
 	{ 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' }, -- multiline errors
 
-	-- NO CONFIG
-	{ 'mg979/vim-visual-multi', event = 'VeryLazy' },	-- ctrl+n multi cursor
-
 	-- NAVIGATE
 	{ 'ThePrimeagen/harpoon', event = 'VeryLazy',		-- project wise marks
 	   branch = "harpoon2"
@@ -43,6 +40,12 @@ local plugins = {
 	   dependencies = { 'nvim-lua/plenary.nvim' },
 	   event = 'VeryLazy'
 	},
+
+    -- PLATFORM IO
+    { 'anurag3301/nvim-platformio.lua',                 -- manage platform IO configs
+       dependencies = { "akinsho/nvim-toggleterm.lua" },
+       event = 'VeryLazy'
+    },
 
 	-- TMUX
 	{ 'christoomey/vim-tmux-navigator' },				-- vim tmux keybinds
@@ -61,5 +64,6 @@ require("plugins.editor")
 require("plugins.layout")
 require("plugins.lsp")
 require("plugins.navigate")
+require("plugins.platIO")
 require("plugins.tmux")
 

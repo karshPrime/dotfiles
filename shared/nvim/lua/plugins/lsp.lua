@@ -31,7 +31,6 @@ require('lspconfig').clangd.setup {
     },
     init_options = { clangdFileStatus = true },
     root_dir = require('lspconfig').util.root_pattern("CMakeLists.txt"),
-    capabilities = capabilities,
 
     on_new_config = function(new_config, new_root_dir)
         new_config.cmd = {
