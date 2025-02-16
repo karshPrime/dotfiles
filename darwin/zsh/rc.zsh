@@ -12,6 +12,7 @@
 # Update PATH
 if [[ ":$PATH:" != *"/opt/homebrew/bin:"* ]]; then
     PATH="/opt/homebrew/bin:$PATH:"
+    PATH+="/opt/homebrew/opt/openjdk/bin:"
     PATH+="/Users/zul/Projects/.bin/:"
     PATH+="/Applications/Docker.app/Contents/Resources/bin/"
 
