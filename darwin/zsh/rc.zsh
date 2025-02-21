@@ -5,9 +5,26 @@
 #  _ / /\__ | | | | | | (__
 # (_/___|___|_| |_|_|  \___|
 #
-# The idea is to have this as the only variable in the configs, such that
-# everything else is system independent.
-#
+
+# Initialise ---------------------------------------------------------------------------------------
+
+# ZSH history
+HISTFILE="$HOME/.config/zsh/histfile"
+HISTSIZE=5000
+SAVEHIST=5000
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+
+# cd into directories without cd
+setopt autocd extendedglob
+
+# Better auto-complete
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+autoload -Uz compinit
+compinit -C "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+
+# Fetch when not in TMux
+[[ -z "$TMUX" ]] && bash ~/.config/fetch.sh
 
 # Update PATH
 if [[ ":$PATH:" != *"/opt/homebrew/bin:"* ]]; then
@@ -20,33 +37,43 @@ if [[ ":$PATH:" != *"/opt/homebrew/bin:"* ]]; then
 fi
 
 
+# Explicit Declaration -----------------------------------------------------------------------------
+
 # System specific configs
 export EDITOR=nvim
 export DOTFILES="$HOME/.config/dotfiles/darwin"
 export HACK_SCRIPTS="$HOME/Projects/SysHacks"
-
-# Configuration Modules
-source "$HOME/.config/dotfiles/shared/zsh/define.zsh"
-
-# System Packages
 export HOMEBREW_NO_ENV_HINTS=1
-alias pkga='brew install'
-alias pkgr='brew uninstall --zap'
-alias pkgs='brew search'
-alias pkgl='brew list'
-alias pkgi='brew info'
-alias pkgx='brew cleanup --prune=all'
 
-alias update='
-    figlet "System Packages";
-    brew upgrade;
-    brew update;
+# Save path for go packages
+export GOPATH=$HOME/.local/share/go
+export FZF_DEFAULT_OPTS="-i --cycle --ansi --color=dark --layout=reverse\
+	--pointer='▶ ' --prompt='  '"
+export FZF_DEFAULT_COMMAND='find . -maxdepth 1 ! -path "*git*"'
 
-    figlet "System Cleanup"
-    brew cleanup --prune=all;
-    brew autoremove;
+export GPG_TTY=$(tty)
+gpgconf --launch gpg-agent
 
-    figlet "vim Plugins";
-    nvim --headless "+Lazy! update" +qa;
-'
+
+# Integrations -------------------------------------------------------------------------------------
+
+# Starship Prompt
+eval "$(starship init zsh)"
+
+# fzf 
+eval "$(fzf --zsh)"
+
+# Plugins
+source "$HOME/.config/zsh/highlighting/zsh-syntax-highlighting.zsh"
+source "$HOME/.config/zsh/autosuggestions/zsh-autosuggestions.zsh"
+source "$HOME/.config/zsh/history/zsh-history-substring-search.zsh"
+source "$HOME/.config/zsh/karSH/devedit.zsh"
+source "$HOME/.config/zsh/karSH/benches.zsh"
+
+# Other Configs
+source "$HOME/.config/dotfiles/darwin/zsh/navigations.zsh"  # file processing
+source "$HOME/.config/dotfiles/darwin/zsh/management.zsh"   # manage config files
+source "$HOME/.config/dotfiles/darwin/zsh/convenience.zsh"  # aliases & keybinds
+source "$HOME/.config/dotfiles/darwin/zsh/devenv.zsh"       # development shortcuts
+source "$HOME/.config/dotfiles/darwin/zsh/hacks.zsh"        # :)
 

@@ -14,7 +14,7 @@ nedit() {
 # ZSH --------------------------------------------------------------------------
 
 zedit() {
-    pushd $DOTFILES/../shared/zsh > /dev/null;
+    pushd $DOTFILES/zsh > /dev/null;
 	vi .
     popd > /dev/null
 }

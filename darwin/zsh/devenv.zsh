@@ -67,6 +67,17 @@ alias idfx='if ! command -v idf.py &> /dev/null; then
                 source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
             fi; idf.py menuconfig'
 
+hmonitor() {
+    filename=$(date +"%d%m%H%M.txt");
+    ./bin /dev/cu.usbmodem56E10136211 $1 "./analyse/data/$filename";
+
+    pushd ./analyse > /dev/null;
+    py ./analyse.py $(find ./data -type f -exec ls -lt {} + | head -n 1 | awk '{print $9}');
+    popd > /dev/null
+}
+
+alias cpfirmware="cd main; mv ./build ../monke; cpcode . cpp h; mv ../monke ./build; cd .."
+
 
 # Hack Scripts -------------------------------------------------------------------------------------
 

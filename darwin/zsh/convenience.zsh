@@ -2,6 +2,22 @@
 #- SHORTCUTS -------------------------------------------------------------------
 #- aliases and keybinds --------------------------------------------------------
 
+# Updated defaults behaviour
+bindkey "^[l"     clear-screen
+bindkey '^[[1;9D' backward-word
+bindkey '^[[1;9C' forward-word
+bindkey '^[[3~'   delete-char
+bindkey '^[[1;9B' backward-kill-word
+bindkey '^[[3;5~' kill-word
+
+bindkey '^[[1;3D' beginning-of-line
+bindkey '^[[1;3C' end-of-line
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 # Keybinds
 bindkey -s '^[c' ' | pbcopy\n'      # copy output to clipboard
 bindkey -s '^[p' 'pbpaste > '       # paste clipboard content to a file
@@ -38,4 +54,25 @@ alias python=python3
 
 # Fixed Path
 i() { c ~/Documents/Info/$1 }
+
+# System Packages
+alias pkga='brew install'
+alias pkgr='brew uninstall --zap'
+alias pkgs='brew search'
+alias pkgl='brew list'
+alias pkgi='brew info'
+alias pkgx='brew cleanup --prune=all'
+
+alias update='
+    figlet "System Packages";
+    brew upgrade;
+    brew update;
+
+    figlet "System Cleanup"
+    brew cleanup --prune=all;
+    brew autoremove;
+
+    figlet "vim Plugins";
+    nvim --headless "+Lazy! update" +qa;
+'
 

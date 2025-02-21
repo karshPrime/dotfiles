@@ -8,6 +8,12 @@ cdir() {
 	mkdir $1 && cd $1
 }
 
+alias rmwd='
+    current=$(pwd);
+    cd ..;
+    rm -rf "$current";
+'
+
 count() {
 	ls $1 | wc -l | tr -d ' '
 }
