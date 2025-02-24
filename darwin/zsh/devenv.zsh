@@ -81,7 +81,7 @@ alias cpfirmware="cd main; mv ./build ../monke; cpcode . cpp h; mv ../monke ./bu
 
 # Hack Scripts -------------------------------------------------------------------------------------
 
-alias pinit=". $HACK_SCRIPTS/project_initialise.sh"
+pinit() { $HACK_SCRIPTS/project_initialise.sh $@; cd "${1%.*}"; main }
 
 alias pins='
     pushd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)/main/include" > /dev/null 2>&1;
