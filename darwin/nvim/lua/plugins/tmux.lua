@@ -32,7 +32,12 @@ require('tmux-compile').setup({
         project_base_dir = '~/Projects/Haemograph/Rheometer-Firmware',
         build = 'idfb',
         run = 'idf 1101'
-    }}
+    },{
+        project_base_dir = '/Users/zul/Projects/SWE30011',
+        build = 'mv ./include/Arduino.h a; pio check; mv ./a ./include/Arduino.h',
+        run = 'mv ./include/Arduino.h a; pio run; mv ./a ./include/Arduino.h',
+        debug = 'pio debug'
+    }},
 })
 
 Map('<M-g>',  ':TMUXcompile lazygit<CR>')
