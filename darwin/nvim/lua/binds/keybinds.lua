@@ -96,6 +96,12 @@ Map('<space>s', ':%s/', true, false)            -- faster %s
 Map('<M-z>', 'zfi{')                            -- fold inside {}
 Map('<M-Z>', 'zo')                              -- fold open
 
+-- PlatformIO
+Map('<leader>ai', ':Pioinit<CR>')
+Map('<leader>am', ':Piomon<CR>')
+-- alternatively use :Piomon <bodrate> for specific, non-specified rate
+-- use :Piolib <search filter> to search and install libs. uses telescope.
+
 
 --# Inserts #-----------------------------------------------------------------
 
