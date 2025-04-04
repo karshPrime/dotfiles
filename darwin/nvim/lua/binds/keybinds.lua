@@ -95,8 +95,8 @@ Map('<space>/', '/--#<CR> kztj<CR>')            -- jump headings
 Map('<space>s', ':%s/', true, false)            -- faster %s
 Map('<M-z>', 'zfi{')                            -- fold inside {}
 Map('<M-Z>', 'zo')                              -- fold open
+Map('<M-j>', '<Esc>jzz<CR>')
 
--- PlatformIO
 Map('<leader>ai', ':Pioinit<CR>')
 Map('<leader>am', ':Piomon<CR>')
 -- alternatively use :Piomon <bodrate> for specific, non-specified rate

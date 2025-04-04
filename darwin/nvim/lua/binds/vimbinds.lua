@@ -7,6 +7,7 @@ vim.o.splitbelow = true
 
 vim.cmd('syntax enable')
 vim.cmd('set laststatus=3')
+vim.cmd('set cursorline')
 vim.cmd('set nu relativenumber')
 vim.cmd('set nocompatible')
 vim.cmd('set linebreak')

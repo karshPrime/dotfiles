@@ -33,7 +33,7 @@ alias sed='sed -r'
 
 # Common Actions
 alias x=exit
-alias weather='curl wttr.in/melbourne'
+alias weather='clear; curl wttr.in/melbourne'
 alias path="echo $PATH | tr ':' '\n'"
 
 # List Files

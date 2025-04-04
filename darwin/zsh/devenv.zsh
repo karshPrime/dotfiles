@@ -42,6 +42,7 @@ alias gitu="git reset --soft 'HEAD^'"
 # ESPIDF -------------------------------------------------------------------------------------------
 
 idf() {
+    clear;
     if ! command -v idf.py &> /dev/null; then
         source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh
     fi
@@ -68,8 +69,8 @@ alias idfx='if ! command -v idf.py &> /dev/null; then
             fi; idf.py menuconfig'
 
 hmonitor() {
-    filename=$(date +"%d%m%H%M.txt");
-    ./bin /dev/cu.usbmodem56E10136211 $1 "./analyse/data/$filename";
+    filename=$(date +"%m%d%H%M.txt");
+    ./bin /dev/cu.usbmodem54E20391011 $1 "./analyse/data/$filename";
 
     pushd ./analyse > /dev/null;
     py ./analyse.py $(find ./data -type f -exec ls -lt {} + | head -n 1 | awk '{print $9}');
@@ -83,9 +84,22 @@ alias cpfirmware="cd main; mv ./build ../monke; cpcode . cpp h; mv ../monke ./bu
 
 pinit() { $HACK_SCRIPTS/project_initialise.sh $@; cd "${1%.*}"; main }
 
+alias vic='vi ./src ./include c h'
+
 alias pins='
     pushd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)/main/include" > /dev/null 2>&1;
     rg "PIN";
     popd > /dev/null 2>&1;
+'
+
+alias buildcl='
+    pushd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)" > /dev/null 2>&1;
+    rm -rf ./build > /dev/null 2>&1;
+    mkdir build;
+    cd build;
+    cmake ..;
+    make;
+    cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..;
+    popd > /dev/null 2>&1
 '
 
