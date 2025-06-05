@@ -9,6 +9,7 @@ require('tmux-compile').setup({
 	overlay_width_percent = 80,
 	overlay_height_percent = 75,
     side_width_percent = 50,
+    local_config = "commands",
 
 	build_run_config = {{
 		extension = {'c', 'cpp', 'h'},
@@ -21,23 +22,12 @@ require('tmux-compile').setup({
 		run       = 'cargo run',
 	},{
 		extension = {'go'},
-		run       = 'go run .',
-		build     = 'echo "Building..."; go build -race -o ./bin/testbuild main.go'
+		run       = 'figlet "Run"; go run .',
+		build     = 'figlet "Build"; go build .'
 	},{
 		extension = {'py'},
-		run       = 'python main.py'
+		run       = 'source ./.pyenv/bin/activate; python3 main.py'
 	}},
-
-    project_override_config = {{
-        project_base_dir = '~/Projects/Haemograph/Rheometer-Firmware',
-        build = 'idfb',
-        run = 'idf 1101'
-    },{
-        project_base_dir = '/Users/zul/Projects/SWE30011',
-        build = 'mv ./include/Arduino.h a; pio check; mv ./a ./include/Arduino.h',
-        run = 'mv ./include/Arduino.h a; pio run; mv ./a ./include/Arduino.h',
-        debug = 'pio debug'
-    }},
 })
 
 Map('<M-g>',  ':TMUXcompile lazygit<CR>')

@@ -21,6 +21,9 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 --# Go LSP
 require('lspconfig').gopls.setup { capabilities = capabilities }
 
+--# Python LSP
+require('lspconfig').pylsp.setup { capabilities = capabilities }
+
 --# C/C++ LSP
 require('lspconfig').clangd.setup {
     cmd = {
@@ -41,6 +44,8 @@ require('lspconfig').clangd.setup {
         }
     end,
 }
+
+require('mason').setup()
 
 
 --# Multiline Errors #---------------------------------------------------------
