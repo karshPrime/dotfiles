@@ -46,7 +46,7 @@ gt() {
 
     dir="${1:-.}"
     cd "$dir/$(
-		find "$dir" -maxdepth 1 -mindepth 1 \( -type d -o -type l \) |
+        find "$dir" -maxdepth 1 -mindepth 1 \( -type d -o -type l \) -not -path '*/.*' |
         grep -o -E "[^/]*$" |
         sort |
         dynamic_fzf

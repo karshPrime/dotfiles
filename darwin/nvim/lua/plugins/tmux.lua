@@ -9,7 +9,7 @@ require('tmux-compile').setup({
 	overlay_width_percent = 80,
 	overlay_height_percent = 75,
     side_width_percent = 50,
-    local_config = "commands",
+    local_config = ".commands",
 
 	build_run_config = {{
 		extension = {'c', 'cpp', 'h'},

@@ -53,7 +53,7 @@ alias py=python3
 alias python=python3
 
 # Fixed Path
-i() { c ~/Documents/Info/$1 }
+i() { c ~/Projects/.Info/$1 }
 
 # System Packages
 alias pkga='brew install'
