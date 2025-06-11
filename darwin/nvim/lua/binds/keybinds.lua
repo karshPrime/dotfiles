@@ -97,6 +97,9 @@ Map('<M-z>', 'zfi{')                            -- fold inside {}
 Map('<M-Z>', 'zo')                              -- fold open
 Map('<M-j>', '<Esc>jzz<CR>')
 
+
+--# PlatformIO #--------------------------------------------------------------
+
 Map('<leader>ai', ':Pioinit<CR>')
 Map('<leader>am', ':Piomon<CR>')
 -- alternatively use :Piomon <bodrate> for specific, non-specified rate
@@ -128,8 +131,7 @@ inserts('<M-}>', '{}')
 inserts("<M-;>", "<Esc>A;")
 inserts("<M-=>", " == ")
 inserts("<M-+>", " != ")
-inserts("=", " = ")
-inserts("*", " *")
+inserts("=", "= ")
 inserts(",", ", ")
 
 -- hjkl nav in insert mode
@@ -142,7 +144,7 @@ inserts("<M-a>", "<Esc>A")
 
 -- insert new line
 vim.keymap.set(
-    {'n', 'i'}, "<leader>{", '<Esc>o{<CR>}<Esc>O',
+    {'n', 'i'}, "<leader>{", '<Esc>A {<CR>}<Esc>O',
     { noremap = true, silent = true }
 )
 
