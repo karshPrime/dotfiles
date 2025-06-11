@@ -33,9 +33,9 @@ gt() {
 	local dynamic_fzf() {
 		local term_width=$(tput cols)
 
-		if [ "$term_width" -lt 100 ]; then
-			fzf --height=90% --border=rounded \
-				--preview-window=down:50%:wrap \
+		if [ "$term_width" -lt 150 ]; then
+			fzf --height=50% --border=rounded \
+				--preview-window=down:70%:wrap \
 				--preview="eza -T --color=always --icons=always -L 1 "$dir/{}""
 		else
 			fzf --height=40% --border=rounded \

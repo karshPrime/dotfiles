@@ -88,7 +88,7 @@ alias vic='vi ./src ./include c h'
 
 alias pins='
     pushd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)/main/include" > /dev/null 2>&1;
-    rg "PIN";
+    rg --no-line-number "\#define.*_PIN\s+";
     popd > /dev/null 2>&1;
 '
 
@@ -102,4 +102,7 @@ alias buildcl='
     cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..;
     popd > /dev/null 2>&1
 '
+
+alias pyenv="source ./.pyenv/bin/activate"
+alias systemctl="brew services"
 
