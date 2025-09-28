@@ -2,11 +2,10 @@
 
 STORAGE=$(df -h | awk '/disk3s1s1/{print $3"/"$2" ["$5"]"}')
 # RES=$(system_profiler SPDisplaysDataType | awk '/Resolution/{print $2"x"$4}')
-RES=$(system_profiler SPDisplaysDataType | awk '/Resolution/{res = (length(res) > 0 ? res ", " : "") $2 "x" $4} END {print res}'
-)
+RES=$(system_profiler SPDisplaysDataType | awk '/Resolution/{res = (length(res) > 0 ? res ", " : "") $2 "x" $4} END {print res}')
 VER=$(sw_vers -productVersion)
 
-echo -e "                    alias\033[1;36m@machine"
+echo -e "                    zul\033[1;36m@machine"
 echo -e "\033[39m |-|    \033[32m*          \033[1;31m├─   Chipset : \033[0;37mM3 Pro"
 echo -e "\033[39m |-|   _    \033[33m*  \033[39m__  \033[32m├─ 󰀶  Version : \033[0;37m$VER"
 echo -e "\033[39m |-|   |  \033[31m*    \033[39m|/' \033[33m├─   Screen  : \033[0;37m$RES"

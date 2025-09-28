@@ -22,7 +22,7 @@ cd_root    = true
 #- ESP23 Config ------------------------------------------------------------------------------------
 
 [init.esp]
-command     = "source ~/Projects/espidf-builds/export.sh > /dev/null && idf.py create-project -p . %PROJECT_NAME%"
+command     = ""
 directories = [ "main/include" ]
 templates   = [
     { title = "debugs/esp.h", destination = "main/include/debug.h" },
@@ -31,10 +31,11 @@ git_ignore  = [ ".cache/", "build/", "managed_components/", "", "sdkconfig.old",
 
 
 [dev.esp]
-build = "source ~/Projects/espidf-builds/export.sh > /dev/null && idf.py build"
-run   = "source ~/Projects/espidf-builds/export.sh > /dev/null && idf.py flash"
-clean = "source ~/Projects/espidf-builds/export.sh > /dev/null && idf.py fullclean"
-debug = "source ~/Projects/espidf-builds/export.sh > /dev/null && idf.py menuconfig"
+build = ". %SCRIPT% esp-idf/export.sh > /dev/null && idf.py build"
+run   = ". %SCRIPT% esp-idf/export.sh > /dev/null && idf.py flash"
+clean = ". %SCRIPT% esp-idf/export.sh > /dev/null && idf.py fullclean"
+debug = ". %SCRIPT% esp-idf/export.sh > /dev/null && idf.py menuconfig"
+test  = "smonitor /dev/cu.usbmodem1101"
 
 
 #- C Config ----------------------------------------------------------------------------------------

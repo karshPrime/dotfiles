@@ -42,12 +42,6 @@ local plugins = {
 	   event = 'VeryLazy'
 	},
 
-    -- PLATFORM IO
-    { 'anurag3301/nvim-platformio.lua',                 -- manage platform IO configs
-       dependencies = { "akinsho/nvim-toggleterm.lua" },
-       event = 'VeryLazy'
-    },
-
 	-- TMUX
 	{ 'christoomey/vim-tmux-navigator' },				-- vim tmux keybinds
 	{ 'karshPrime/only-tmux.nvim', event = 'VeryLazy' },-- tmux panels :only

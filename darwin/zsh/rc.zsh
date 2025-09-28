@@ -40,7 +40,7 @@ fi
 # Explicit Declaration -----------------------------------------------------------------------------
 
 # System specific configs
-export EDITOR=nvim
+export EDITOR=vim
 export DOTFILES="$HOME/.config/dotfiles/darwin"
 export HACK_SCRIPTS="$HOME/Projects/SysHacks"
 export HOMEBREW_NO_ENV_HINTS=1
@@ -52,7 +52,7 @@ export FZF_DEFAULT_OPTS="-i --cycle --ansi --color=dark --layout=reverse\
 export FZF_DEFAULT_COMMAND='find . -maxdepth 1 ! -path "*git*"'
 
 export GPG_TTY=$(tty)
-gpgconf --launch gpg-agent
+#gpgconf --launch gpg-agent
 
 
 # Integrations -------------------------------------------------------------------------------------

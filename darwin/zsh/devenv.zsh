@@ -53,19 +53,19 @@ idf() {
 
 alias idfl="ls /dev/cu.*"
 alias idfb='if ! command -v idf.py &> /dev/null; then
-                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+                source ~/.config/dotfiles/darwin/gun/scripts/esp-idf/export.sh;
             fi; idf.py build'
 alias idff='if ! command -v idf.py &> /dev/null; then
-                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+                source ~/.config/dotfiles/darwin/gun/scripts/esp-idf/export.sh;
             fi; idf.py flash -p'
 alias idfm='if ! command -v idf.py &> /dev/null; then
-                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+                source ~/.config/dotfiles/darwin/gun/scripts/esp-idf/export.sh;
             fi; idf.py monitor -p'
 alias idfc='if ! command -v idf.py &> /dev/null; then
-                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+                source ~/.config/dotfiles/darwin/gun/scripts/esp-idf/export.sh;
             fi; idf.py fullclean; rm -rf ./build ./main/build 2>/dev/null'
 alias idfx='if ! command -v idf.py &> /dev/null; then
-                source ~/Projects/espidf-builds/v5.1.5/esp-idf/export.sh;
+                source ~/.config/dotfiles/darwin/gun/scripts/esp-idf/export.sh;
             fi; idf.py menuconfig'
 
 hmonitor() {

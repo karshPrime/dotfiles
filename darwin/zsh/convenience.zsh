@@ -64,15 +64,12 @@ alias pkgi='brew info'
 alias pkgx='brew cleanup --prune=all'
 
 alias update='
-    figlet "System Packages";
+    figlet "Update Packages";
     brew upgrade;
     brew update;
 
     figlet "System Cleanup"
     brew cleanup --prune=all;
     brew autoremove;
-
-    figlet "vim Plugins";
-    nvim --headless "+Lazy! update" +qa;
 '
 
