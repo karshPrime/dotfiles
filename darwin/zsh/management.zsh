@@ -53,13 +53,3 @@ tm() {
     }
 }
 
-
-# Alacritty --------------------------------------------------------------------
-
-alias aedit="$EDITOR $DOTFILES/alacritty/alacritty.toml"
-
-
-# Gun --------------------------------------------------------------------------
-
-alias gedit="v ~/.config/gun/config.toml"
-

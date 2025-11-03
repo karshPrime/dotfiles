@@ -27,7 +27,7 @@ compinit -C "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 [[ -z "$TMUX" ]] && bash ~/.config/fetch.sh
 
 # Update PATH
-if [[ ":$PATH:" != *"/opt/homebrew/bin:"* ]]; then
+if [[ ":$PATH:" != *"/Users/zul/Projects/.bin/"* ]]; then
     PATH="/opt/homebrew/bin:$PATH:"
     PATH+="/opt/homebrew/opt/openjdk/bin:"
     PATH+="/Users/zul/Projects/.bin/:"
@@ -40,7 +40,7 @@ fi
 # Explicit Declaration -----------------------------------------------------------------------------
 
 # System specific configs
-export EDITOR=vim
+export EDITOR=nvim
 export DOTFILES="$HOME/.config/dotfiles/darwin"
 export HACK_SCRIPTS="$HOME/Projects/SysHacks"
 export HOMEBREW_NO_ENV_HINTS=1
