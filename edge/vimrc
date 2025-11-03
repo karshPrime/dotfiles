@@ -1,6 +1,8 @@
 
 "- Config ---------------------------------------------------------------------------------------- "
 
+syntax enable
+
 set laststatus=3
 set nu relativenumber
 set nocompatible
@@ -36,6 +38,21 @@ nnoremap ZZ :wqall<CR>
 " Conveniences
 command! -nargs=0 W w
 command! -nargs=0 Wq wq
+
+" Yank to system clipboard by default
+nnoremap y "+y
+vnoremap y "+y
+inoremap <C-y> <C-o>"+y
+
+" Delete and copy to system clipboard by default
+nnoremap d "+d
+vnoremap d "+d
+inoremap <C-d> <C-o>"+d
+
+" Paste from system clipboard by default
+nnoremap p "+p
+vnoremap p "+p
+inoremap <C-p> <C-o>"+p
 
 " delete without buffer
 nnoremap s "_d
