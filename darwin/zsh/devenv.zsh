@@ -103,6 +103,14 @@ alias buildcl='
     popd > /dev/null 2>&1
 '
 
-alias pyenv="source ./.pyenv/bin/activate"
+alias pyenv='
+    pushd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)" > /dev/null 2>&1;
+    source ./.venv/bin/activate;
+    popd > /dev/null 2>&1
+'
+
+alias pyreq="parent; pip install -r ./requirements.txt"
+alias pypush="deactivate; parent; python3 -m build && python3 -m twine upload ./dist/*"
+
 alias systemctl="brew services"
 

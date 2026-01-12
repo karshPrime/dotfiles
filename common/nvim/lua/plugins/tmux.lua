@@ -26,7 +26,7 @@ require('tmux-compile').setup({
 		build     = 'figlet "Build"; go build .'
 	},{
 		extension = {'py'},
-		run       = 'source ./.pyenv/bin/activate; python3 main.py'
+		run       = 'source ./.venv/bin/activate; python3 main.py'
 	}},
 })
 

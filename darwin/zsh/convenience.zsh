@@ -68,6 +68,7 @@ alias update='
     figlet "Update Packages";
     brew upgrade;
     brew update;
+    python3 -m pip install --upgrade pip;
 
     figlet "System Cleanup"
     brew cleanup --prune=all;
