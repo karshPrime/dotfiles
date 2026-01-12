@@ -1,101 +1,104 @@
 {
-    "files.exclude": {
-        "**/.pio": true,
-        "**/.vscode": true
-    },
-    "workbench.editor.enablePreview": false,
-    "editor.defaultFoldingRangeProvider": "platformio.platformio-ide",
-    "workbench.enableExperiments": false,
-    "workbench.settings.enableNaturalLanguageSearch": false,
-    "extensions.autoUpdate": "onlyEnabledExtensions",
-    "telemetry.telemetryLevel": "off",
-    "editor.fontFamily": "'JetBrainsMono Nerd Font', Menlo, Monaco, 'Courier New', monospace",
+    "chat.commandCenter.enabled": false,
     "workbench.startupEditor": "none",
-    "cmake.pinnedCommands": [
-        "workbench.action.tasks.configureTaskRunner",
-        "workbench.action.tasks.runTask"
-    ],
-    "cmake.options.statusBarVisibility": "compact",
-    "cmake.showOptionsMovedNotification": false,
-    "cmake.showConfigureWithDebuggerNotification": false,
-    "editor.lineNumbers": "relative",
-    "extensions.experimental.affinity": {
-        "asvetliakov.vscode-neovim": 1
+    "files.exclude": {
+        "**/.cache": true,
+        "**/.devcontainer": true,
+        "**/.idea": true,
+        "**/.pyenv": true,
+        "**/.venv": true,
+        "**/.vscode": true,
+        "**/*.ges": true,
+        "**/*.pdf": true,
+        "**/build": true,
+        "dependencies.lock": true,
+        "managed_components": true
     },
-    "vim.cursorStylePerMode.insert": "underline",
-    "vim.cursorStylePerMode.normal": "block",
-    "vim.cursorStylePerMode.replace": "block-outline",
-    "vim.cursorStylePerMode.visual": "line",
-    "vim.visualModeKeyBindings": [],
-    "editor.cursorBlinking": "solid",
-    "editor.fontSize": 14,
-    "terminal.integrated.localEchoStyle": "dim",
-    "editor.guides.bracketPairs": true,
-    "editor.rulers": [
-        100
-    ],
-    "terminal.integrated.profiles.osx": {
-        "bash": {
-            "path": "bash",
-            "args": [
-                "-l"
-            ],
-            "icon": "terminal-bash"
-        },
-        "zsh": {
-            "path": "zsh",
-            "args": [
-                "-l"
-            ]
-        },
-        "tmux": {
-            "path": "tmux",
-            "icon": "terminal-tmux"
-        }
-    },
-    "window.confirmSaveUntitledWorkspace": false,
-    "vim.vimrc.enable": true,
-    "vim.vimrc.path": "/Users/zul/.config/dotfiles/darwin/vscode/init.vim",
-    "vim.useSystemClipboard": true,
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": [":", "W"],
-            "commands": [ "workbench.action.files.save" ]
-        },
-        {
-            "before": [":", "w"],
-            "commands": [ "workbench.action.files.save" ]
-        },
-    ],
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[cpp]": {
-        "editor.defaultFormatter": "ms-vscode.cpptools"
-    },
-    "editor.minimap.enabled": false,
-    "terminal.explorerKind": "external",
-    "terminal.external.osxExec": "Alacritty.app",
-    "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
-    "idf.espIdfPath": "/Users/zul/Projects/espidf-builds/v5.1.5/esp-idf",
-    "idf.pythonBinPath": "/Users/zul/.espressif/python_env/idf5.1_py3.9_env/bin/python",
-    "idf.toolsPath": "/Users/zul/.espressif",
-    "idf.customExtraPaths": "/Users/zul/.espressif/tools/xtensa-esp-elf-gdb/12.1_20231023/xtensa-esp-elf-gdb/bin:/Users/zul/.espressif/tools/riscv32-esp-elf-gdb/12.1_20231023/riscv32-esp-elf-gdb/bin:/Users/zul/.espressif/tools/xtensa-esp32-elf/esp-12.2.0_20230208/xtensa-esp32-elf/bin:/Users/zul/.espressif/tools/xtensa-esp32s2-elf/esp-12.2.0_20230208/xtensa-esp32s2-elf/bin:/Users/zul/.espressif/tools/xtensa-esp32s3-elf/esp-12.2.0_20230208/xtensa-esp32s3-elf/bin:/Users/zul/.espressif/tools/riscv32-esp-elf/esp-12.2.0_20230208/riscv32-esp-elf/bin:/Users/zul/.espressif/tools/esp32ulp-elf/2.35_20220830/esp32ulp-elf/bin:/Users/zul/.espressif/tools/openocd-esp32/v0.12.0-esp32-20240821/openocd-esp32/bin:/Users/zul/.espressif/tools/esp-rom-elfs/20230320",
-    "idf.customExtraVars": {
-        "OPENOCD_SCRIPTS": "/Users/zul/.espressif/tools/openocd-esp32/v0.12.0-esp32-20240821/openocd-esp32/share/openocd/scripts",
-        "ESP_ROM_ELF_DIR": "/Users/zul/.espressif/tools/esp-rom-elfs/20230320/"
-    },
-    "idf.gitPath": "git",
+    "editor.rulers": [100],
     "extensions.ignoreRecommendations": true,
-    "idf.openOcdConfigs": [
-        "board/esp32s3-builtin.cfg"
+    "explorer.confirmDelete": false,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "telemetry.editStats.enabled": false,
+    "telemetry.telemetryLevel": "off",
+
+    "editor.fontFamily": "'JetBrainsMono NF'",
+    "terminal.external.windowsExec": "",
+    "terminal.integrated.fontFamily": "'JetBrainsMono NF'",
+    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.fontWeight": "normal",
+
+    "editor.scrollbar.horizontal": "hidden",
+    "editor.scrollbar.vertical": "hidden",
+    "editor.cursorBlinking": "phase",
+
+    "workbench.iconTheme": "material-icon-theme",
+
+    "editor.scrollbar.horizontalScrollbarSize": 0,
+    "editor.scrollbar.verticalScrollbarSize": 0,
+    "workbench.editor.titleScrollbarVisibility": "hidden",
+    "editor.fontSize": 13,
+    "workbench.editor.editorActionsLocation": "titleBar",
+
+    "python.analysis.typeCheckingMode": "strict",
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "sklearn",
+            "depth": 2
+        },
+        {
+            "name": "matplotlib",
+            "depth": 2
+        },
+        {
+            "name": "scipy",
+            "depth": 2
+        },
+        {
+            "name": "django",
+            "depth": 2
+        },
+        {
+            "name": "flask",
+            "depth": 2
+        },
+        {
+            "name": "fastapi",
+            "depth": 2
+        },
+        {
+            "name": "cuda",
+            "depth": 3,
+            "includeAllSymbols": true
+        }
     ],
-    "idf.adapterTargetName": "esp32s3",
+
+    // vim -------------------------------------------------------------------------------------------
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "~/.vimrc",
     "idf.hasWalkthroughBeenShown": true,
     "idf.pythonInstallPath": "/usr/bin/python3",
-    "[c]": {
-        "editor.defaultFormatter": "ms-vscode.cpptools"
-    },
+    "idf.espIdfPath": "/Users/zul/Projects/esp/v5.5.1/esp-idf",
+    "idf.toolsPath": "/Users/zul/.espressif",
+    "idf.gitPath": "git",
     "idf.showOnboardingOnInit": false,
-    "chat.commandCenter.enabled": false,
+    "window.customTitleBarVisibility": "windowed",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "workbench.navigationControl.enabled": false,
+    "window.commandCenter": false,
+    "workbench.layoutControl.enabled": false,
+    "editor.renderWhitespace": "none",
+    "workbench.statusBar.visible": false,
+    "workbench.colorTheme": "GitHub Dark Default",
+    "breadcrumbs.enabled": false,
+    "editor.minimap.enabled": false,
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "chat.viewSessions.orientation": "stacked",
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "workbench.activityBar.location": "top",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    }
 }
-
