@@ -1,8 +1,8 @@
 
-#- MANAGEMENT ------------------------------------------------------------------
-#- manage configurations -------------------------------------------------------
+#- MANAGEMENT -------------------------------------------------------------------------------------
+#- manage configurations --------------------------------------------------------------------------
 
-# Neovim -----------------------------------------------------------------------
+# Neovim ------------------------------------------------------------------------------------------
 
 nedit() {
     pushd $DOTFILES/nvim/lua/ > /dev/null;
@@ -11,7 +11,7 @@ nedit() {
 }
 
 
-# ZSH --------------------------------------------------------------------------
+# ZSH ---------------------------------------------------------------------------------------------
 
 zedit() {
     pushd $DOTFILES/zsh > /dev/null;
@@ -23,17 +23,15 @@ alias zupdate="source ~/.zshrc"
 alias ztime="time zsh -i -c exit"
 
 
-# TMux -------------------------------------------------------------------------
+# TMux --------------------------------------------------------------------------------------------
 
 alias tedit="$EDITOR $DOTFILES/tmux/tmux.conf"
 alias tupdate="tmux source-file $DOTFILES/tmux/tmux.conf"
 
-alias tmK="tmux kill-session"
-alias TML="tmux ls | fzf --height=30% --border=rounded | cut -f 1 -d ':' 2>/dev/null"
-
-tmk() { tmux kill-session -t $(TML) }
 tm() {
-    tmux info >/dev/null 2>&1 && {
+    alias TML="tmux ls | fzf --height=30% --border=rounded | cut -f 1 -d ':' 2>/dev/null"
+
+    if [ -n "$TMUX" ]; then
         echo "Sessions Switch"
         session=$(TML);
 
@@ -41,15 +39,13 @@ tm() {
             tmux switch-client -t "$session";
         fi
 
-        return
-    }
-
-    tmux ls >/dev/null 2>&1 && {
+    elif [ -n "$(tmux ls 2>/dev/null)" ]; then
         echo "Session Connect"
         tmux attach-session -t $(TML) 2>/dev/null
-    } || {
+
+    else
         echo "Session Create"
         tmux
-    }
+    fi
 }
 
