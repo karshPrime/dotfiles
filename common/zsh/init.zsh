@@ -29,6 +29,7 @@ zsh-defer source "$DOTFILES/kar.sh/newproject/bench.zsh"
 
 # Other Configs
 zsh-defer source "$DOTFILES/zsh/navigations.zsh"  # file processing
+zsh-defer source "$DOTFILES/zsh/defines.zsh"      # common basic defines
 zsh-defer source "$DOTFILES/zsh/management.zsh"   # manage config files
 zsh-defer source "$DOTFILES/zsh/convenience.zsh"  # aliases & keybinds
 zsh-defer source "$DOTFILES/zsh/devenv.zsh"       # development shortcuts
