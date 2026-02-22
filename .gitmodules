@@ -1,0 +1,6 @@
+[submodule "common/kar.sh"]
+	path = common/kar.sh
+	url = https://github.com/karshPrime/kar.sh
+[submodule "common/tmux/plugins/tpm"]
+	path = common/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
