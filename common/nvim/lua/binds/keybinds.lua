@@ -43,6 +43,7 @@ MapV('s', '"_d')                      -- delete without buffer
 Map('S', '"_d$a')                     -- delete without buffer line
 Map('X', '"_x')                       -- delete without buffer char
 Map('<Esc>', '<Esc>:noh<CR>')         -- extend Esc to also hide search
+Map('zt', '2kzt2j')
 
 
 --# Windows #-----------------------------------------------------------------
@@ -98,14 +99,6 @@ Map('<M-Z>', 'zo')                              -- fold open
 Map('<M-j>', '<Esc>jzz<CR>')
 
 
---# PlatformIO #--------------------------------------------------------------
-
-Map('<leader>ai', ':Pioinit<CR>')
-Map('<leader>am', ':Piomon<CR>')
--- alternatively use :Piomon <bodrate> for specific, non-specified rate
--- use :Piolib <search filter> to search and install libs. uses telescope.
-
-
 --# Inserts #-----------------------------------------------------------------
 
 inserts = function(key, action, nrmap, quiet)
@@ -115,8 +108,8 @@ inserts = function(key, action, nrmap, quiet)
 end
 
 -- autoclose brackets: get in
-inserts('<M-9>', '(  )<Left><Left>')
-inserts('<M-{>', '{  }<Left><Left>')
+inserts('<M-9>', '()<Left>')
+inserts('<M-{>', '{}<Left>')
 inserts('<M-[>', '[]<Left>')
 inserts('<M-">', '""<Left>')
 inserts("<M-'>", "''<Left>")
@@ -144,7 +137,7 @@ inserts("<M-a>", "<Esc>A")
 
 -- insert new line
 vim.keymap.set(
-    {'n', 'i'}, "<leader>{", '<Esc>A {<CR>}<Esc>O',
+    {'n', 'i'}, "<leader>{", '<Esc>o{<CR>}<Esc>O',
     { noremap = true, silent = true }
 )
 

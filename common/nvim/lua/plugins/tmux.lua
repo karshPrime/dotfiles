@@ -14,8 +14,8 @@ require('tmux-compile').setup({
 	build_run_config = {{
 		extension = {'c', 'cpp', 'h'},
         cd_root   =  true,
-		build     = 'cmake -S . -B build && cmake --build build',
-		run       = 'cmake -S . -B build && cmake --build build; ./bin',
+		build     = 'make',
+		run       = 'make run',
 	},{
 		extension = {'rs'},
 		build     = 'cargo build',
@@ -42,12 +42,4 @@ Map('<leader>bb', ':TMUXcompile Make<CR>')
 Map('<leader>b[', ':TMUXcompile MakeV<CR>')
 Map('<leader>b]', ':TMUXcompile MakeH<CR>')
 Map('<leader>b\\',':TMUXcompile MakeBG<CR>')
-
-
---# Only TMUX #------------------------------------------------------------------------------------
-
-require('only_tmux').setup({ new_window_name = "session" })
-
-Map('<leader>o', ':TMUXonly close<CR>')
-Map('<leader>O', ':TMUXonly move<CR>')
 

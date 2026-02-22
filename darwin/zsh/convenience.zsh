@@ -27,9 +27,6 @@ bindkey -s '^[n' ' | wc -l\n'       # count (Number of) results
 alias cp=ditto
 alias df='df -h'
 alias diff='diff --color='always''
-alias ed='ed -p "> "'
-alias re='grep -o -E'
-alias sed='sed -r'
 
 # Common Actions
 alias x=exit
@@ -49,9 +46,7 @@ alias c='bat -n'
 alias cat='bat -pp'
 alias htop=btop
 alias ntop='sudo bandwhich'
-alias pip='python3 -m pip'
-alias py=python3
-alias python=python3
+alias g=lazygit
 
 # Fixed Path
 i() { c ~/Projects/.Info/$1 }

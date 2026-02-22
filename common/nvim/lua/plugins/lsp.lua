@@ -19,13 +19,15 @@ require('nvim-treesitter').setup({
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 --# Go LSP
-require('lspconfig').gopls.setup { capabilities = capabilities }
+vim.lsp.config('gopls', { capabilities = capabilities })
+vim.lsp.enable('gopls')
 
 --# Python LSP
-require('lspconfig').pylsp.setup { capabilities = capabilities }
+vim.lsp.config('pylsp', { capabilities = capabilities })
+vim.lsp.enable('pylsp')
 
 --# C/C++ LSP
-require('lspconfig').clangd.setup {
+vim.lsp.config('clangd', {
     cmd = {
         "clangd",
         "--background-index",
@@ -43,7 +45,8 @@ require('lspconfig').clangd.setup {
             "--fallback-style=Google"
         }
     end,
-}
+})
+vim.lsp.enable('clangd')
 
 require('mason').setup()
 

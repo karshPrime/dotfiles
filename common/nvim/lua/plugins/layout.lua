@@ -1,7 +1,7 @@
----------------------------------------------------------------------------------------------------
---# Layout #---------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--# Layout #--------------------------------------------------------------------
 
---# Color Theme #----------------------------------------------------------------------------------
+--# Color Theme #---------------------------------------------------------------
 
 require("tokyoburn").setup({
     transparent = true,
@@ -15,7 +15,7 @@ require("tokyoburn").setup({
 vim.cmd[[colorscheme tokyoburn-night]]
 
 
---# Statusline #-----------------------------------------------------------------------------------
+--# Statusline #----------------------------------------------------------------
 
 require('lualine').setup({
     sections = {
@@ -28,89 +28,16 @@ require('lualine').setup({
 })
 
 
---# Indent Blankline #-----------------------------------------------------------------------------
+--# Git Gutter #---------------------------------------------------------------
 
-local hooks = require("ibl.hooks")
-
--- Define your highlight groups
-hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "IndentDark", { fg = "#2f4f4f" })
-    vim.api.nvim_set_hl(0, "IndentStrong", { fg = "#ff5f87" })
-end)
-
--- Setup indent-blankline
-require("ibl").setup {
-    indent = {
-        highlight = {
-            "IndentDark",
-            "IndentDark",
-            "IndentDark",
-            "IndentDark",
-            "IndentDark",
-            "IndentDark",
-            "IndentStrong",
-        },
-    },
-    scope = {
-        enabled = true,
-        highlight = "IndentStrong",
-    },
-}
+vim.g.gitgutter_enabled = 1       -- Enable GitGutter always
+vim.o.signcolumn = 'yes'          -- Always show the sign column (gutter)
 
 
---# noice #----------------------------------------------------------------------------------------
+--# Preview ifdef conditions #-------------------------------------------------
 
-require("noice").setup({
-    lsp = {
-        progress = {
-            enabled = false,          -- Disable LSP progress messages
-        },
-        override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
-        },
-    },
+require('ifdef').setup()
 
-    presets = {
-        command_palette = true,       -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false,           -- enables an input dialog for inc-rename. nvim
-        lsp_doc_border = true,        -- add a border to hover docs and signature help
-    },
-
-    routes = {{
-        filter = {
-            event = "lsp",
-            kind = "progress",
-            cond = function(message)
-                local client = vim.tbl_get(message.opts, "progress", "client")
-                return client == "jdtls"
-            end,
-        },
-        opts = { skip = true },
-    },},
-
-    cmdline = { format = {
-        regex_down = {
-            kind = "search", lang = "regex", title = " Regex Search ",
-            pattern = "^/\\v", icon = " "
-        },
-
-        regex_up = {
-            kind = "search", lang = "regex" , title = " Regex Search ",
-            pattern = "^%?\\v", icon = " "
-        },
-
-        replace_all = {
-            lang = "regex", title = " Replace All ",
-            pattern = "^:%%s/", icon = "󰬲 "
-        },
-
-        replace_sel = {
-            lang = "regex", title = " Replace Selected ",
-            pattern = "^:'<,'>s/", icon = "󰬲 ",
-        },
-    } },
-})
+Map('<leader>h',  ':Ifdef current<CR>')
+Map('<leader>u',  ':UndotreeToggle<CR>')
 

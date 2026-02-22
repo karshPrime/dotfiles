@@ -1,33 +1,100 @@
 -------------------------------------------------------------------------------
 --# Editor #-------------------------------------------------------------------
 
---# Git Gutter #---------------------------------------------------------------
+--# Enable Plugins #-----------------------------------------------------------
 
-vim.g.gitgutter_enabled = 1       -- Enable GitGutter always
-vim.o.signcolumn = 'yes'          -- Always show the sign column (gutter)
-
-
---# Better Commenting #--------------------------------------------------------
-
-require('Comment').setup()
+require('Comment').setup()        -- Better Commenting
+require('colorizer').setup()      -- Preview Hex Colours
+require("nvim-surround").setup()  -- Surround Actions
 
 
---# Preview Colours #-----------------------------------------------------------
+--# Indent Blankline #----------------------------------------------------------
 
-require 'colorizer'.setup()
+local hooks = require("ibl.hooks")
+
+-- Define your highlight groups
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "IndentDark", { fg = "#2f4f4f" })
+    vim.api.nvim_set_hl(0, "IndentStrong", { fg = "#ff5f87" })
+end)
+
+-- Setup indent-blankline
+require("ibl").setup {
+    indent = {
+        highlight = {
+            "IndentDark",
+            "IndentDark",
+            "IndentDark",
+            "IndentDark",
+            "IndentDark",
+            "IndentDark",
+            "IndentStrong",
+        },
+    },
+    scope = {
+        enabled = true,
+        highlight = "IndentStrong",
+    },
+}
 
 
---# Surround Actions #---------------------------------------------------------
+--# noice #---------------------------------------------------------------------
 
-require("nvim-surround").setup()
+require("noice").setup({
 
---     Old text                    Command         New text
--------------------------------------------------------------------------------
---     surr*ound_words             ysiw)           (surround_words)
---     *make strings               ys$"            "make strings"
---     [delete ar*ound me!]        ds]             delete around me!
---     remove <b>HTML t*ags</b>    dst             remove HTML tags
---     'change quot*es'            cs'"            "change quotes"
---     <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
---     delete(functi*on calls)     dsf             function calls
+    -- Keep messages on screen for longer
+    views = { mini = { timeout = 10000, }, },
+
+    lsp = {
+        progress = {
+            enabled = false,          -- Disable LSP progress messages
+        },
+        override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+        },
+    },
+
+    presets = {
+        command_palette = true,       -- position the cmdline and popupmenu together
+        long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = false,           -- enables an input dialog for inc-rename. nvim
+        lsp_doc_border = true,        -- add a border to hover docs and signature help
+    },
+
+    routes = {{
+        filter = {
+            event = "lsp",
+            kind = "progress",
+            cond = function(message)
+                local client = vim.tbl_get(message.opts, "progress", "client")
+                return client == "jdtls"
+            end,
+        },
+        opts = { skip = true },
+    },},
+
+    cmdline = { format = {
+        regex_down = {
+            kind = "search", lang = "regex", title = " Regex Search ",
+            pattern = "^/\\v", icon = " "
+        },
+
+        regex_up = {
+            kind = "search", lang = "regex" , title = " Regex Search ",
+            pattern = "^%?\\v", icon = " "
+        },
+
+        replace_all = {
+            lang = "regex", title = " Replace All ",
+            pattern = "^:%%s/", icon = "󰬲 "
+        },
+
+        replace_sel = {
+            lang = "regex", title = " Replace Selected ",
+            pattern = "^:'<,'>s/", icon = "󰬲 ",
+        },
+    } },
+})
 
