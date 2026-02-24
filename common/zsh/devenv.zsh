@@ -19,7 +19,7 @@ alias sv="sudo $EDITOR"
 
 # Hack Scripts -------------------------------------------------------------------------------------
 
-alias vic='vi ./src ./include c h'
+alias vic='vi ./src c h'
 
 alias pins='
     pushd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)/main/include" > /dev/null 2>&1;

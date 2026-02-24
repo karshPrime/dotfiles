@@ -81,22 +81,6 @@ CapsLock::Esc
 !g::^g
 ^g::!g
 
-; H
-!h::^h
-^h::!h
-
-; J
-!j::^j
-^j::!j
-
-; K
-!k::^k
-^k::!k
-
-; L
-!l::^l
-^l::!l
-
 ; Z
 !z::^z
 ^z::!z

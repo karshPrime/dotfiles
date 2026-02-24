@@ -15,22 +15,22 @@ trec() {
 # Easier Calls
 alias c='batcat -n'
 alias cat='batcat -pp'
+alias cp='cp -r'
 alias htop=btop
-alias ntop='sudo bandwhich'
 alias figlet='figlet -f $DOTFILES/figlet/Line\ Blocks.flf -w $(tput cols)'
 alias g=lazygit
 alias d=lazydocker
 
+# NRF utils
+nrfconnect() { /opt/nrf-desktop/nrfconnect --no-sandbox >/dev/null 2>&1 & disown %+; }
+alias killnrfconnect='pkill -9 -f "/opt/nrf-desktop/nrfconnect" >/dev/null 2>&1 || true'
+
 # System Packages
 alias pkga='sudo apt install --no-install-recommends'
 alias pkgr='sudo apt purge'
-alias pkgs='apt search'
 alias pkgx='sudo apt autoclean; sudo apt autoremove'
-alias pkgl='
-    apt list --installed |\
-    fzf -i --cycle --ansi --color=dark --layout=reverse --pointer='▶ '\
-    --prompt='  '
-'
+alias pkgl='dpkg -l | fzf -e'
+pkgs() { apt-cache search $1 | fzf -e }
 
 alias update='
     sudo echo;

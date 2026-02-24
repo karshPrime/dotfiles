@@ -19,11 +19,10 @@ if [[ ":$PATH:" != *"$HOME/.local/bin"* ]]; then
     export PATH
 fi
 
-# Initialise the system
-source "$DOTFILES/zsh/init.zsh"
-
-
 # nrfutil autocomplete
 [[ -r "${HOME}/.nrfutil/share/nrfutil-completion/scripts/zsh/setup.zsh" ]] && \
     . "${HOME}/.nrfutil/share/nrfutil-completion/scripts/zsh/setup.zsh"
+
+# Initialise the system
+source "$DOTFILES/zsh/init.zsh"
 

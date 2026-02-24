@@ -2,7 +2,6 @@
 # Initialise -------------------------------------------------------------------
 # initialise common defaults ---------------------------------------------------
 
-source "$DOTFILES/zsh/prompt.zsh"
 # Global Variables -------------------------------------------------------------
 
 # ZSH history
@@ -23,11 +22,11 @@ export GPG_TTY=$(tty)
 # Plugins
 source "$DOTFILES/kar.sh/defer/zsh-defer.plugin.zsh"
 zsh-defer source "$DOTFILES/kar.sh/highlighting/zsh-syntax-highlighting.zsh"
-zsh-defer source "$DOTFILES/kar.sh/history/zsh-history-substring-search.zsh"
 zsh-defer source "$DOTFILES/kar.sh/devedit/devedit.zsh"
 zsh-defer source "$DOTFILES/kar.sh/newproject/bench.zsh"
 
 # Other Configs
+source "$DOTFILES/zsh/prompt.zsh"
 zsh-defer source "$DOTFILES/zsh/navigations.zsh"  # file processing
 zsh-defer source "$DOTFILES/zsh/defines.zsh"      # common basic defines
 zsh-defer source "$DOTFILES/zsh/management.zsh"   # manage config files

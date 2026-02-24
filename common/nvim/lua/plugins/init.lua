@@ -1,56 +1,57 @@
 ---------------------------------------------------------------------------------------------------
 --# init.lua #-------------------------------------------------------------------------------------
 
-local plugins = {
+--# Load Plugins #---------------------------------------------------------------------------------
+
+require("lazy").setup({
 	-- CMP
-	{ 'hrsh7th/cmp-nvim-lsp', event = 'VeryLazy' },
-	{ 'hrsh7th/cmp-buffer', event = 'VeryLazy' },
-	{ 'hrsh7th/cmp-path', event = 'VeryLazy' },
-	{ 'hrsh7th/cmp-cmdline', event = 'VeryLazy' },
-	{ 'hrsh7th/nvim-cmp', event = 'VeryLazy' },
-    { 'hrsh7th/vim-vsnip', event = 'VeryLazy' },
+	{ event = 'VeryLazy', 'hrsh7th/cmp-nvim-lsp'  },
+	{ event = 'VeryLazy', 'hrsh7th/cmp-buffer'    },
+	{ event = 'VeryLazy', 'hrsh7th/cmp-path'      },
+	{ event = 'VeryLazy', 'hrsh7th/cmp-cmdline'   },
+	{ event = 'VeryLazy', 'hrsh7th/nvim-cmp'      },
+    { event = 'VeryLazy', 'hrsh7th/vim-vsnip'     },
 
 	-- EDITOR
-    { 'tpope/vim-obsession', event = 'VeryLazy' },
-	{ 'airblade/vim-gitgutter', event = 'VeryLazy' },     -- git column
-	{ 'numToStr/Comment.nvim', event = 'VeryLazy' },	  -- easier commenting
-	{ 'kylechui/nvim-surround', event = 'VeryLazy' },	  -- more surround actions
-	{ 'lukas-reineke/indent-blankline.nvim' },
-    { 'mbbill/undotree', event = 'VeryLazy' },            -- Undo Tree
-    { 'norcalli/nvim-colorizer.lua', event = 'VeryLazy' },-- preview hex colour
-	{ 'folke/noice.nvim', event = 'VeryLazy',			  -- message UI
-	   dependencies = { 'MunifTanjim/nui.nvim' }
-	},
+    { event = 'VeryLazy', 'tpope/vim-obsession'                 },
+	{ event = 'VeryLazy', 'airblade/vim-gitgutter'              },  -- git column
+	{ event = 'VeryLazy', 'numToStr/Comment.nvim'               },	-- easier commenting
+	{ event = 'VeryLazy', 'kylechui/nvim-surround'              },	-- more surround actions
+    { event = 'VeryLazy', 'mbbill/undotree'                     },  -- Undo Tree
+    { event = 'VeryLazy', 'norcalli/nvim-colorizer.lua'         },  -- preview hex colour
+	{ event = 'VeryLazy', 'lukas-reineke/indent-blankline.nvim' },
+	{ event = 'VeryLazy', 'folke/noice.nvim', 			            -- message UI
+	   dependencies = { 'MunifTanjim/nui.nvim'                  }},
 
 	-- LAYOUT
 	{ 'nvim-lualine/lualine.nvim' }, -- statusbar
 	{ 'karshPrime/tokyoburn.nvim' }, -- color theme
-    { 'karshPrime/ifdef.nvim', event = 'VeryLazy' },
+    { event = 'VeryLazy', 'karshPrime/ifdef.nvim' },
 
 	-- LSP
-	{ 'williamboman/mason.nvim', event = 'VeryLazy' },
-	{ 'williamboman/mason-lspconfig.nvim', event = 'VeryLazy' },
-	{ 'neovim/nvim-lspconfig', event = 'VeryLazy' },
-	{ 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', event = 'VeryLazy' },
-	{ 'mfussenegger/nvim-jdtls', event = 'VeryLazy' },
-	{ 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', event = 'VeryLazy' },
+	{ event = 'VeryLazy', 'williamboman/mason.nvim'           },
+	{ event = 'VeryLazy', 'williamboman/mason-lspconfig.nvim' },
+	{ event = 'VeryLazy', 'neovim/nvim-lspconfig'             },
+	{ event = 'VeryLazy', 'mfussenegger/nvim-jdtls'           },
+	{ event = 'VeryLazy', 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'         },
+	{ event = 'VeryLazy', 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
 
 	-- NAVIGATE
-	{ 'nvim-telescope/telescope.nvim', tag = '0.1.8',   -- telescope
-	   dependencies = { 'nvim-lua/plenary.nvim' },
-	   event = 'VeryLazy'
-	},
+	{ event = 'VeryLazy', 'nvim-telescope/telescope.nvim',
+	   dependencies = { 'nvim-lua/plenary.nvim'   }},
 
 	-- TMUX
-	{ 'christoomey/vim-tmux-navigator' },				-- vim tmux keybinds
-	{ 'karshPrime/tmux-compile.nvim',					-- execute in tmux
-	   event = 'VeryLazy'
-	},
-}
+	{ event = 'VeryLazy', 'christoomey/vim-tmux-navigator' },  -- vim tmux keybinds
+	{ event = 'VeryLazy', 'karshPrime/tmux-compile.nvim'   }   -- execute in tmux
+}, {})
 
-local opts = {}
-require("lazy").setup(plugins, opts)
 
+--# Import Plugins #-------------------------------------------------------------------------------
+
+-- Before loading the editor
+require("plugins.layout")
+
+-- After Loading the editor
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         vim.schedule(function()
@@ -62,5 +63,4 @@ vim.api.nvim_create_autocmd("VimEnter", {
         end)
     end,
 })
-require("plugins.layout")
 

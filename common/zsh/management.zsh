@@ -2,7 +2,7 @@
 #- MANAGEMENT -------------------------------------------------------------------------------------
 #- manage configurations --------------------------------------------------------------------------
 
-alias conf="cd ~/.config/dotfiles"
+alias conf="cd $DOTFILES"
 
 # Neovim ------------------------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ nedit() {
 
 alias ntime='\
     a=$HOME/.local/share/nvimtime\
-    ; nvim --startuptime $a $a && tail -n 5 $a && rm $a\
+    ; $EDITOR --startuptime $a $a && tail -n 5 $a && rm $a\
     ; unset a'
 
 
