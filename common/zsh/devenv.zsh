@@ -5,13 +5,10 @@
 # Vim Shortcuts ------------------------------------------------------------------------------------
 
 v() {
-    if [ "$#" -lt 2 ]; then
-        $EDITOR $1
-    elif [ "$(tput cols)" -lt 126 ]; then
-        $EDITOR -o2 $@
-    else
-        $EDITOR -O2 $@
-    fi
+    local n=$(( $(tput cols 2>/dev/null || echo 0) / 100 ))
+    (( n < 1 )) && n=1
+    (( ${FILE_COUNT:-$#} < n )) && n=${FILE_COUNT:-$#}
+    "$EDITOR" -O"$n" -- "$@"
 }
 
 alias sv="sudo $EDITOR"
