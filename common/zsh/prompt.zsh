@@ -40,8 +40,8 @@ precmd() {
 
     local parts_joined="${(j: :)parts}"
 
-    
-PROMPT=$'\n'"%B  %F{1}${project}%b${rel} %F{7}on %F{2} %F{11}%B${branch}%b \
+
+    PROMPT=$'\n'"%B  %F{1}${project}%b${rel} %F{7}on %F{2} %F{11}%B${branch}%b \
 %F{2}${parts_joined}"$'\n%F{9}'"$prompeter"' %f'
 
 

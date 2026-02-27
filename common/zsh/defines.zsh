@@ -13,10 +13,8 @@ bindkey '^[[3;5~' kill-word
 bindkey '^[[1;3D' beginning-of-line
 bindkey '^[[1;3C' end-of-line
 
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey '^[[A'    up-line-or-search
+bindkey '^[[B'    down-line-or-search
 
 # Default Behaviour
 alias df='df -h'

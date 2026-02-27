@@ -46,11 +46,12 @@ zsh-defer -t 0 -c '
 
     # Fetch when not in TMux
     [[ -z "$TMUX" ]] && bash ~/.config/fetch.sh
+
+    # fzf 
+    zsh-defer eval "$(fzf --zsh)"
 '
 
-# fzf 
-zsh-defer eval "$(fzf --zsh)"
+setopt notify              # report the status of background jobs immediately
+setopt autocd extendedglob # cd into directories without cd
 
-# cd into directories without cd
-setopt autocd extendedglob
 
