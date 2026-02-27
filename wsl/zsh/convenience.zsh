@@ -18,7 +18,7 @@ alias cat='batcat -pp'
 alias cp='cp -r'
 alias htop=btop
 alias figlet='figlet -f $DOTFILES/figlet/Line\ Blocks.flf -w $(tput cols)'
-alias g=lazygit
+alias g='figlet use git dummy'
 alias d=lazydocker
 
 # NRF utils
