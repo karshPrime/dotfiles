@@ -20,7 +20,7 @@ alias cat='bat -pp'
 alias cp=ditto
 alias htop=btop
 alias ntop='sudo bandwhich'
-alias g=lazygit
+alias systemctl="brew services"
 
 # Fixed Path
 i() { c ~/Projects/.Info/$1 }

@@ -79,6 +79,13 @@ Map('ZH', ':vsplit | :Explore<CR>')             -- RHS new pane
 Map('ZV', ':split  | :Explore<CR>')             -- Bottom new pane
 
 
+-- Move splits with <C-w>h/j/k/l instead of navigating
+Map('<C-w>h', '<C-w>H')
+Map('<C-w>j', '<C-w>J')
+Map('<C-w>k', '<C-w>K')
+Map('<C-w>l', '<C-w>L')
+
+
 --# Conveniences #------------------------------------------------------------
 
 vim.cmd([[command! -nargs=0 W w]])              -- :W work same as :w

@@ -17,6 +17,13 @@ alias sv="sudo $EDITOR"
 # Hack Scripts -------------------------------------------------------------------------------------
 
 alias vic='vi ./src c h'
+alias d=lazydocker
+
+g() {
+  [[ $# -eq 0 ]] && git status -s --show-stash --ignore-submodule || git "$@"
+  
+}
+
 
 alias pins='
     pushd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)/main/include" > /dev/null 2>&1;
@@ -37,5 +44,5 @@ alias buildcl='
 
 alias pypush="deactivate; parent; python3 -m build && python3 -m twine upload ./dist/*"
 
-alias systemctl="brew services"
+alias findf="find . -type f -iname"
 

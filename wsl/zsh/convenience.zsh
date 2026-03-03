@@ -6,8 +6,8 @@
 alias l='eza -lag --color=always --group-directories-first --icons'
 alias ls='eza -g --icons'
 alias la='eza -a --color=always --group-directories-first --icons'
-alias tree='eza -T --group-directories-first --icons=always -L'
-alias treg='eza -T --group-directories-first --icons=always --git-ignore -L'
+alias tree='eza --long -T --group-directories-first --icons=always -L'
+alias treg='eza --long -T --group-directories-first --icons=always --git-ignore -L'
 trec() {
     eza -T --group-directories-first -F -L $1 | clip.exe
 }
@@ -18,8 +18,6 @@ alias cat='batcat -pp'
 alias cp='cp -r'
 alias htop=btop
 alias figlet='figlet -f $DOTFILES/figlet/Line\ Blocks.flf -w $(tput cols)'
-alias g='figlet use git dummy'
-alias d=lazydocker
 
 # NRF utils
 nrfconnect() { /opt/nrf-desktop/nrfconnect --no-sandbox >/dev/null 2>&1 & disown %+; }

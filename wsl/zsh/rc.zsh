@@ -11,7 +11,7 @@
 # System specific configs
 export DOTFILES="${${(%):-%N}:A:h:h}"   # path for system configs
 export EDITOR=/opt/nvim-linux-x86_64/bin/nvim
-export PATH="$HOME/.local/bin:$PATH"
+[[ $PATH != *"$HOME/.local/bin" ]] && PATH="${PATH%:}:"$HOME/.local/bin""
 
 # nrfutil autocomplete
 [[ -r "${HOME}/.nrfutil/share/nrfutil-completion/scripts/zsh/setup.zsh" ]] && \
