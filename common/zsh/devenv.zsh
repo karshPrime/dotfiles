@@ -20,8 +20,9 @@ alias vic='vi ./src c h'
 alias d=lazydocker
 
 g() {
-  [[ $# -eq 0 ]] && git status -s --show-stash --ignore-submodule || git "$@"
-  
+    [[ $# -eq 0 ]] && {
+        git status -s --show-stash --ignore-submodule 2>/dev/null
+    }|| git "$@"
 }
 
 

@@ -9,11 +9,15 @@
     lc = rev-list --count HEAD
 
     r = rebase --interactive --autostash --keep-empty
+    ra = rebase --abort
     rs = rebase --skip
     rc = rebase --continue
 
     a = add
     A = add -A
+
+    f = fetch
+    F = fetch --all
 
     g = clone --recurse-submodules --depth=1 --shallow-submodules
     G = clone --recurse-submodules
@@ -24,11 +28,13 @@
 
     bl = branch -a
     bs = switch
+    bo = switch --track
     bn = switch -c
-    bm = branch -m
+    br = branch -m
     bd = branch -d
     bD = branch -D
 
+    p = pull --rebase
     PUSH = push --force-with-lease
     PUSHH = push --force
 

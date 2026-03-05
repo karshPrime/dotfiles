@@ -1,6 +1,6 @@
 
-# Prompt -------------------------------------------------------------------------------------------
-# custom minimal shell prompt ----------------------------------------------------------------------
+# Prompt----------------------------------------------------------------------------------------
+# custom minimal shell prompt-------------------------------------------------------------------
 
 precmd() {
     [[ "${EUID}" -eq 0 ]] && prompeter="#" || prompeter="\$"
@@ -13,33 +13,63 @@ precmd() {
 
     local rel="${${PWD:A}#${git_root:A}}"
     local project="${git_root:t}"
-    local branch=$(git rev-parse --abbrev-ref HEAD)
 
-    # Split git output status by lines into an array
-    local -a status_lines=("${(@f)$(git status --porcelain=1 --renames --ignore-submodules)}")
-    local -a parts=()
-    local -i new=0 modified=0 deleted=0 added=0 renamed=0
+    local out
+    out=$(LC_ALL=C git -c color.ui=false status --renames --ignore-submodules --untracked-files=all)
 
-    for line in "${status_lines[@]}"; do
-        local x=${line[1,1]}
-        local y=${line[2,2]}
+    # split once into lines (zsh-specific)
+    local -a lines=("${(@f)out}")
 
-        [[ $x == M   || $y == M   ]] && (( modified++ ))
-        [[ $x == R   || $y == R   ]] && (( renamed++ ))
-        [[ $x == '?' || $y == '?' ]] && (( new++ ))
-        [[ $x == A   || $y == A   ]] && (( added++ ))
-        [[ $x == D   || $y == D   ]] && (( deleted++ ))
+    # branch from first non-empty line
+    local branch=''
+    for line in "${lines[@]}"; do
+        [[ -z $line ]] && continue
+        if [[ $line == "On branch "* ]]; then
+            branch="${line#On branch }"
+        elif [[ $line == "HEAD detached at "* ]]; then
+            branch="(detached at ${line#HEAD detached at })"
+        elif [[ $line == "HEAD detached from "* ]]; then
+            branch="(detached from ${line#HEAD detached from })"
+        else
+            branch="(no branch)"
+        fi
+        break
+    done
+    [[ -z $branch ]] && branch="(no branch)"
 
+    # counts using zsh pattern matching 
+    local modified deleted renamed added
+    local modified=${#${(M)lines:#$'\t'modified:*}}
+    local deleted=${#${(M)lines:#$'\t'deleted:*}}
+    local renamed=${#${(M)lines:#$'\trenamed:'*}}
+    local added=${#${(M)lines:#$'\t'new\ file:*}}
+
+    # count untracked files section (each tabbed line in that block)
+    local -i new=0
+    local in_untracked=0
+    for line in "${lines[@]}"; do
+        if [[ $line == "Untracked files:"* ]]; then
+            in_untracked=1
+            continue
+        fi
+        if (( in_untracked )); then
+            if [[ $line == $'\t'* ]]; then
+                (( new++ ))
+            elif [[ -n $line && $line != "("*")"* && $line != "  (use "* ]]; then
+                # a non-indented, non-help line means we've left the untracked block
+                in_untracked=0
+            fi
+        fi
     done
 
-    (( new ))   && parts+="󱅘 $new"
-    (( added )) && parts+=" $added"
+    # parts array
+    local -a parts=()
+    (( new      )) && parts+="󱅘 $new"
+    (( added    )) && parts+=" $added"
     (( modified )) && parts+=" $modified"
-    (( renamed ))  && parts+="󱦹 $renamed"
-    (( deleted ))  && parts+=" $deleted"
-
+    (( renamed  )) && parts+="󱦹 $renamed"
+    (( deleted  )) && parts+=" $deleted"
     local parts_joined="${(j: :)parts}"
-
 
     PROMPT=$'\n'"%B  %F{1}${project}%b${rel} %F{7}on %F{2} %F{11}%B${branch}%b \
 %F{2}${parts_joined}"$'\n%F{9}'"$prompeter"' %f'
