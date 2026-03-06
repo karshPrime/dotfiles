@@ -14,7 +14,12 @@
     rc = rebase --continue
 
     a = add
-    A = add -A
+    A = add --all
+    ai = add --interactive
+
+    t = tag
+    td = tag --delete
+    tl = tag --list
 
     f = fetch
     F = fetch --all
@@ -26,13 +31,13 @@
     cm = commit -m
     ca = commit --amend --no-edit
 
-    bl = branch -a
+    bl = branch --all
     bs = switch
     bo = switch --track
-    bn = switch -c
-    br = branch -m
-    bd = branch -d
-    bD = branch -D
+    bn = switch --create
+    br = branch --move
+    bd = branch --delete
+    bD = branch --delete --force
 
     p = pull --rebase
     PUSH = push --force-with-lease

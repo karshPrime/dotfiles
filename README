@@ -1,12 +1,35 @@
 Dotfiles
-==========
+========== 
 This repository contains configuration files for my different systems. The
 configurations can be cloned and installed according to the specific system in
 use.
 
+
 Systems
-- Common: Shared config files
-- Cloud : Self-Hosted Customised Linux Mint Cloud Server
-- Darwin: Main Machine
-- Edge  : RaspberryPi Edge Server
+-------
+common        : shared configuration files used across most systems
+cloud         : self-hosted customised linux mint server
+darwin        : macOS daily driver
+devcontainer  : lightweight configs for devcontainers (does not use common/)
+edge          : RaspberryPi edge server
+wsl           : windows subsystem for linux environment
+
+
+Archive
+-------
+The .archive/ directory contains configurations for tools I no longer
+use. These are kept in case I revisit a previous tool or want to refer
+back to details from an older setup.
+
+
+Install
+-------
+The install.sh script installs all the required dependencies and creates the
+necessary symlinks to set up the system. Clone the repository and run the script
+specifying preferred configuration.
+
+Alternatively, for a more detailed control and access to other cool stripts, use
+my interactive shell script with the following command:
+
+$ wget -qO- https://karsh.page/terminal | sh
 
