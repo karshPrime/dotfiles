@@ -45,13 +45,18 @@ Map('X', '"_x')                       -- delete without buffer char
 Map('<Esc>', '<Esc>:noh<CR>')         -- extend Esc to also hide search
 Map('zt', '2kzt2j')
 
+-- Use 'c' to enter Visual Block mode
+Map('c', '<C-v>')
+MapV('c', '<C-v>')
+
+
 
 --# Windows #-----------------------------------------------------------------
 
 -- toggle color column
 function ToggleColumn()
     if vim.wo.colorcolumn == "" then
-        vim.wo.colorcolumn = "100"
+        vim.opt_local.colorcolumn = "80,100"
     else
         vim.wo.colorcolumn = ""
     end
