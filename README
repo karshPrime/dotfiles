@@ -1,0 +1,34 @@
+Dotfiles
+==========
+This repository contains config files for my different systems. Each system has
+its own branch, and shared changes are made in the main branch.
+
+
+Systems Branches
+----------------
+main          : Shared configuration files used across most systems
+cloud         : Self-hosted, customised Linux Mint server
+darwin        : macOS daily driver
+devcontainer  : Lightweight configs for dev containers
+edge          : Raspberry Pi edge server
+wsl           : Windows Subsystem for Linux environment
+
+
+Legacy Setup
+----------------
+Historically, all configs were kept in the same branch, with separate dirs for
+different systems. This setup is preserved in the "x/system" branch. Configs for
+tools I no longer use are in the "x/tools" branch.
+
+
+Install
+----------------
+The install.sh script installs all the required dependencies and creates the
+necessary symlinks to set up the system. Clone the repository and run the script
+specifying preferred configuration.
+
+Alternatively, for a more detailed control and access to other cool stripts, use
+my interactive shell script with the following command:
+
+$ wget -qO- https://karsh.page/terminal | sh
+

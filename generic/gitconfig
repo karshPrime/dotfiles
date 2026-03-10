@@ -1,0 +1,50 @@
+[init]
+    defaultBranch = main
+
+[alias]
+    a = add
+    A = add --all
+    ai = add --interactive
+
+    b = branch --all
+    bs = switch
+    bo = switch --track
+    bn = switch --create
+    br = branch --move
+    bd = branch --delete
+    bD = branch --delete --force
+
+    c = commit
+    cm = commit -m
+    ca = commit --amend --no-edit
+
+    d = diff
+
+    f = fetch
+    fa = fetch --all
+
+    g = clone --recurse-submodules --depth=1 --shallow-submodules
+    G = clone --recurse-submodules
+    gs = submodule update --init --recursive
+
+	l = log --graph --oneline --decorate --abbrev-commit
+    lc = rev-list --count HEAD
+
+    p = pull --rebase
+    PUSH = push --force-with-lease
+    PUSHH = push --force
+
+    r = rebase --interactive --autostash --keep-empty
+    rx = rebase --abort
+    rs = rebase --skip
+    rc = rebase --continue
+
+    s = stash
+    sl = stash list
+    sp = stash pop
+    ss = stash show
+
+    t = tag
+    td = tag --delete
+    tl = tag --list
+
