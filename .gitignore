@@ -1,0 +1,9 @@
+
+# .gitignore
+
+**/.DS_Store
+
+generic/
+
+nvim/lazy-lock.json
+
