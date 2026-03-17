@@ -1,0 +1,60 @@
+[core]
+    pager = delta --side-by-side --syntax-theme OneHalfDark
+
+[init]
+    defaultBranch = main
+
+[alias]
+    a  = add --all
+    ai = add --interactive
+    ar = restore --staged
+
+    b  = branch --all
+    bs = switch
+    bl = switch -
+    bo = switch --track
+    bn = switch --create
+    br = branch --move
+    bd = branch --delete
+
+    c  = commit
+    cm = commit -m
+    ca = commit --amend --no-edit
+    cf = commit --fixup
+
+    d  = diff
+    ds = diff --staged
+
+    f  = fetch
+    fa = fetch --all
+    fp = fetch --prune
+
+    g  = clone --recurse-submodules --depth=1 --shallow-submodules
+    gc = clone --recurse-submodules
+    gs = submodule update --init --recursive
+
+	l  = log --graph --oneline --decorate --abbrev-commit --color=always
+    ll = log --stat
+    lc = rev-list --count HEAD:force-with-lease
+
+    m = blame -C -w -M
+
+    p = pull --rebase
+    pushh = push --force-with-lease
+
+    r  = rebase --interactive --autostash --keep-empty --autosquash --update-refs
+    rf = rebase --autostash --keep-empty --autosquash --update-refs
+    rx = rebase --abort
+    rs = rebase --skip
+    rc = rebase --continue
+
+    s  = stash
+    sl = stash list
+    sp = stash pop
+    sd = stash drop
+    ss = stash show
+
+    t  = tag
+    td = tag --delete
+    tl = tag --list
+
