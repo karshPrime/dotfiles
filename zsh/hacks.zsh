@@ -1,0 +1,1 @@
+/Users/zul/.config/hacks.zsh
