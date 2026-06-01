@@ -3,10 +3,11 @@
 #- aliases and keybinds --------------------------------------------------------
 
 # keybinds
-bindkey -s '^[x' ' | clip.exe\n'      # copy output to clipboard
+bindey -s '^[x' ' | clip.exe\n'      # copy output to clipboard
 
 # List Files
 alias c=copilot
+alias r=ranger
 alias l='eza -lag --color=always --group-directories-first --icons=always'
 alias le="explorer.exe ."
 alias ls='eza -g --icons=always'
@@ -26,7 +27,7 @@ winc() { cp $@ /mnt/d/LinShare/. }
 winm() { mv $@ /mnt/d/LinShare/. }
 
 # NRF utils
-nrfconnect() { /opt/nrf-desktop/nrfconnect --no-sandbox >/dev/null 2>&1 & disown %+; }
+nrfconnect() { /opt/nrf-destop/nrfconnect --no-sandbox >/dev/null 2>&1 & disown %+; }
 alias killnrfconnect='pkill -9 -f "/opt/nrf-desktop/nrfconnect" >/dev/null 2>&1 || true'
 
 # System Packages
